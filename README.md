@@ -27,4 +27,4 @@ mvn spring-boot:run
 
 ## Authors
 
-* **Stella Tóth-Baranyi** Onallo_labor-CsotthonApp
+* **Stella Tóth-Baranyi**
