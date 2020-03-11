@@ -5,6 +5,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -14,20 +16,8 @@ public class Cleaning {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @ManyToOne
-    private Kitchen_cl kitchen_cl;
-
-    @ManyToOne
-    private BigRoom_cl bigRoom_cl;
-
-    @ManyToOne
-    private MiddleRoom_cl middleRoom_cl;
-
-    @ManyToOne
-    private RestRoom_cl restRoom_cl;
-
-    @ManyToOne
-    private Basement_cl basement_cl;
+    @OneToMany(mappedBy = "cleaning",cascade = CascadeType.ALL)
+    private List<Room_cleaning> room_cleanings=new ArrayList<>();
 
     private Timestamp time;
 
