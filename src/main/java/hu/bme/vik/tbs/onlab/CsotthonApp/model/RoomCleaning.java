@@ -4,20 +4,24 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
 @Entity
-public class Cleaning_item {
+public class RoomCleaning {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String name;
+    @ManyToOne
+    private Room room;
 
-    @OneToMany(mappedBy = "cleaning_item",cascade = CascadeType.ALL)
-    private List<Room_cleaning> room_cleanings=new ArrayList<>();
+    @ManyToOne
+    private CleaningItem cleaning_item;
+
+    private Boolean done;
+
+    @ManyToOne
+    private Cleaning cleaning;
 
 }

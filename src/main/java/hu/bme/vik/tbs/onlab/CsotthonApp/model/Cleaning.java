@@ -17,7 +17,7 @@ public class Cleaning {
     private Integer id;
 
     @OneToMany(mappedBy = "cleaning",cascade = CascadeType.ALL)
-    private List<Room_cleaning> room_cleanings=new ArrayList<>();
+    private List<RoomCleaning> room_cleanings=new ArrayList<>();
 
     private Timestamp time;
 

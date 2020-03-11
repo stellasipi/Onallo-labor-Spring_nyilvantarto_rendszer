@@ -18,5 +18,5 @@ public class Room {
     private String name;
 
     @OneToMany(mappedBy = "room",cascade = CascadeType.ALL)
-    private List<Room_cleaning> room_cleanings=new ArrayList<>();
+    private List<RoomCleaning> room_cleanings=new ArrayList<>();
 }
