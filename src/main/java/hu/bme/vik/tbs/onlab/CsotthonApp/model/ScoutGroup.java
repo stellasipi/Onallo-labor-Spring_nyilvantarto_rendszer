@@ -1,9 +1,7 @@
 package hu.bme.vik.tbs.onlab.CsotthonApp.model;
 
 import hu.bme.vik.tbs.onlab.CsotthonApp.util.Sex;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,6 +11,8 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ScoutGroup {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

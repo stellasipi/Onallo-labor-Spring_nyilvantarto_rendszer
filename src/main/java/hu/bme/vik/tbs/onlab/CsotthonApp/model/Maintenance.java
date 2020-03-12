@@ -3,22 +3,23 @@ package hu.bme.vik.tbs.onlab.CsotthonApp.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Timestamp;
 
+@Entity
 @Getter
 @Setter
-@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Room {
+public class Maintenance {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String name;
+    private Timestamp time;
 
-    @OneToMany(mappedBy = "room",cascade = CascadeType.ALL)
-    private List<RoomCleaning> roomCleanings=new ArrayList<>();
+    private String comment;
+
+    @ManyToOne
+    private User user;
 }

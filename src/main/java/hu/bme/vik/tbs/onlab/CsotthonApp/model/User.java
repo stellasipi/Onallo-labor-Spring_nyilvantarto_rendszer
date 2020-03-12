@@ -1,9 +1,7 @@
 package hu.bme.vik.tbs.onlab.CsotthonApp.model;
 
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,6 +11,8 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 //@Table(uniqueConstraints={@UniqueConstraint(columnNames = {"name", "email"})})
 public class User {
     @Id
@@ -28,7 +28,7 @@ public class User {
     @ManyToOne
     private ScoutGroup scoutGroup;
 
-    private Boolean group_leader;
+    private Boolean groupLeader;
 
     private Boolean scout;
 
@@ -39,6 +39,6 @@ public class User {
     private List<Cleaning> cleanings=new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Maintanence> maintanences=new ArrayList<>();
+    private List<Maintenance> maintenances=new ArrayList<>();
 
 }

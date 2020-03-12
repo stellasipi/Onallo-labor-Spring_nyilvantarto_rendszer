@@ -1,13 +1,15 @@
 package hu.bme.vik.tbs.onlab.CsotthonApp.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class RoomCleaning {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,7 +19,7 @@ public class RoomCleaning {
     private Room room;
 
     @ManyToOne
-    private CleaningItem cleaning_item;
+    private CleaningItem cleaningItem;
 
     private Boolean done;
 
