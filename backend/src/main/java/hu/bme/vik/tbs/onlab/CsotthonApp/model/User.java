@@ -30,6 +30,7 @@ public class User {
 
     @ManyToOne
     @JsonManagedReference
+    //@JsonBackReference
     private ScoutGroup scoutGroup;
 
     private Boolean groupLeader;

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -25,12 +26,11 @@ public class LogController {
 
     @GetMapping(value="/", produces = "application/json;charset=UTF-8")
     public ResponseEntity<List<Log>> getAll(){
-        List<Log> logs=logRepository.findAll();
-        return new ResponseEntity<>(logs, HttpStatus.OK);
+        return new ResponseEntity<>(logRepository.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping
-    public void createLog(){
+    @PostMapping(value="/", produces = "application/json;charset=UTF-8", consumes = "application/json")
+    public void createLog(@RequestParam Log log){
 
     }
 }
