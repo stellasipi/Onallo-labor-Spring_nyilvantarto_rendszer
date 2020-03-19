@@ -1,5 +1,6 @@
 package hu.bme.vik.tbs.onlab.CsotthonApp.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public class CleaningItem {
     private String name;
 
     @OneToMany(mappedBy = "cleaningItem",cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<RoomCleaning> room_cleanings=new ArrayList<>();
 
 }

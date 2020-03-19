@@ -1,6 +1,9 @@
 package hu.bme.vik.tbs.onlab.CsotthonApp.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,6 +29,7 @@ public class User {
     private String password;
 
     @ManyToOne
+    @JsonManagedReference
     private ScoutGroup scoutGroup;
 
     private Boolean groupLeader;
@@ -33,12 +37,15 @@ public class User {
     private Boolean scout;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Log> logs=new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Cleaning> cleanings=new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Maintenance> maintenances=new ArrayList<>();
 
 }

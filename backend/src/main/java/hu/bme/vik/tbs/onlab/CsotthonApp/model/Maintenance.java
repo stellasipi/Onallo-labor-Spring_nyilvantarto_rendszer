@@ -1,5 +1,6 @@
 package hu.bme.vik.tbs.onlab.CsotthonApp.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,5 +22,6 @@ public class Maintenance {
     private String comment;
 
     @ManyToOne
+    @JsonManagedReference
     private User user;
 }

@@ -1,5 +1,6 @@
 package hu.bme.vik.tbs.onlab.CsotthonApp.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import hu.bme.vik.tbs.onlab.CsotthonApp.util.Sex;
 import lombok.*;
 
@@ -23,9 +24,11 @@ public class ScoutGroup {
     private Sex sex;
 
     @OneToMany(mappedBy = "scoutGroup", cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<User> members=new ArrayList<>();
 
     @OneToMany(mappedBy = "scoutGroup", cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Cleaning> cleanings=new ArrayList<>();
 
 }
