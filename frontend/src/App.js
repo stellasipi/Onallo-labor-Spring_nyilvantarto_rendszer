@@ -1,19 +1,26 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './App.css';
-import Page1 from "./Pages/Page1";
-import Page2 from "./Pages/Page2";
-import Page3 from "./Pages/Page3";
+import Logs from "./Components/Logs"
 
-/* Utils */
-import {
-  BrowserRouter as Router, Switch,
-  Route,
-  Link
-} from "react-router-dom"
+class App extends Component {
+  state = {
+    logs: []
+  }
+  
+  componentDidMount(){
+    fetch('http://localhost:8080/logs/')
+    .then(res => res.json)
+    .then(data => {
+      this.setState({logs:data})
+    })
+    .catch(console.log)
+  }
 
-function App() {
-  return (
-    <Router>
+  
+  render () {
+    return (
+      // JSX to render goes here...
+      /*<Router>
       <div>
         <nav>
           <ul>
@@ -27,11 +34,11 @@ function App() {
               <Link to="/users">Users</Link>
             </li>
           </ul>
-        </nav>
+        </nav>*/
 
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-        <Switch>
+        //{/* A <Switch> looks through its children <Route>s and
+            //renders the first one that matches the current URL. */}
+        /*<Switch>
           <Route path="/" exact>
             <Page1 />
           </Route>
@@ -43,7 +50,11 @@ function App() {
           </Route>
         </Switch>
       </div>
-    </Router>)
+      </Router>*/
+
+      <Logs logs={this.state.logs} />
+    )
+  }
 }
 
-export default App;
+export default App
