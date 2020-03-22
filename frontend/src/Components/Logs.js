@@ -1,19 +1,21 @@
 import React from 'react'
 
-const Logs = ({logs}) =>{
-    return(
+const Logs = ({logs}) => {
+    return (
         <div>
-            <center><h1>Log list</h1></center>
-            <div class="card">
-                <div class="card-body">
-                <h5 class="card-title">{logs.type}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{logs.time}</h6>
-                <h6 class="card-subtitle mb-2 text-muted">{logs.comment}</h6>
-                {/* <p class="card-text">{logs.user.email}</p> */}
+            <center><h1>Log List</h1></center>
+            {logs.map((log) => (
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{log.type}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{log.time}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">{log.comment}</h6>
+                        <p class="card-text">{log.user.name}</p>
+                    </div>
                 </div>
-            </div>
+            ))}
         </div>
-    )    
+    )
 };
 
 export default Logs
