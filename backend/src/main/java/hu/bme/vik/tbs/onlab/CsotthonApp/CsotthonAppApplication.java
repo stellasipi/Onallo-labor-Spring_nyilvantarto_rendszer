@@ -10,7 +10,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
@@ -18,6 +17,7 @@ import java.util.List;
 
 @SpringBootApplication
 public class CsotthonAppApplication implements CommandLineRunner {
+
 
 	@Autowired
 	UserRepository userRepository;
