@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@Controller
-@RequestMapping("/logs")
+@RestController
+@RequestMapping(value = "/logs")
 public class LogController {
     @Autowired
     LogService logService;
@@ -21,13 +21,13 @@ public class LogController {
     @Autowired
     LogRepository logRepository;
 
-    @GetMapping(value="/", produces = "application/json;charset=UTF-8")
-    public ResponseEntity<List<Log>> getAll(){
-        return new ResponseEntity<>(logRepository.findAll(), HttpStatus.OK);
+    @GetMapping
+    public List<Log> getAll(){
+        return logRepository.findAll();
     }
 
-    @PostMapping(value="/", produces = "application/json;charset=UTF-8", consumes = "application/json")
-    public void createLog(@RequestParam Log log){
-
+    @PostMapping
+    public void createLog(@RequestBody Log log){
+    	System.out.println("abc");
     }
 }
