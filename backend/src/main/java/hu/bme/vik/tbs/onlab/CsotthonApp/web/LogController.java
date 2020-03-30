@@ -1,19 +1,18 @@
 package hu.bme.vik.tbs.onlab.CsotthonApp.web;
 
-import hu.bme.vik.tbs.onlab.CsotthonApp.model.Log;
+import hu.bme.vik.tbs.onlab.CsotthonApp.dto.LogDTO;
 import hu.bme.vik.tbs.onlab.CsotthonApp.repository.LogRepository;
 import hu.bme.vik.tbs.onlab.CsotthonApp.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
 @RestController
-@RequestMapping(value = "/logs")
+@RequestMapping(value="/logs")
 public class LogController {
     @Autowired
     LogService logService;
@@ -21,13 +20,25 @@ public class LogController {
     @Autowired
     LogRepository logRepository;
 
+
     @GetMapping
-    public List<Log> getAll(){
-        return logRepository.findAll();
+    public List<LogDTO> getAll(){
+        return logService.getAll();
     }
 
     @PostMapping
-    public void createLog(@RequestBody Log log){
-    	System.out.println("abc");
+    public LogDTO createLog(@RequestBody LogDTO log){
+        return logService.createLog(log);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Integer> deleteLog(@PathVariable Integer id){
+        Boolean isRemoved=logService.delete(id);
+
+        if (!isRemoved) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }
