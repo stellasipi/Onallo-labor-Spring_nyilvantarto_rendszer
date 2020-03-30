@@ -1,24 +1,44 @@
 package hu.bme.vik.tbs.onlab.CsotthonApp.web;
 
+import hu.bme.vik.tbs.onlab.CsotthonApp.dto.LogDTO;
+import hu.bme.vik.tbs.onlab.CsotthonApp.dto.MaintenanceDTO;
 import hu.bme.vik.tbs.onlab.CsotthonApp.model.Maintenance;
 import hu.bme.vik.tbs.onlab.CsotthonApp.repository.MaintenanceRepository;
+import hu.bme.vik.tbs.onlab.CsotthonApp.service.MaintenanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequestMapping("/maintenances")
+@RestController
+@RequestMapping(value="/maintenances")
 public class MaintenanceController {
     @Autowired
     MaintenanceRepository maintenanceRepository;
 
-    @GetMapping(value="/", produces = "application/json;charset=UTF-8")
-    public ResponseEntity<List<Maintenance>> getAll(){
-        return new ResponseEntity<>(maintenanceRepository.findAll(), HttpStatus.OK);
+    @Autowired
+    MaintenanceService maintenanceService;
+
+    @GetMapping()
+    public List<MaintenanceDTO> getAll(){
+        return maintenanceService.getAll();
+    }
+
+    @PostMapping
+    public MaintenanceDTO createLog(@RequestBody MaintenanceDTO maintenance){
+        return maintenanceService.createMaintenance(maintenance);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Integer> deleteLog(@PathVariable Integer id){
+        Boolean isRemoved=maintenanceService.delete(id);
+
+        if (!isRemoved) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }
