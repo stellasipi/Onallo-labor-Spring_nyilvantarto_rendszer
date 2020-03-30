@@ -21,6 +21,5 @@ public class Room {
     private String name;
 
     @OneToMany(mappedBy = "room",cascade = CascadeType.ALL)
-    @JsonBackReference
     private List<RoomCleaning> roomCleanings=new ArrayList<>();
 }

@@ -22,6 +22,5 @@ public class Maintenance {
     private String comment;
 
     @ManyToOne
-    @JsonManagedReference
     private User user;
 }

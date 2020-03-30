@@ -1,10 +1,10 @@
 package hu.bme.vik.tbs.onlab.CsotthonApp.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import hu.bme.vik.tbs.onlab.CsotthonApp.util.LogType;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Entity
@@ -18,13 +18,15 @@ public class Log {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
+    @NotNull
     private LogType type;
 
+    @NotNull
     private Timestamp time;
 
     private String comment;
 
+    @NotNull
     @ManyToOne
-    @JsonManagedReference
     private User user;
 }

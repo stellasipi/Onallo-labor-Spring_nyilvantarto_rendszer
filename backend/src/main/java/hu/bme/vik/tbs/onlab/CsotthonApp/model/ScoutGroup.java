@@ -24,11 +24,9 @@ public class ScoutGroup {
     private Sex sex;
 
     @OneToMany(mappedBy = "scoutGroup", cascade = CascadeType.ALL)
-    @JsonBackReference
     private List<User> members=new ArrayList<>();
 
     @OneToMany(mappedBy = "scoutGroup", cascade = CascadeType.ALL)
-    @JsonBackReference
     private List<Cleaning> cleanings=new ArrayList<>();
 
 }

@@ -17,7 +17,6 @@ public class RoomCleaning {
     private Integer id;
 
     @ManyToOne
-    @JsonManagedReference
     private Room room;
 
     @ManyToOne
