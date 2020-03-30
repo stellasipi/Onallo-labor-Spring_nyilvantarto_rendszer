@@ -1,7 +1,7 @@
 
 # Önálló laboratórium - CsotthonApp
 
-...
+....
 
 ## Getting Started
 
@@ -9,6 +9,15 @@
 
 ### Installing and running
 
+```
+mvn install
+```
+
+Then
+
+```
+mvn spring-boot:run
+```
 
 ## Built With
 
