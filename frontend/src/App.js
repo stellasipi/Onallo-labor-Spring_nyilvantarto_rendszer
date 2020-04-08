@@ -4,12 +4,14 @@ import Logs from "./Components/Logs"
 
 class App extends Component {
 
+  // that's a comment
+
   state = {
     logList: []
   }
 
   componentDidMount() {
-    fetch('http://localhost:8080/logs/')
+    fetch('http://192.168.0.104:8080/logs/')
     .then(res => res.json())
     .then((data) => {
       this.setState({ logList: data })
