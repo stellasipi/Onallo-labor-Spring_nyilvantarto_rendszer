@@ -1,6 +1,7 @@
 package hu.bme.vik.tbs.onlab.CsotthonApp.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
