@@ -1,21 +1,18 @@
-import React from 'react'
+import React, {Component} from 'react';
+import Log from './Log';
+import PropTypes from 'prop-types';
 
-const Logs = ({logs}) => {
-    return (
-        <div>
-            <center><h1>Log List</h1></center>
-            {logs.map((log) => (
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{log.type}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{log.time}</h6>
-                        <h6 class="card-subtitle mb-2 text-muted">{log.comment}</h6>
-                        <p class="card-text">{log.user.name}</p>
-                    </div>
-                </div>
-            ))}
-        </div>
-    )
-};
+class Logs extends Component{
+    render(){
+        return this.props.logs.map((log) => (
+        <Log key={log.id} log={log}/>
+        ));
+    }
+}
 
-export default Logs
+//PropTypes
+Logs.propTypes = {
+    logs: PropTypes.array.isRequired
+}
+
+export default Logs;

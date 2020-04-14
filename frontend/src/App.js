@@ -1,30 +1,32 @@
 import React, {Component} from 'react';
 import './App.css';
-import Logs from "./Components/Logs"
+import Logs from "./components/Logs";
+import Header from "./components/layouts/Header";
 
 class App extends Component {
 
-  // that's a comment
-
   state = {
-    logList: []
+    logs: []
   }
 
   componentDidMount() {
-    fetch('http://192.168.0.104:8080/logs/')
+    fetch(/*'http://192.168.0.103:8080/logs/'*/ 'http://localhost:8080/logs/' )
     .then(res => res.json())
     .then((data) => {
-      this.setState({ logList: data })
+      this.setState({ logs: data })
     })
     .catch(console.log)
   }
 
   render () {
     return (
-      <Logs logs={this.state.logList} />
-    )
+      <div className="App">
+       <Header />
+        <Logs logs={this.state.logs} />
+      </div>
+    );
   }
   
 }
 
-export default App
+export default App;
