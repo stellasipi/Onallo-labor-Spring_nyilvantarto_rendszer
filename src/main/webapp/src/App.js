@@ -4,6 +4,7 @@ import './App.css';
 import Logs from "./components/Logs";
 import Header from "./components/layouts/Header";
 import Home from "./components/pages/Home";
+import axios from 'axios';
 
 class App extends Component {
 
@@ -11,13 +12,30 @@ class App extends Component {
     logs: []
   }
 
-  componentDidMount() {
-    fetch('http://192.168.0.103:8080/logs/' /*'http://localhost:8080/logs/'*/)
-      .then(res => res.json())
-      .then((data) => {
-        this.setState({ logs: data })
-      })
-      .catch(console.log)
+  // componentDidMount() {
+  //   var fetchURL='http://192.168.0.104:8080/'; //localhost, for mobile testing
+  //   fetch({fetchURL}+'logs/')
+  //     .then(res => res.json())
+  //     .then((data) => {
+  //       this.setState({ logs: data })
+  //     })
+  //     .catch(console.log)
+  // }
+  
+  fetchURL='http://192.168.0.104:8080/'; //localhost, for mobile testing
+
+  componentDidMount(){
+    axios.get(this.fetchURL+'logs')
+      .then(res=>this.setState({logs: res.data}))
+  }
+
+  addLog = (id) => {
+
+  }
+
+  deleteLog = (id) => {
+    axios.delete(this.fetchURL+`logs/${id}`)
+      .then(res => this.setState({logs: [...this.state.logs.filter(log => log.id!==id)]}))
   }
 
   render() {
@@ -32,7 +50,8 @@ class App extends Component {
           )} />
           <Route path="/log" render={props => (
             <React.Fragment>
-              <Logs logs={this.state.logs} />
+              <Logs logs={this.state.logs}
+              deleteLog={this.deleteLog} />
             </React.Fragment>
           )} />
           <Route path="/maintenance" render={props => (

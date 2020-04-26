@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 class Logs extends Component{
     render(){
         return this.props.logs.map((log) => (
-        <Log key={log.id} log={log}/>
+        <Log key={log.id} log={log}
+        deleteLog={this.props.deleteLog}/>
         ));
     }
 }
