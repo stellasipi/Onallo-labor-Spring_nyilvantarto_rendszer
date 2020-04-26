@@ -12,7 +12,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch(/*'http://192.168.0.103:8080/logs/'*/ 'http://localhost:8080/logs/')
+    fetch('http://192.168.0.103:8080/logs/' /*'http://localhost:8080/logs/'*/)
       .then(res => res.json())
       .then((data) => {
         this.setState({ logs: data })
@@ -41,6 +41,11 @@ class App extends Component {
             </React.Fragment>
           )} />
           <Route path="/cleaning" render={props => (
+            <React.Fragment>
+              <h4>Még nincs kész, nézz vissza később.</h4>
+            </React.Fragment>
+          )} />
+          <Route path="/login" render={props => (
             <React.Fragment>
               <h4>Még nincs kész, nézz vissza később.</h4>
             </React.Fragment>

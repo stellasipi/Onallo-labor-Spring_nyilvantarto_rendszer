@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 
 export class Log extends Component {
     render() {
+        const comment=this.props.log.comment;
         return (
             <div style = {itemStyle}>
-                <p style = {testStyle}>ID: {this.props.log.id}</p>
-                <p style = {testStyle}>Type: {this.props.log.type}</p>
-                <p style = {testStyle}>Time: {this.props.log.time}</p>
-                <p style = {testStyle}>Comment: {this.props.log.comment}</p>
-                <p style = {testStyle}>{this.props.log.user.name}</p>
+                <p>
+                    ID: {this.props.log.id}<br />
+                    Type: {this.props.log.type}<br />
+                    Time: {this.props.log.time}<br />
+                    {comment!=null?'Comment: '+comment+'\r\n':''}
+                    {this.props.log.user.name}
+                </p>
             </div>
         )
     }
@@ -24,10 +27,6 @@ const itemStyle = {
     backgroundColor: '#f4f4f4',
     textAlign: 'left',
     margin: '10px 30px'
-}
-
-const testStyle = {
-    margin: '0px'
 }
 
 export default Log
