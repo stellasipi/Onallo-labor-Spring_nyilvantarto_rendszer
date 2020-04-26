@@ -32,7 +32,7 @@ public class LogService {
     }
 
     public List<LogDTO> getAll(){
-        List<Log> logs=logRepository.findAll();
+        List<Log> logs=logRepository.findAllByOrderByTimeAsc();
         List<LogDTO> logDTOs=new ArrayList<>();
         for(Log log:logs){
             logDTOs.add(logMapper.logToLogDTO(log));
