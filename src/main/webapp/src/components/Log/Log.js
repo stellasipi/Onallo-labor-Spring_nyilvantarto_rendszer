@@ -1,22 +1,22 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 
-export class Log extends Component {
+class Log extends Component {
     render() {
         return (
-
-            <div style = {logStyle}>
-                <p style ={itemStyle}>
-                    ID: {this.props.log.id}<br />
-                    Type: {this.props.log.type}<br />
-                    Time: {this.props.log.time}<br />
-                    {this.props.log.comment!=null?<p style={commentStyle}>Comment: {this.props.log.comment}</p>:''}
-                    {this.props.log.user.name}
+            <div style={logStyle}>
+                <p style={itemStyle}>
+                    {/* ID: {this.props.log.id}<br /> */}
+                    Típus: {this.props.log.type === 'OPENING' ? 'Nyitás' : 'Zárás'}<br />
+                    Idő: {this.props.log.time}<br />
+                    {this.props.log.comment != null ? <p style={commentStyle}>Megjegyzések: {this.props.log.comment}</p> : ''}
+                    Ki? {this.props.log.user.name}
                 </p>
                 <div style={deleteButtonStyle}>
-                    <button onClick={this.props.deleteLog.bind(this,this.props.log.id)} type="button" className="btn btn-danger">X</button>
+                    <button onClick={this.props.deleteLog.bind(this, this.props.log.id)} type="button" className="btn btn-danger">X</button>
                 </div>
             </div>
+
         )
     }
 }
@@ -48,7 +48,6 @@ const deleteButtonStyle = {
     margin: '16px 16px',
     fontWeight: 'bold',
     alignSelf: 'center',
-    //justifyContent: 'center'
     textAlign: 'center'
 }
 

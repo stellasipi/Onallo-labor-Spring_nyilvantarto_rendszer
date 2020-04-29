@@ -1,36 +1,36 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import './App.css';
-import Logs from "./components/Logs";
+import Logs from "./components/Log/Logs";
+import CreateLog from "./components/Log/CreateLog"
 import Header from "./components/layouts/Header";
 import Home from "./components/pages/Home";
 import axios from 'axios';
 
 class App extends Component {
 
+  fetchURL='http://192.168.0.102:8080/'; //localhost, for mobile testing: 192.168.0.102
+
   state = {
     logs: []
-  }
-
-  // componentDidMount() {
-  //   var fetchURL='http://192.168.0.104:8080/'; //localhost, for mobile testing
-  //   fetch({fetchURL}+'logs/')
-  //     .then(res => res.json())
-  //     .then((data) => {
-  //       this.setState({ logs: data })
-  //     })
-  //     .catch(console.log)
-  // }
+  }  
   
-  fetchURL='http://192.168.0.104:8080/'; //localhost, for mobile testing
-
   componentDidMount(){
     axios.get(this.fetchURL+'logs')
       .then(res=>this.setState({logs: res.data}))
   }
 
-  addLog = (id) => {
-
+  createLog = (type, comment, userId) => {
+    axios.post(this.fetchURL+'logs',{
+      type,
+      comment,
+      user: { 
+        id: userId
+      }
+    })
+      .then(
+        res => this.setState({ logs: [res.data, ...this.state.logs] })
+      );
   }
 
   deleteLog = (id) => {
@@ -50,6 +50,7 @@ class App extends Component {
           )} />
           <Route path="/log" render={props => (
             <React.Fragment>
+              <CreateLog createLog={this.createLog}/>
               <Logs logs={this.state.logs}
               deleteLog={this.deleteLog} />
             </React.Fragment>

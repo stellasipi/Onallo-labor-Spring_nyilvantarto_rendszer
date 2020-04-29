@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface LogRepository extends JpaRepository<Log,Integer> {
-    List<Log> findAllByOrderByTimeAsc();
+    List<Log> findAllByOrderByTimeDesc();
 }
