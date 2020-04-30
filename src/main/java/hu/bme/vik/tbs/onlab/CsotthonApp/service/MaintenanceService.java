@@ -3,7 +3,9 @@ package hu.bme.vik.tbs.onlab.CsotthonApp.service;
 import hu.bme.vik.tbs.onlab.CsotthonApp.dto.MaintenanceDTO;
 import hu.bme.vik.tbs.onlab.CsotthonApp.mapper.MaintenanceMapper;
 import hu.bme.vik.tbs.onlab.CsotthonApp.model.Maintenance;
+import hu.bme.vik.tbs.onlab.CsotthonApp.model.User;
 import hu.bme.vik.tbs.onlab.CsotthonApp.repository.MaintenanceRepository;
+import hu.bme.vik.tbs.onlab.CsotthonApp.repository.UserRepository;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,9 @@ public class MaintenanceService {
     MaintenanceRepository maintenanceRepository;
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     private final MaintenanceMapper maintenanceMapper;
 
     public MaintenanceService(){ maintenanceMapper = Mappers.getMapper(MaintenanceMapper.class);}
@@ -27,12 +32,14 @@ public class MaintenanceService {
         maintenance.setId(null);
         maintenance.setTime(new Timestamp(System.currentTimeMillis()));
         //majd a user setelése
+        User user=userRepository.findById(maintenance.getUser().getId()).get();
+        maintenance.setUser(user);
         maintenanceRepository.save(maintenance);
         return maintenanceMapper.maintenanceToMaintenanceDTO(maintenance);
     }
 
     public List<MaintenanceDTO> getAll(){
-        List<Maintenance> maintenances=maintenanceRepository.findAll();
+        List<Maintenance> maintenances=maintenanceRepository.findAllByOrderByTimeDesc();
         List<MaintenanceDTO> maintenanceDTOs=new ArrayList<>();
         for(Maintenance maintenance:maintenances){
             maintenanceDTOs.add(maintenanceMapper.maintenanceToMaintenanceDTO(maintenance));

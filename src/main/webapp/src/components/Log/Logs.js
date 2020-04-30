@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Log from './Log';
 import PropTypes from 'prop-types';
 
-class Logs extends Component{
-    render(){
+class Logs extends Component {
+    render() {
         return this.props.logs.map((log) => (
-        <Log key={log.id} log={log}
-        deleteLog={this.props.deleteLog}/>
+            <Log key={log.id} log={log}
+                deleteLog={this.props.deleteLog} />
         ));
     }
 }

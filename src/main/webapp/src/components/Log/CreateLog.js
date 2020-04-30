@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 class CreateLog extends Component {
     state = {
@@ -62,9 +62,8 @@ const formGroupStyle = {
     width: '80%'
 }
 
-//PropTypes
-// Log.propTypes = {
-//     log: PropTypes.object.isRequired
-// }
+CreateLog.propTypes = {
+    createLog: PropTypes.func.isRequired
+  }
 
 export default CreateLog

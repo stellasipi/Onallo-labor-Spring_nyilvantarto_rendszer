@@ -6,20 +6,27 @@ import CreateLog from "./components/Log/CreateLog"
 import Header from "./components/layouts/Header";
 import Home from "./components/pages/Home";
 import axios from 'axios';
+import Maintenances from './components/layouts/Maintenance/Maintenances';
+import CreateMaintenance from './components/layouts/Maintenance/CreateMaintenance';
 
 class App extends Component {
 
   fetchURL='http://192.168.0.102:8080/'; //localhost, for mobile testing: 192.168.0.102
 
   state = {
-    logs: []
+    logs: [],
+    maintenances: []
   }  
-  
+
+  //GET requests
   componentDidMount(){
     axios.get(this.fetchURL+'logs')
-      .then(res=>this.setState({logs: res.data}))
+      .then(res=>this.setState({logs: res.data}));
+    axios.get(this.fetchURL+'maintenances')
+      .then(res=>this.setState({maintenances: res.data}))
   }
 
+  //POST requests
   createLog = (type, comment, userId) => {
     axios.post(this.fetchURL+'logs',{
       type,
@@ -32,10 +39,28 @@ class App extends Component {
         res => this.setState({ logs: [res.data, ...this.state.logs] })
       );
   }
+  
+  createMaintenance = (comment, userId) => {
+    axios.post(this.fetchURL+'maintenances',{
+      comment,
+      user: { 
+        id: userId
+      }
+    })
+      .then(
+        res => this.setState({ maintenances: [res.data, ...this.state.maintenances] })
+      );
+  }
 
+  //DELETE requests
   deleteLog = (id) => {
     axios.delete(this.fetchURL+`logs/${id}`)
       .then(res => this.setState({logs: [...this.state.logs.filter(log => log.id!==id)]}))
+  }
+
+  deleteMaintenance = (id) => {
+    axios.delete(this.fetchURL+`maintenances/${id}`)
+      .then(res => this.setState({maintenances: [...this.state.maintenances.filter(maintenance => maintenance.id!==id)]}))
   }
 
   render() {
@@ -57,7 +82,9 @@ class App extends Component {
           )} />
           <Route path="/maintenance" render={props => (
             <React.Fragment>
-              <h4>Még nincs kész, nézz vissza később. :)</h4>
+              <CreateMaintenance createMaintenance={this.createMaintenance} />
+              <Maintenances maintenances={this.state.maintenances} 
+              deleteMaintenance={this.deleteMaintenance}/>
             </React.Fragment>
           )} />
           <Route path="/cleaning" render={props => (
