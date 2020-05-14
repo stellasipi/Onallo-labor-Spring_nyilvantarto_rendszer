@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +19,11 @@ public class CleaningItem {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @NotNull
+    @Column(length = 30, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "cleaningItem",cascade = CascadeType.ALL)
-    private List<RoomCleaning> room_cleanings=new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "cleaningItem",cascade = CascadeType.ALL)
+    private List<RoomCleaning> roomCleanings=new ArrayList<>();
 
 }

@@ -25,7 +25,9 @@ public class LogService {
     @Autowired
     private final LogMapper logMapper;
 
-    public LogService(){ logMapper = Mappers.getMapper(LogMapper.class);}
+    public LogService(){
+        logMapper = Mappers.getMapper(LogMapper.class);
+    }
 
     public LogDTO createLog(LogDTO logDTO){
         Log log=logMapper.logDTOtoLog(logDTO);

@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import './App.css';
-import Logs from "./components/Log/Logs";
-import CreateLog from "./components/Log/CreateLog"
+import Logs from "./components/pages/Log/Logs";
+import CreateLog from "./components/pages/Log/CreateLog"
 import Header from "./components/layouts/Header";
-import Home from "./components/pages/Home";
+import Home from "./components/pages/Home/Home";
 import axios from 'axios';
-import Maintenances from './components/layouts/Maintenance/Maintenances';
-import CreateMaintenance from './components/layouts/Maintenance/CreateMaintenance';
+import Maintenances from './components/pages/Maintenance/Maintenances';
+import CreateMaintenance from './components/pages/Maintenance/CreateMaintenance';
 
 class App extends Component {
 
-  fetchURL='http://192.168.0.102:8080/'; //localhost, for mobile testing: 192.168.0.102
+  fetchURL='http://localhost:8080/'; //localhost, for mobile testing: 192.168.0.102
 
   state = {
     logs: [],

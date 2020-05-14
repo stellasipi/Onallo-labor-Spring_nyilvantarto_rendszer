@@ -1,9 +1,10 @@
 package hu.bme.vik.tbs.onlab.CsotthonApp.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +19,11 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Column(length = 30, unique = true)
+    @NotNull
     private String name;
 
-    @OneToMany(mappedBy = "room",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "room",cascade = CascadeType.ALL)
     private List<RoomCleaning> roomCleanings=new ArrayList<>();
+
 }
