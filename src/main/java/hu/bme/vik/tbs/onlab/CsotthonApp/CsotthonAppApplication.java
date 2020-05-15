@@ -4,16 +4,16 @@ import hu.bme.vik.tbs.onlab.CsotthonApp.model.*;
 import hu.bme.vik.tbs.onlab.CsotthonApp.repository.*;
 import hu.bme.vik.tbs.onlab.CsotthonApp.util.LogType;
 import hu.bme.vik.tbs.onlab.CsotthonApp.util.Sex;
+import hu.bme.vik.tbs.onlab.CsotthonApp.util.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.*;
 
 @SpringBootApplication
 public class CsotthonAppApplication implements CommandLineRunner {
@@ -63,14 +63,15 @@ public class CsotthonAppApplication implements CommandLineRunner {
 				.build();
 
 		Log log1 = Log.builder()
-				.time(new Timestamp(System.currentTimeMillis()))
+				//.time(new Timestamp(System.currentTimeMillis()))
+				.time(Time.getNowInUTC())
 				.comment("Minden rendben")
 				.type(LogType.OPENING)
 				.user(user1)
 				.build();
 
 		Log log2 = Log.builder()
-				.time(new Timestamp(new GregorianCalendar(2020, 3, 24,12,30,00).getTimeInMillis()))
+				.time(Time.getSpecificTimeInUTC(2020,3,24,12,30)/*new Timestamp(new GregorianCalendar(2020, 3, 24,12,30,00).getTimeInMillis())*/)
 				.type(LogType.CLOSING)
 				.user(user1)
 				.build();
@@ -79,7 +80,7 @@ public class CsotthonAppApplication implements CommandLineRunner {
 		user1.setLogs(logs);
 
 		Maintenance maintenance = Maintenance.builder()
-				.time(new Timestamp(System.currentTimeMillis()))
+				.time(Time.getNowInUTC())
 				.user(user1)
 				.comment("Elfogyott a wcpapír és kéne egy felmosás.")
 				.build();
@@ -107,7 +108,7 @@ public class CsotthonAppApplication implements CommandLineRunner {
 		Cleaning cleaning1=Cleaning.builder()
 				.scoutGroup(scoutGroup1)
 				.user(user1)
-				.time(new Timestamp(System.currentTimeMillis()))
+				.time(Time.getNowInUTC())
 				.build();
 
 		user1.setCleanings(Arrays.asList(cleaning1));
@@ -147,4 +148,6 @@ public class CsotthonAppApplication implements CommandLineRunner {
 		roomCleaningRepository.saveAll(roomCleanings);
 
 	}
+
+
 }

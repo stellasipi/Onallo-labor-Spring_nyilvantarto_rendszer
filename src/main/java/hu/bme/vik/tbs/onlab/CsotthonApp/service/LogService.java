@@ -6,6 +6,7 @@ import hu.bme.vik.tbs.onlab.CsotthonApp.model.Log;
 import hu.bme.vik.tbs.onlab.CsotthonApp.model.User;
 import hu.bme.vik.tbs.onlab.CsotthonApp.repository.LogRepository;
 import hu.bme.vik.tbs.onlab.CsotthonApp.repository.UserRepository;
+import hu.bme.vik.tbs.onlab.CsotthonApp.util.Time;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class LogService {
     public LogDTO createLog(LogDTO logDTO){
         Log log=logMapper.logDTOtoLog(logDTO);
         log.setId(null);
-        log.setTime(new Timestamp(System.currentTimeMillis()));
+        log.setTime(Time.getNowInUTC());
         User user=userRepository.findById(log.getUser().getId()).get();
         log.setUser(user);
         //majd a user setelése is ide jön, autentikáció során

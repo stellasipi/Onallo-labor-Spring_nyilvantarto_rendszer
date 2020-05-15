@@ -6,6 +6,7 @@ import hu.bme.vik.tbs.onlab.CsotthonApp.model.Maintenance;
 import hu.bme.vik.tbs.onlab.CsotthonApp.model.User;
 import hu.bme.vik.tbs.onlab.CsotthonApp.repository.MaintenanceRepository;
 import hu.bme.vik.tbs.onlab.CsotthonApp.repository.UserRepository;
+import hu.bme.vik.tbs.onlab.CsotthonApp.util.Time;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class MaintenanceService {
     public MaintenanceDTO createMaintenance(MaintenanceDTO maintenanceDTO){
         Maintenance maintenance=maintenanceMapper.maintenanceDTOtoMaintenance(maintenanceDTO);
         maintenance.setId(null);
-        maintenance.setTime(new Timestamp(System.currentTimeMillis()));
+        maintenance.setTime(Time.getNowInUTC());
         //majd a user setelése
         User user=userRepository.findById(maintenance.getUser().getId()).get();
         maintenance.setUser(user);
