@@ -13,7 +13,7 @@ public class LogDTO {
     private Integer id;
     private LogType type;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm", timezone="Europe/Budapest")
     private Timestamp time;
 
     private String comment;

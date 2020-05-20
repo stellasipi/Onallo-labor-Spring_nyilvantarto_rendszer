@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface CleaningRepository extends JpaRepository<Cleaning,Integer> {
-    List<Cleaning> getAllByOrderByTime();
+    List<Cleaning> getAllByOrderByTimeDesc();
 }

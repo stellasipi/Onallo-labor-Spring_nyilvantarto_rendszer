@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 public class MaintenanceDTO {
     private Integer id;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm", timezone="Europe/Budapest")
     private Timestamp time;
 
     private String comment;

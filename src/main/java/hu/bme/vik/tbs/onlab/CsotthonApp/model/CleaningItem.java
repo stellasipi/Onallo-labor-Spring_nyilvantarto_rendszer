@@ -1,6 +1,5 @@
 package hu.bme.vik.tbs.onlab.CsotthonApp.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;

@@ -71,7 +71,7 @@ public class CsotthonAppApplication implements CommandLineRunner {
 				.build();
 
 		Log log2 = Log.builder()
-				.time(Time.getSpecificTimeInUTC(2020,3,24,12,30)/*new Timestamp(new GregorianCalendar(2020, 3, 24,12,30,00).getTimeInMillis())*/)
+				.time(Time.getSpecificTimeInUTC(2020,Calendar.MARCH,24,12,30)/*new Timestamp(new GregorianCalendar(2020, 3, 24,12,30,00).getTimeInMillis())*/)
 				.type(LogType.CLOSING)
 				.user(user1)
 				.build();
@@ -104,7 +104,7 @@ public class CsotthonAppApplication implements CommandLineRunner {
 			cleaningItemRepository.save(cleaningItemToPersist);
 		}
 
-		//cleaning TEST data
+		//cleaning TEST data 1
 		Cleaning cleaning1=Cleaning.builder()
 				.scoutGroup(scoutGroup1)
 				.user(user1)
@@ -146,6 +146,50 @@ public class CsotthonAppApplication implements CommandLineRunner {
 				roomCleaning16, roomCleaning17, roomCleaning18));
 
 		roomCleaningRepository.saveAll(roomCleanings);
+
+		//cleaning TEST data 2
+		Cleaning cleaning2=Cleaning.builder()
+				.scoutGroup(scoutGroup1)
+				.user(user1)
+				.time(Time.getSpecificTimeInUTC(2020,Calendar.APRIL,4,12,30))
+				.build();
+
+		user1.setCleanings(Arrays.asList(cleaning2));
+		scoutGroup1.setCleanings(Arrays.asList(cleaning2));
+
+		cleaningRepository.save(cleaning2);
+
+		cleaning2=cleaningRepository.findById(cleaning2.getId()).get();
+
+		RoomCleaning roomCleaning19=RoomCleaning.builder().done(false).build(); roomCleaning19.setRoom(roomRepository.findByName("Pince")); roomCleaning19.setCleaning(cleaning2); roomCleaning19.setCleaningItem(cleaningItemRepository.findByName("rekeszek"));
+		RoomCleaning roomCleaning20=RoomCleaning.builder().done(false).build(); roomCleaning20.setRoom(roomRepository.findByName("Pince")); roomCleaning20.setCleaning(cleaning2); roomCleaning20.setCleaningItem(cleaningItemRepository.findByName("felmosás"));
+		RoomCleaning roomCleaning21=RoomCleaning.builder().done(false).build(); roomCleaning21.setRoom(roomRepository.findByName("Nagy terem")); roomCleaning21.setCleaning(cleaning2); roomCleaning21.setCleaningItem(cleaningItemRepository.findByName("lomok"));
+		RoomCleaning roomCleaning22=RoomCleaning.builder().done(false).build(); roomCleaning22.setRoom(roomRepository.findByName("Nagy terem")); roomCleaning22.setCleaning(cleaning2); roomCleaning22.setCleaningItem(cleaningItemRepository.findByName("elrendezés"));
+		RoomCleaning roomCleaning23=RoomCleaning.builder().done(false).build(); roomCleaning23.setRoom(roomRepository.findByName("Nagy terem")); roomCleaning23.setCleaning(cleaning2); roomCleaning23.setCleaningItem(cleaningItemRepository.findByName("felmosás"));
+		RoomCleaning roomCleaning24=RoomCleaning.builder().done(false).build(); roomCleaning24.setRoom(roomRepository.findByName("Konyha")); roomCleaning24.setCleaning(cleaning2); roomCleaning24.setCleaningItem(cleaningItemRepository.findByName("konyhapult"));
+		RoomCleaning roomCleaning25=RoomCleaning.builder().done(false).build(); roomCleaning25.setRoom(roomRepository.findByName("Konyha")); roomCleaning25.setCleaning(cleaning2); roomCleaning25.setCleaningItem(cleaningItemRepository.findByName("konyhabútor"));
+		RoomCleaning roomCleaning26=RoomCleaning.builder().done(false).build(); roomCleaning26.setRoom(roomRepository.findByName("Konyha")); roomCleaning26.setCleaning(cleaning2); roomCleaning26.setCleaningItem(cleaningItemRepository.findByName("mosogatás"));
+		RoomCleaning roomCleaning27=RoomCleaning.builder().done(false).build(); roomCleaning27.setRoom(roomRepository.findByName("Konyha")); roomCleaning27.setCleaning(cleaning2); roomCleaning27.setCleaningItem(cleaningItemRepository.findByName("felmosás"));
+		RoomCleaning roomCleaning28=RoomCleaning.builder().done(false).build();roomCleaning28.setRoom(roomRepository.findByName("Középső terem")); roomCleaning28.setCleaning(cleaning2); roomCleaning28.setCleaningItem(cleaningItemRepository.findByName("elrendezés"));
+		RoomCleaning roomCleaning29=RoomCleaning.builder().done(true).build(); roomCleaning29.setRoom(roomRepository.findByName("Középső terem")); roomCleaning29.setCleaning(cleaning2); roomCleaning29.setCleaningItem(cleaningItemRepository.findByName("faliujság"));
+		RoomCleaning roomCleaning30=RoomCleaning.builder().done(false).build(); roomCleaning30.setRoom(roomRepository.findByName("Középső terem")); roomCleaning30.setCleaning(cleaning2); roomCleaning30.setCleaningItem(cleaningItemRepository.findByName("vitrin"));
+		RoomCleaning roomCleaning31=RoomCleaning.builder().done(true).build(); roomCleaning31.setRoom(roomRepository.findByName("Középső terem")); roomCleaning31.setCleaning(cleaning2); roomCleaning31.setCleaningItem(cleaningItemRepository.findByName("raktár"));
+		RoomCleaning roomCleaning32=RoomCleaning.builder().done(false).build(); roomCleaning32.setRoom(roomRepository.findByName("Középső terem")); roomCleaning32.setCleaning(cleaning2); roomCleaning32.setCleaningItem(cleaningItemRepository.findByName("felmosás"));
+		RoomCleaning roomCleaning33=RoomCleaning.builder().done(true).build(); roomCleaning33.setRoom(roomRepository.findByName("Mosdók")); roomCleaning33.setCleaning(cleaning2); roomCleaning33.setCleaningItem(cleaningItemRepository.findByName("tiszta"));
+		RoomCleaning roomCleaning34=RoomCleaning.builder().done(true).build(); roomCleaning34.setRoom(roomRepository.findByName("Mosdók")); roomCleaning34.setCleaning(cleaning2); roomCleaning34.setCleaningItem(cleaningItemRepository.findByName("wcpapír"));
+		RoomCleaning roomCleaning35=RoomCleaning.builder().done(true).build(); roomCleaning35.setRoom(roomRepository.findByName("Mosdók")); roomCleaning35.setCleaning(cleaning2); roomCleaning35.setCleaningItem(cleaningItemRepository.findByName("törülköző"));
+		RoomCleaning roomCleaning36=RoomCleaning.builder().done(true).build(); roomCleaning36.setRoom(roomRepository.findByName("Mosdók")); roomCleaning36.setCleaning(cleaning2); roomCleaning36.setCleaningItem(cleaningItemRepository.findByName("felmosás"));
+
+		List<RoomCleaning> roomCleanings2 = new ArrayList<>(Arrays.asList(
+				roomCleaning19, roomCleaning20, roomCleaning21,
+				roomCleaning22, roomCleaning23, roomCleaning24,
+				roomCleaning25, roomCleaning26, roomCleaning27,
+				roomCleaning28, roomCleaning29, roomCleaning30,
+				roomCleaning31, roomCleaning32, roomCleaning33,
+				roomCleaning34, roomCleaning35, roomCleaning36));
+
+		roomCleaningRepository.saveAll(roomCleanings2);
+
 
 	}
 

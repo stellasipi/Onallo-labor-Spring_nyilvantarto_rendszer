@@ -1,34 +1,50 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import PropTypes from 'prop-types';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import Logs from "./components/pages/Log/Logs";
-import CreateLog from "./components/pages/Log/CreateLog"
+import CreateLog from "./components/pages/Log/CreateLog";
 import Header from "./components/layouts/Header";
 import Home from "./components/pages/Home/Home";
 import axios from 'axios';
 import Maintenances from './components/pages/Maintenance/Maintenances';
 import CreateMaintenance from './components/pages/Maintenance/CreateMaintenance';
+import Cleanings from './components/pages/Cleaning/Cleanings';
+
+const fetchURL='http://192.168.0.102:8080/'; //localhost, for mobile testing: 192.168.0.102
 
 class App extends Component {
+  static childContextTypes = {
+    fetchURL: PropTypes.string
+  }
 
-  fetchURL='http://localhost:8080/'; //localhost, for mobile testing: 192.168.0.102
+  getChildContext(){
+    return{fetchURL}
+  }
 
   state = {
     logs: [],
-    maintenances: []
+    maintenances: [],
+    rooms: [],
+    cleanings: []
   }  
 
   //GET requests
   componentDidMount(){
-    axios.get(this.fetchURL+'logs')
+    axios.get(fetchURL+'logs')
       .then(res=>this.setState({logs: res.data}));
-    axios.get(this.fetchURL+'maintenances')
-      .then(res=>this.setState({maintenances: res.data}))
+    axios.get(fetchURL+'maintenances')
+      .then(res=>this.setState({maintenances: res.data}));
+    axios.get(fetchURL+'cleanings/rooms')
+      .then(res=>this.setState({rooms: res.data}));
+    axios.get(fetchURL+'cleanings')
+      .then(res=>this.setState({cleanings: res.data}));
+    
   }
 
   //POST requests
   createLog = (type, comment, userId) => {
-    axios.post(this.fetchURL+'logs',{
+    axios.post(fetchURL+'logs',{
       type,
       comment,
       user: { 
@@ -41,7 +57,7 @@ class App extends Component {
   }
   
   createMaintenance = (comment, userId) => {
-    axios.post(this.fetchURL+'maintenances',{
+    axios.post(fetchURL+'maintenances',{
       comment,
       user: { 
         id: userId
@@ -54,12 +70,12 @@ class App extends Component {
 
   //DELETE requests
   deleteLog = (id) => {
-    axios.delete(this.fetchURL+`logs/${id}`)
+    axios.delete(fetchURL+`logs/${id}`)
       .then(res => this.setState({logs: [...this.state.logs.filter(log => log.id!==id)]}))
   }
 
   deleteMaintenance = (id) => {
-    axios.delete(this.fetchURL+`maintenances/${id}`)
+    axios.delete(fetchURL+`maintenances/${id}`)
       .then(res => this.setState({maintenances: [...this.state.maintenances.filter(maintenance => maintenance.id!==id)]}))
   }
 
@@ -89,7 +105,8 @@ class App extends Component {
           )} />
           <Route path="/cleaning" render={props => (
             <React.Fragment>
-              <h4>Még nincs kész, nézz vissza később.</h4>
+              <Cleanings cleanings={this.state.cleanings} 
+              rooms={this.state.rooms} />
             </React.Fragment>
           )} />
           <Route path="/login" render={props => (
