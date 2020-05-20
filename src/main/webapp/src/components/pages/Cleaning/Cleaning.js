@@ -25,13 +25,16 @@ class Cleaning extends Component {
                         <p style={dateStyle}>{this.props.cleaning.time}</p> {this.props.cleaning.scoutGroup.name} őrs
                         <p style={creatorStyle}>{this.props.cleaning.user.name}</p>
                     </div>
+                    <svg className="bi bi-chevron-down" width="32" height="32" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fillRule="evenodd" d="M1.646 4.646a.5.5 0 01.708 0L8 10.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 010-.708z" clipRule="evenodd" />
+                    </svg>
                 </div>
                 {/* legördülő rész */}
                 <Collapse isOpen={this.state.collapse}>
                     <div style={collapseStyle}>
                         <div style={itemStyle}>
-                        <Rooms rooms={this.props.rooms} 
-                        cleaningId={this.props.cleaning.id}/>
+                            <Rooms rooms={this.props.rooms}
+                                cleaningId={this.props.cleaning.id} />
                         </div>
                     </div>
                 </Collapse>

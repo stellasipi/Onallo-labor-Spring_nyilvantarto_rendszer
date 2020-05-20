@@ -3,6 +3,8 @@ li{
     padding: 0px !important;
 }
 
-.collapse, .collapsing, .collapse show{
-    text-align: left;
+.bi-chevron-down {
+    margin-right: 3%;
+    align-self: center;
+    text-align: center;
 }

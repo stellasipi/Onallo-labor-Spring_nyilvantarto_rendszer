@@ -19,7 +19,7 @@ class Room extends Component {
     render() {
         return (
             <div style={RoomStyle}>
-                {this.props.room.name}
+                <p style={roomNameStyle}>{this.props.room.name}</p>
                 <RoomCleaningItems roomCleaningItems={this.state.roomCleaningItems}/>
             </div>
         )
@@ -32,10 +32,14 @@ Room.propTypes = {
 }
 
 const RoomStyle = {
-    border: '1px solid black', 
+    border: '1px solid transparent', 
     borderRadius: '5px',
     padding: '8px',
     margin: '10px',
+    backgroundColor: '#f4f4f4'
+}
+
+const roomNameStyle = {
     fontWeight: 'bold'
 }
 
