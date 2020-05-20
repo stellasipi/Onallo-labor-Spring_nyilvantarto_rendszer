@@ -7,15 +7,15 @@ import hu.bme.vik.tbs.onlab.CsotthonApp.mapper.CleaningMapper;
 import hu.bme.vik.tbs.onlab.CsotthonApp.mapper.RoomCleaningMapper;
 import hu.bme.vik.tbs.onlab.CsotthonApp.mapper.RoomMapper;
 import hu.bme.vik.tbs.onlab.CsotthonApp.model.Cleaning;
+import hu.bme.vik.tbs.onlab.CsotthonApp.model.CleaningItem;
 import hu.bme.vik.tbs.onlab.CsotthonApp.model.Room;
 import hu.bme.vik.tbs.onlab.CsotthonApp.model.RoomCleaning;
-import hu.bme.vik.tbs.onlab.CsotthonApp.repository.CleaningRepository;
-import hu.bme.vik.tbs.onlab.CsotthonApp.repository.RoomCleaningRepository;
-import hu.bme.vik.tbs.onlab.CsotthonApp.repository.RoomRepository;
-import org.apache.commons.lang3.StringUtils;
+import hu.bme.vik.tbs.onlab.CsotthonApp.repository.*;
+import hu.bme.vik.tbs.onlab.CsotthonApp.util.Time;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +31,15 @@ public class CleaningService {
 
     @Autowired
     RoomRepository roomRepository;
+
+    @Autowired
+    ScoutGroupRepository scoutGroupRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    CleaningItemRepository cleaningItemRepository;
 
     @Autowired
     private final CleaningMapper cleaningMapper;
@@ -87,5 +96,28 @@ public class CleaningService {
         return roomDTOs;
     }
 
+    public List<RoomCleaningDTO> createCleaing(List<RoomCleaningDTO> roomCleaningDTOs){
+        Cleaning cleaning=Cleaning.builder()
+                .scoutGroup(scoutGroupRepository.findByName("Levendula"))
+                .user(userRepository.findByEmail("stella@email.com")) //ezt majd javítani
+                .time(Time.getNowInUTC())
+                .build();
+        cleaningRepository.save(cleaning);
+
+        List<RoomCleaningDTO> persisRoomCleaningDTOs=new ArrayList<>();
+
+        for(RoomCleaningDTO roomCleaningDTO:roomCleaningDTOs){
+            RoomCleaning roomCleaning=roomCleaningMapper.roomCleaningDTOtoRoomCleaning(roomCleaningDTO);
+
+            roomCleaning.setRoom(roomRepository.findByName(roomCleaning.getRoom().getName()));
+            roomCleaning.setCleaningItem(cleaningItemRepository.findByName(roomCleaning.getCleaningItem().getName()));
+            roomCleaning.setCleaning(cleaning);
+
+            roomCleaningRepository.save(roomCleaning);
+
+            persisRoomCleaningDTOs.add(roomCleaningMapper.roomCleaingToRoomCleaningDTO(roomCleaning));
+        }
+        return persisRoomCleaningDTOs;
+    }
 
 }

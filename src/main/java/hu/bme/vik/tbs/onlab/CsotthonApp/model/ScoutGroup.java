@@ -5,6 +5,7 @@ import hu.bme.vik.tbs.onlab.CsotthonApp.util.Sex;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +20,11 @@ public class ScoutGroup {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
+    @Column(length = 30, unique = true)
+    @NotNull
     private String name;
 
+    @NotNull
     private Sex sex;
 
     @OneToMany(mappedBy = "scoutGroup", cascade = CascadeType.ALL)

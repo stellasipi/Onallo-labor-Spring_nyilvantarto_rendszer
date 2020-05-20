@@ -1,7 +1,6 @@
 package hu.bme.vik.tbs.onlab.CsotthonApp.model;
 
 import lombok.*;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
