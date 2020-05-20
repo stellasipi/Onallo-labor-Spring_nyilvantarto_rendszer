@@ -10,6 +10,7 @@ import hu.bme.vik.tbs.onlab.CsotthonApp.util.Time;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class LogService {
         logMapper = Mappers.getMapper(LogMapper.class);
     }
 
+    @Transactional
     public LogDTO createLog(LogDTO logDTO){
         Log log=logMapper.logDTOtoLog(logDTO);
         log.setId(null);
@@ -50,11 +52,11 @@ public class LogService {
         return logDTOs;
     }
     public Boolean delete(Integer id){
-        logRepository.deleteById(id);
         if(logRepository.findById(id).isPresent()){
-            return false;
-        }else {
+            logRepository.deleteById(id);
             return true;
+        }else {
+            return false;
         }
     }
 }

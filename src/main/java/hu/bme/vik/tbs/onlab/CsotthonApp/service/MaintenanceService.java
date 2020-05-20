@@ -10,6 +10,7 @@ import hu.bme.vik.tbs.onlab.CsotthonApp.util.Time;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class MaintenanceService {
 
     public MaintenanceService(){ maintenanceMapper = Mappers.getMapper(MaintenanceMapper.class);}
 
+    @Transactional
     public MaintenanceDTO createMaintenance(MaintenanceDTO maintenanceDTO){
         Maintenance maintenance=maintenanceMapper.maintenanceDTOtoMaintenance(maintenanceDTO);
         maintenance.setId(null);
@@ -48,11 +50,11 @@ public class MaintenanceService {
         return maintenanceDTOs;
     }
     public Boolean delete(Integer id){
-        maintenanceRepository.deleteById(id);
         if(maintenanceRepository.findById(id).isPresent()){
-            return false;
-        }else {
+            maintenanceRepository.deleteById(id);
             return true;
+        }else {
+            return false;
         }
     }
 }
