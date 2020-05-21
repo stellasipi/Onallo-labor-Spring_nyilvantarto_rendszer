@@ -6,9 +6,9 @@ class Maintenance extends Component {
         return (
             <div style={maintenanceStyle}>
                 <div style={itemStyle}>
-                    Idő: {this.props.maintenance.time}<br />
-                    Megjegyzések: {this.props.maintenance.comment}<br />
-                    Ki? {this.props.maintenance.user.name}
+                    <strong>Idő:</strong> {this.props.maintenance.time}<br />
+                    <strong>Megjegyzések:</strong> {this.props.maintenance.comment}<br />
+                    <strong>Ki?</strong> {this.props.maintenance.user.name}
                 </div>
                 <div style={deleteButtonStyle}>
                     <button onClick={this.props.deleteMaintenance.bind(this, this.props.maintenance.id)} type="button" className="btn btn-danger">X</button>

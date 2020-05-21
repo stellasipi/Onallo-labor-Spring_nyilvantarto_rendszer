@@ -59,7 +59,7 @@ class App extends Component {
 
   createMaintenance = (comment, userId) => {
     axios.post(fetchURL + 'maintenances', {
-      comment,
+      comment: comment!==''?comment:null,
       user: {
         id: userId
       }
