@@ -5,6 +5,8 @@ import hu.bme.vik.tbs.onlab.CsotthonApp.dto.RoomCleaningDTO;
 import hu.bme.vik.tbs.onlab.CsotthonApp.dto.RoomDTO;
 import hu.bme.vik.tbs.onlab.CsotthonApp.service.CleaningService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,7 +40,16 @@ public class CleaningController {
 
     @PostMapping
     public List<RoomCleaningDTO> createCleaning(@RequestBody List<RoomCleaningDTO> roomCleanings){
-        return cleaningService.createCleaing(roomCleanings);
+        return cleaningService.createCleaning(roomCleanings);
+    }
+
+    @DeleteMapping("/{cleaningId}")
+    public ResponseEntity<Integer> deleteCleaning(@PathVariable Integer cleaningId){
+        Boolean isRemoved=cleaningService.deleteCleaning(cleaningId);
+        if (!isRemoved) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(cleaningId, HttpStatus.OK);
     }
 
 }

@@ -92,7 +92,7 @@ public class CsotthonAppApplication implements CommandLineRunner {
 
 		//cleaning section NOT TEST
 		List<String> rooms=new ArrayList<>(Arrays.asList("Pince","Nagy terem","Konyha","Középső terem","Mosdók"));
-		List<String> cleaningItems=new ArrayList<>(Arrays.asList("felmosás","rekeszek","lomok","elrendezés","konyhapult","konyhabútor","mosogatás","faliujság","vitrin","raktár","tiszta","wcpapír","törülköző"));
+		List<String> cleaningItems=new ArrayList<>(Arrays.asList("felmosás","rekeszek","lomok","elrendezés","konyhapult","konyhabútor","mosogatás","faliujság","vitrin","raktár","tiszta kagylók","wcpapír","törülköző"));
 
 		for(String room:rooms){
 			Room roomToPersist=Room.builder().name(room).build();
@@ -132,7 +132,7 @@ public class CsotthonAppApplication implements CommandLineRunner {
 		RoomCleaning roomCleaning12=RoomCleaning.builder().done(true).build(); roomCleaning12.setRoom(roomRepository.findByName("Középső terem")); roomCleaning12.setCleaning(cleaning1); roomCleaning12.setCleaningItem(cleaningItemRepository.findByName("vitrin"));
 		RoomCleaning roomCleaning13=RoomCleaning.builder().done(true).build(); roomCleaning13.setRoom(roomRepository.findByName("Középső terem")); roomCleaning13.setCleaning(cleaning1); roomCleaning13.setCleaningItem(cleaningItemRepository.findByName("raktár"));
 		RoomCleaning roomCleaning14=RoomCleaning.builder().done(false).build(); roomCleaning14.setRoom(roomRepository.findByName("Középső terem")); roomCleaning14.setCleaning(cleaning1); roomCleaning14.setCleaningItem(cleaningItemRepository.findByName("felmosás"));
-		RoomCleaning roomCleaning15=RoomCleaning.builder().done(true).build(); roomCleaning15.setRoom(roomRepository.findByName("Mosdók")); roomCleaning15.setCleaning(cleaning1); roomCleaning15.setCleaningItem(cleaningItemRepository.findByName("tiszta"));
+		RoomCleaning roomCleaning15=RoomCleaning.builder().done(true).build(); roomCleaning15.setRoom(roomRepository.findByName("Mosdók")); roomCleaning15.setCleaning(cleaning1); roomCleaning15.setCleaningItem(cleaningItemRepository.findByName("tiszta kagylók"));
 		RoomCleaning roomCleaning16=RoomCleaning.builder().done(true).build(); roomCleaning16.setRoom(roomRepository.findByName("Mosdók")); roomCleaning16.setCleaning(cleaning1); roomCleaning16.setCleaningItem(cleaningItemRepository.findByName("wcpapír"));
 		RoomCleaning roomCleaning17=RoomCleaning.builder().done(true).build(); roomCleaning17.setRoom(roomRepository.findByName("Mosdók")); roomCleaning17.setCleaning(cleaning1); roomCleaning17.setCleaningItem(cleaningItemRepository.findByName("törülköző"));
 		RoomCleaning roomCleaning18=RoomCleaning.builder().done(true).build(); roomCleaning18.setRoom(roomRepository.findByName("Mosdók")); roomCleaning18.setCleaning(cleaning1); roomCleaning18.setCleaningItem(cleaningItemRepository.findByName("felmosás"));
@@ -175,7 +175,7 @@ public class CsotthonAppApplication implements CommandLineRunner {
 		RoomCleaning roomCleaning30=RoomCleaning.builder().done(false).build(); roomCleaning30.setRoom(roomRepository.findByName("Középső terem")); roomCleaning30.setCleaning(cleaning2); roomCleaning30.setCleaningItem(cleaningItemRepository.findByName("vitrin"));
 		RoomCleaning roomCleaning31=RoomCleaning.builder().done(true).build(); roomCleaning31.setRoom(roomRepository.findByName("Középső terem")); roomCleaning31.setCleaning(cleaning2); roomCleaning31.setCleaningItem(cleaningItemRepository.findByName("raktár"));
 		RoomCleaning roomCleaning32=RoomCleaning.builder().done(false).build(); roomCleaning32.setRoom(roomRepository.findByName("Középső terem")); roomCleaning32.setCleaning(cleaning2); roomCleaning32.setCleaningItem(cleaningItemRepository.findByName("felmosás"));
-		RoomCleaning roomCleaning33=RoomCleaning.builder().done(true).build(); roomCleaning33.setRoom(roomRepository.findByName("Mosdók")); roomCleaning33.setCleaning(cleaning2); roomCleaning33.setCleaningItem(cleaningItemRepository.findByName("tiszta"));
+		RoomCleaning roomCleaning33=RoomCleaning.builder().done(true).build(); roomCleaning33.setRoom(roomRepository.findByName("Mosdók")); roomCleaning33.setCleaning(cleaning2); roomCleaning33.setCleaningItem(cleaningItemRepository.findByName("tiszta kagylók"));
 		RoomCleaning roomCleaning34=RoomCleaning.builder().done(true).build(); roomCleaning34.setRoom(roomRepository.findByName("Mosdók")); roomCleaning34.setCleaning(cleaning2); roomCleaning34.setCleaningItem(cleaningItemRepository.findByName("wcpapír"));
 		RoomCleaning roomCleaning35=RoomCleaning.builder().done(true).build(); roomCleaning35.setRoom(roomRepository.findByName("Mosdók")); roomCleaning35.setCleaning(cleaning2); roomCleaning35.setCleaningItem(cleaningItemRepository.findByName("törülköző"));
 		RoomCleaning roomCleaning36=RoomCleaning.builder().done(true).build(); roomCleaning36.setRoom(roomRepository.findByName("Mosdók")); roomCleaning36.setCleaning(cleaning2); roomCleaning36.setCleaningItem(cleaningItemRepository.findByName("felmosás"));

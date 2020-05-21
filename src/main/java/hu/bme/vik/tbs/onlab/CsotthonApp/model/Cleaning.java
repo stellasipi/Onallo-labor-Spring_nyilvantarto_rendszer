@@ -19,7 +19,7 @@ public class Cleaning {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "cleaning",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "cleaning",cascade = CascadeType.ALL)
     private List<RoomCleaning> roomCleanings=new ArrayList<>();
 
     @NotNull

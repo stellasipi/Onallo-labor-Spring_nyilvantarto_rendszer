@@ -7,7 +7,6 @@ import hu.bme.vik.tbs.onlab.CsotthonApp.mapper.CleaningMapper;
 import hu.bme.vik.tbs.onlab.CsotthonApp.mapper.RoomCleaningMapper;
 import hu.bme.vik.tbs.onlab.CsotthonApp.mapper.RoomMapper;
 import hu.bme.vik.tbs.onlab.CsotthonApp.model.Cleaning;
-import hu.bme.vik.tbs.onlab.CsotthonApp.model.CleaningItem;
 import hu.bme.vik.tbs.onlab.CsotthonApp.model.Room;
 import hu.bme.vik.tbs.onlab.CsotthonApp.model.RoomCleaning;
 import hu.bme.vik.tbs.onlab.CsotthonApp.repository.*;
@@ -19,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CleaningService {
@@ -96,7 +96,8 @@ public class CleaningService {
         return roomDTOs;
     }
 
-    public List<RoomCleaningDTO> createCleaing(List<RoomCleaningDTO> roomCleaningDTOs){
+    //@Transactional
+    public List<RoomCleaningDTO> createCleaning(List<RoomCleaningDTO> roomCleaningDTOs){
         Cleaning cleaning=Cleaning.builder()
                 .scoutGroup(scoutGroupRepository.findByName("Levendula"))
                 .user(userRepository.findByEmail("stella@email.com")) //ezt majd javítani
@@ -118,6 +119,21 @@ public class CleaningService {
             persisRoomCleaningDTOs.add(roomCleaningMapper.roomCleaingToRoomCleaningDTO(roomCleaning));
         }
         return persisRoomCleaningDTOs;
+    }
+
+    public Boolean deleteCleaning(Integer cleaningId){
+        Optional<Cleaning> cleaningOptional=cleaningRepository.findById(cleaningId);
+        if(cleaningOptional.isPresent()){
+            List<RoomCleaning> roomCleanings=roomCleaningRepository.findByCleaning(cleaningOptional.get());
+            for(RoomCleaning roomCleaning:roomCleanings){
+                roomCleaningRepository.deleteById(roomCleaning.getId());
+            }
+            cleaningRepository.deleteById(cleaningId);
+            return true;
+        }else {
+            return false;
+        }
+
     }
 
 }
