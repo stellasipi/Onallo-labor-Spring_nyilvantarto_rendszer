@@ -116,12 +116,8 @@ class App extends Component {
       { room: { name: "Mosdók" }, cleaningItem: { name: mosdok_felmosas_name }, done: mosdok_felmosas_done !== '' ? mosdok_felmosas_done : false },
     ])
       .then(
-        this.myFunction()
+        axios.get(fetchURL + 'cleanings').then(res => this.setState({ cleanings: res.data }))
       )
-  }
-
-  myFunction(){
-    console.log("Siker")
   }
 
   //DELETE requests
