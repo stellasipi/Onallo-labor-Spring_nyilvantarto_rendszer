@@ -11,6 +11,7 @@ import Maintenances from './components/pages/Maintenance/Maintenances';
 import CreateMaintenance from './components/pages/Maintenance/CreateMaintenance';
 import Cleanings from './components/pages/Cleaning/Cleanings';
 import CreateCleanings from './components/pages/Cleaning/CreateCleaning';
+import PageHeader from './components/pages/PageHeader'
 
 const fetchURL = 'http://192.168.0.102:8080/'; //localhost, for mobile testing: 192.168.0.102
 
@@ -149,6 +150,7 @@ class App extends Component {
           )} />
           <Route path="/log" render={props => (
             <React.Fragment>
+              <PageHeader title="Nyitás/Zárás"/>
               <CreateLog createLog={this.createLog} />
               <Logs logs={this.state.logs}
                 deleteLog={this.deleteLog} />
@@ -156,6 +158,7 @@ class App extends Component {
           )} />
           <Route path="/maintenance" render={props => (
             <React.Fragment>
+              <PageHeader title="Karbantartás"/>
               <CreateMaintenance createMaintenance={this.createMaintenance} />
               <Maintenances maintenances={this.state.maintenances}
                 deleteMaintenance={this.deleteMaintenance} />
@@ -163,17 +166,18 @@ class App extends Component {
           )} />
           <Route path="/cleaning" render={props => (
             <React.Fragment>
+              <PageHeader title="Takarítás"/>
               <CreateCleanings createCleaning={this.createCleaning} />
               <Cleanings cleanings={this.state.cleanings}
                 rooms={this.state.rooms}
                 deleteCleaning={this.deleteCleaning} />
             </React.Fragment>
           )} />
-          <Route path="/login" render={props => (
+          {/* <Route path="/login" render={props => (
             <React.Fragment>
               <h4>Még nincs kész, nézz vissza később.</h4>
             </React.Fragment>
-          )} />
+          )} /> */}
         </div>
       </Router>
     );

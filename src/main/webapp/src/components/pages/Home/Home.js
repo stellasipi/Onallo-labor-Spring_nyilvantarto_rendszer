@@ -8,7 +8,7 @@ class Home extends Component {
                 <a role="button" className="button btn btn-outline-light" style={buttonStyle} href="/log">Nyitás/zárás</a>
                 <a role="button" className="button btn btn-outline-light" style={buttonStyle} href="/maintenance">Karbantartás</a>
                 <a role="button" className="button btn btn-outline-light" style={buttonStyle} href="/cleaning">Takarítás</a>
-                <a role="button" className="button btn btn-outline-light" style={buttonStyle} href="/login">Bejelentkezés</a>
+                {/* <a role="button" className="button btn btn-outline-light" style={buttonStyle} href="/login">Bejelentkezés</a> */}
             </div>
         )
     }
