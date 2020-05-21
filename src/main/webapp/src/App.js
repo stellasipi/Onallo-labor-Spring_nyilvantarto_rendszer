@@ -173,11 +173,11 @@ class App extends Component {
                 deleteCleaning={this.deleteCleaning} />
             </React.Fragment>
           )} />
-          {/* <Route path="/login" render={props => (
+          <Route path="/login" render={props => (
             <React.Fragment>
               <h4>Még nincs kész, nézz vissza később.</h4>
             </React.Fragment>
-          )} /> */}
+          )} />
         </div>
       </Router>
     );

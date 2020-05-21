@@ -6,10 +6,10 @@ class Log extends Component {
         return (
             <div style={logStyle}>
                 <div style={itemStyle}>
-                    Típus: {this.props.log.type === 'OPENING' ? 'Nyitás' : 'Zárás'}<br />
-                    Idő: {this.props.log.time}<br />
-                    {this.props.log.comment != null ? <p style={commentStyle}>Megjegyzések: {this.props.log.comment}</p> : ''}
-                    Ki? {this.props.log.user.name}
+                    <strong>Típus:</strong> {this.props.log.type === 'OPENING' ? 'Nyitás' : 'Zárás'}<br />
+                    <strong>Idő:</strong> {this.props.log.time}<br />
+                    {this.props.log.comment != null ? <p style={commentStyle}><strong>Megjegyzések:</strong> {this.props.log.comment}</p> : ''}
+                    <strong>Ki?</strong> {this.props.log.user.name}
                 </div>
                 <div style={deleteButtonStyle}>
                     <button onClick={this.props.deleteLog.bind(this, this.props.log.id)} type="button" className="btn btn-danger">X</button>
