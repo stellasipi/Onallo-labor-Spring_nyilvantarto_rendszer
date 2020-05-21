@@ -1,0 +1,14 @@
+li{
+    border: 0px !important;
+    padding: 0px !important;
+}
+
+.bi-chevron-down {
+    /* margin-right: 3%; */
+    align-self: center;
+    text-align: center;
+}
+
+.bi-square {
+    margin-right: 5px;
+}

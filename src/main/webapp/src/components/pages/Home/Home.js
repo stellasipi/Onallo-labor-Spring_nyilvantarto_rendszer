@@ -17,7 +17,7 @@ class Home extends Component {
 const homeStyle={
     display: 'flex',
     flexDirection: 'column',
-    margin: '5% 10%',
+    margin: '1% 10%',
 }
 
 
@@ -26,14 +26,10 @@ const buttonStyle={
     fontSize: '30px',
     color: '#44bb44',
     textShadow: '1.5px 1.5px 5px #517351',
-    paddingTop: '5%',
-    paddingBottom: '5%',
+    paddingTop: '3%',
+    paddingBottom: '3%',
     marginTop: '1%',
-    marginBottom: '1%'/*,
-    ':active': {
-        color: '#f8f9fa'
-    }*/
-    
+    marginBottom: '1%'    
 }
 
 export default Home

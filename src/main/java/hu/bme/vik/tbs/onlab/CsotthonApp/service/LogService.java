@@ -6,9 +6,11 @@ import hu.bme.vik.tbs.onlab.CsotthonApp.model.Log;
 import hu.bme.vik.tbs.onlab.CsotthonApp.model.User;
 import hu.bme.vik.tbs.onlab.CsotthonApp.repository.LogRepository;
 import hu.bme.vik.tbs.onlab.CsotthonApp.repository.UserRepository;
+import hu.bme.vik.tbs.onlab.CsotthonApp.util.Time;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -25,12 +27,15 @@ public class LogService {
     @Autowired
     private final LogMapper logMapper;
 
-    public LogService(){ logMapper = Mappers.getMapper(LogMapper.class);}
+    public LogService(){
+        logMapper = Mappers.getMapper(LogMapper.class);
+    }
 
+    @Transactional
     public LogDTO createLog(LogDTO logDTO){
         Log log=logMapper.logDTOtoLog(logDTO);
         log.setId(null);
-        log.setTime(new Timestamp(System.currentTimeMillis()));
+        log.setTime(Time.getNowInUTC());
         User user=userRepository.findById(log.getUser().getId()).get();
         log.setUser(user);
         //majd a user setelése is ide jön, autentikáció során
@@ -47,11 +52,11 @@ public class LogService {
         return logDTOs;
     }
     public Boolean delete(Integer id){
-        logRepository.deleteById(id);
         if(logRepository.findById(id).isPresent()){
-            return false;
-        }else {
+            logRepository.deleteById(id);
             return true;
+        }else {
+            return false;
         }
     }
 }

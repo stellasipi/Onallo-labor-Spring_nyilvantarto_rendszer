@@ -1,8 +1,6 @@
 package hu.bme.vik.tbs.onlab.CsotthonApp.web;
 
-import hu.bme.vik.tbs.onlab.CsotthonApp.dto.LogDTO;
 import hu.bme.vik.tbs.onlab.CsotthonApp.dto.MaintenanceDTO;
-import hu.bme.vik.tbs.onlab.CsotthonApp.model.Maintenance;
 import hu.bme.vik.tbs.onlab.CsotthonApp.repository.MaintenanceRepository;
 import hu.bme.vik.tbs.onlab.CsotthonApp.service.MaintenanceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +25,12 @@ public class MaintenanceController {
     }
 
     @PostMapping
-    public MaintenanceDTO createLog(@RequestBody MaintenanceDTO maintenance){
+    public MaintenanceDTO createMaintenance(@RequestBody MaintenanceDTO maintenance){
         return maintenanceService.createMaintenance(maintenance);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Integer> deleteLog(@PathVariable Integer id){
+    public ResponseEntity<Integer> deleteMaintenance(@PathVariable Integer id){
         Boolean isRemoved=maintenanceService.delete(id);
 
         if (!isRemoved) {
