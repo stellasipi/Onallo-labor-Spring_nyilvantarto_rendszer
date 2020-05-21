@@ -40,7 +40,8 @@ const RoomStyle = {
 }
 
 const roomNameStyle = {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginBottom: '8px'
 }
 
 export default Room

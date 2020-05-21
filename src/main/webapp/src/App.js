@@ -10,6 +10,7 @@ import axios from 'axios';
 import Maintenances from './components/pages/Maintenance/Maintenances';
 import CreateMaintenance from './components/pages/Maintenance/CreateMaintenance';
 import Cleanings from './components/pages/Cleaning/Cleanings';
+import CreateCleanings from './components/pages/Cleaning/CreateCleaning';
 
 const fetchURL='http://192.168.0.102:8080/'; //localhost, for mobile testing: 192.168.0.102
 
@@ -68,6 +69,15 @@ class App extends Component {
       );
   }
 
+  createCleanings = () => {
+    axios.post(
+
+    )
+    .then(
+
+    );
+  }
+
   //DELETE requests
   deleteLog = (id) => {
     axios.delete(fetchURL+`logs/${id}`)
@@ -78,6 +88,12 @@ class App extends Component {
     axios.delete(fetchURL+`maintenances/${id}`)
       .then(res => this.setState({maintenances: [...this.state.maintenances.filter(maintenance => maintenance.id!==id)]}))
   }
+
+  deleteCleaning = (id) => {
+    axios.delete(fetchURL+`cleanings/${id}`)
+      .then(res => this.setState({cleanings: [...this.state.cleanings.filter(cleanings => cleanings.id!==id)]}))
+  }
+
 
   render() {
     return (
@@ -105,8 +121,10 @@ class App extends Component {
           )} />
           <Route path="/cleaning" render={props => (
             <React.Fragment>
+              <CreateCleanings createCleanings={this.createCleanings}/>
               <Cleanings cleanings={this.state.cleanings} 
-              rooms={this.state.rooms} />
+              rooms={this.state.rooms} 
+              deleteCleaning={this.deleteCleaning}/>
             </React.Fragment>
           )} />
           <Route path="/login" render={props => (

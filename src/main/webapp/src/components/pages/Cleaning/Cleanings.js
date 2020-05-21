@@ -6,7 +6,7 @@ class Cleanings extends Component {
     render() {
         return this.props.cleanings.map((cleaning) => (
             <Cleaning key={cleaning.id} cleaning={cleaning} 
-            rooms={this.props.rooms}/>
+            rooms={this.props.rooms} deleteCleaning={this.props.deleteCleaning}/>
         ));
     }
 }

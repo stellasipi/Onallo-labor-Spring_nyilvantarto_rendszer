@@ -4,7 +4,11 @@ li{
 }
 
 .bi-chevron-down {
-    margin-right: 3%;
+    /* margin-right: 3%; */
     align-self: center;
     text-align: center;
+}
+
+.bi-square {
+    margin-right: 5px;
 }

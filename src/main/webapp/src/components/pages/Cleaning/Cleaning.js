@@ -28,6 +28,9 @@ class Cleaning extends Component {
                     <svg className="bi bi-chevron-down" width="32" height="32" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" d="M1.646 4.646a.5.5 0 01.708 0L8 10.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 010-.708z" clipRule="evenodd" />
                     </svg>
+                    <div style={deleteButtonStyle}>
+                    <button onClick={this.props.deleteCleaning.bind(this, this.props.cleaning.id)} type="button" className="btn btn-danger">X</button>
+                </div>
                 </div>
                 {/* legördülő rész */}
                 <Collapse isOpen={this.state.collapse}>
@@ -47,6 +50,14 @@ class Cleaning extends Component {
 Cleaning.propTypes = {
     cleaning: PropTypes.object.isRequired,
     rooms: PropTypes.array.isRequired
+}
+
+const deleteButtonStyle = {
+    flex: '1',
+    margin: '16px 16px',
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    textAlign: 'center'
 }
 
 const cleaningStyle = {
