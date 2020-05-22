@@ -39,7 +39,7 @@ public class CleaningController {
     }
 
     @PostMapping
-    public List<RoomCleaningDTO> createCleaning(@RequestBody List<RoomCleaningDTO> roomCleanings){
+    public CleaningDTO createCleaning(@RequestBody List<RoomCleaningDTO> roomCleanings){
         return cleaningService.createCleaning(roomCleanings);
     }
 

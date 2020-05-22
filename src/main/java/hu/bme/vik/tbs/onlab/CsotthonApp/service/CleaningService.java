@@ -96,8 +96,7 @@ public class CleaningService {
         return roomDTOs;
     }
 
-    //@Transactional
-    public List<RoomCleaningDTO> createCleaning(List<RoomCleaningDTO> roomCleaningDTOs){
+    public CleaningDTO createCleaning(List<RoomCleaningDTO> roomCleaningDTOs){
         Cleaning cleaning=Cleaning.builder()
                 .scoutGroup(scoutGroupRepository.findByName("Levendula"))
                 .user(userRepository.findByEmail("stella@email.com")) //ezt majd javítani
@@ -118,7 +117,7 @@ public class CleaningService {
 
             persisRoomCleaningDTOs.add(roomCleaningMapper.roomCleaingToRoomCleaningDTO(roomCleaning));
         }
-        return persisRoomCleaningDTOs;
+        return cleaningMapper.cleaingToCleaningDTO(cleaning);
     }
 
     public Boolean deleteCleaning(Integer cleaningId){

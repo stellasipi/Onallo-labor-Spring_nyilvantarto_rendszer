@@ -13,7 +13,7 @@ import Cleanings from './components/pages/Cleaning/Cleanings';
 import CreateCleanings from './components/pages/Cleaning/CreateCleaning';
 import PageHeader from './components/pages/PageHeader'
 
-const fetchURL = 'http://192.168.0.102:8080/'; //localhost, for mobile testing: 192.168.0.102
+const fetchURL = 'http://localhost:8080/'; //localhost, for mobile testing: 192.168.0.102
 
 class App extends Component {
   static childContextTypes = {
@@ -117,7 +117,7 @@ class App extends Component {
       { room: { name: "Mosdók" }, cleaningItem: { name: mosdok_felmosas_name }, done: mosdok_felmosas_done !== '' ? mosdok_felmosas_done : false },
     ])
       .then(
-        axios.get(fetchURL + 'cleanings').then(res => this.setState({ cleanings: res.data }))
+        res => this.setState({ cleanings: [res.data, ...this.state.cleanings] })
       )
   }
 
