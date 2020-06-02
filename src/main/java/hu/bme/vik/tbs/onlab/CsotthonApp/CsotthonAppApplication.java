@@ -82,7 +82,7 @@ public class CsotthonAppApplication implements CommandLineRunner {
 		Maintenance maintenance = Maintenance.builder()
 				.time(Time.getNowInUTC())
 				.user(user1)
-				.comment("Elfogyott a wcpapír és kéne egy felmosás.")
+				.comment("Elfogyott a citromlé és nyikorog kapu.")
 				.build();
 
 		scoutGroupRepository.save(scoutGroup1);

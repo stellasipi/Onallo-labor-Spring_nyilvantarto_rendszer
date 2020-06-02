@@ -47,7 +47,7 @@ class App extends Component {
   createLog = (type, comment, userId) => {
     axios.post(fetchURL + 'logs', {
       type,
-      comment,
+      comment: comment!==''?comment:null,
       user: {
         id: userId
       }
