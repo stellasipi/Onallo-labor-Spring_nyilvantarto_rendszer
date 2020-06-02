@@ -11,8 +11,6 @@ The project now can log the closes and openings, the cleanings and the maintenan
 <img src="imgs/01-home.PNG" width="200"> <img src="imgs/02-log.PNG" width="200"> <img src="imgs/04-cleaning2.PNG" width="200">
 ## Getting Started
 
-### Create the database schema
-...
 ### Installing and running the backend
 
 ```
