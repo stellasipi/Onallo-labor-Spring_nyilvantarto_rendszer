@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CleaningItem {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotNull

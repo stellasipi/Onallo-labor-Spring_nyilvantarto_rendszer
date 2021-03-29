@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Room {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(length = 30, unique = true)

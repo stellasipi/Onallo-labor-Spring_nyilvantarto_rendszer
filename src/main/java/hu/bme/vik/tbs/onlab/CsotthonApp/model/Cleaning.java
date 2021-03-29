@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Cleaning {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "cleaning",cascade = CascadeType.ALL)

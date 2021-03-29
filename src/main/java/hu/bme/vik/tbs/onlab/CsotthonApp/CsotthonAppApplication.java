@@ -19,39 +19,40 @@ import java.util.*;
 public class CsotthonAppApplication implements CommandLineRunner {
 
 
-	@Autowired
-	UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Autowired
-	ScoutGroupRepository scoutGroupRepository;
+    @Autowired
+    private ScoutGroupRepository scoutGroupRepository;
 
-	@Autowired
-	RoomRepository roomRepository;
+    @Autowired
+    private RoomRepository roomRepository;
 
-	@Autowired
-	CleaningItemRepository cleaningItemRepository;
+    @Autowired
+    private CleaningItemRepository cleaningItemRepository;
 
-	@Autowired
-	LogRepository logRepository;
+    @Autowired
+    private LogRepository logRepository;
 
-	@Autowired
-	MaintenanceRepository maintenanceRepository;
+    @Autowired
+    private MaintenanceRepository maintenanceRepository;
 
-	@Autowired
-	CleaningRepository cleaningRepository;
+    @Autowired
+    private CleaningRepository cleaningRepository;
 
-	@Autowired
-	RoomCleaningRepository roomCleaningRepository;
+    @Autowired
+    private RoomCleaningRepository roomCleaningRepository;
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		SpringApplication.run(CsotthonAppApplication.class, args);
-	}
+        SpringApplication.run(CsotthonAppApplication.class, args);
+    }
 
-	@Override
-	public void run(String... args) throws Exception {
-		//test data
-		ScoutGroup scoutGroup1=ScoutGroup.builder().name("Levendula").sex(Sex.FEMALE).build();
+    @Override
+    public void run(String... args) throws Exception {
+        //test data
+
+		/*ScoutGroup scoutGroup1=ScoutGroup.builder().name("Levendula").sex(Sex.FEMALE).build();
 
 		User user1= User.builder()
 				.name("Tóth-Baranyi Stella")
@@ -71,7 +72,7 @@ public class CsotthonAppApplication implements CommandLineRunner {
 				.build();
 
 		Log log2 = Log.builder()
-				.time(Time.getSpecificTimeInUTC(2020,Calendar.MARCH,24,12,30)/*new Timestamp(new GregorianCalendar(2020, 3, 24,12,30,00).getTimeInMillis())*/)
+				.time(Time.getSpecificTimeInUTC(2020,Calendar.MARCH,24,12,30))
 				.type(LogType.CLOSING)
 				.user(user1)
 				.build();
@@ -92,7 +93,7 @@ public class CsotthonAppApplication implements CommandLineRunner {
 
 		//cleaning section NOT TEST
 		List<String> rooms=new ArrayList<>(Arrays.asList("Pince","Nagy terem","Konyha","Középső terem","Mosdók"));
-		List<String> cleaningItems=new ArrayList<>(Arrays.asList("felmosás","rekeszek","lomok","elrendezés","konyhapult","konyhabútor","mosogatás","faliujság","vitrin","raktár","tiszta kagylók","wcpapír","törülköző"));
+		List<String> cleaningItems=new ArrayList<>(Arrays.asList("felmosás","rekeszek","lomok","elrendezés","konyhapult","konyhabútor","mosogatás","faliújság","vitrin","raktár","tiszta kagylók","wcpapír","törülköző"));
 
 		for(String room:rooms){
 			Room roomToPersist=Room.builder().name(room).build();
@@ -188,10 +189,8 @@ public class CsotthonAppApplication implements CommandLineRunner {
 				roomCleaning31, roomCleaning32, roomCleaning33,
 				roomCleaning34, roomCleaning35, roomCleaning36));
 
-		roomCleaningRepository.saveAll(roomCleanings2);
-
-
-	}
+		roomCleaningRepository.saveAll(roomCleanings2);*/
+    }
 
 
 }
