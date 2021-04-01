@@ -12,6 +12,9 @@ class Room extends Component {
         roomCleaningItems: []
     };
 
+
+    /* ehelyett cleaning_id alapján lekérjük */
+
     componentDidMount() {
         axios.get(this.context.fetchURL+'cleanings/'+ this.props.cleaningId + '/roomCleaning/'+this.props.room.name)
             .then(res => this.setState({ roomCleaningItems: res.data }))

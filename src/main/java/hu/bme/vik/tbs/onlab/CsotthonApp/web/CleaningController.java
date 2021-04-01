@@ -12,19 +12,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value="/cleanings")
+@RequestMapping(value = "/cleanings")
 public class CleaningController {
 
     @Autowired
     CleaningService cleaningService;
 
     @GetMapping
-    public List<CleaningDTO> getAllCleanings(){
+    public List<CleaningDTO> getAllCleanings() {
         return cleaningService.getAllCleanings();
     }
 
     @GetMapping("/{cleaningId}/roomCleaning")
-    public List<RoomCleaningDTO> getRoomCleaningsForCleanging(@PathVariable Integer cleaningId){
+    public List<RoomCleaningDTO> getRoomCleaningsForCleanging(@PathVariable Integer cleaningId) {
         return cleaningService.getRoomCleaningsForCleanging(cleaningId);
     }
 
@@ -34,18 +34,18 @@ public class CleaningController {
     }
 
     @GetMapping("/rooms")
-    public List<RoomDTO> getRooms(){
+    public List<RoomDTO> getRooms() {
         return cleaningService.getRooms();
     }
 
     @PostMapping
-    public CleaningDTO createCleaning(@RequestBody List<RoomCleaningDTO> roomCleanings){
+    public CleaningDTO createCleaning(@RequestBody List<RoomCleaningDTO> roomCleanings) {
         return cleaningService.createCleaning(roomCleanings);
     }
 
     @DeleteMapping("/{cleaningId}")
-    public ResponseEntity<Integer> deleteCleaning(@PathVariable Integer cleaningId){
-        Boolean isRemoved=cleaningService.deleteCleaning(cleaningId);
+    public ResponseEntity<Integer> deleteCleaning(@PathVariable Integer cleaningId) {
+        Boolean isRemoved = cleaningService.deleteCleaning(cleaningId);
         if (!isRemoved) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

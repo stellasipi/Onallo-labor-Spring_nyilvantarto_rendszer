@@ -69,6 +69,7 @@ class App extends Component {
       );
   }
 
+  //TODO: JAVÍTANI, MERT NAGYON UNDORÍTÓ
   createCleaning = (
     pince_rekeszek_name, pince_rekeszek_done,
     pince_felmosas_name, pince_felmosas_done,

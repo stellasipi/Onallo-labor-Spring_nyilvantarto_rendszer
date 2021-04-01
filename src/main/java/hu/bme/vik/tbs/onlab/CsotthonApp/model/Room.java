@@ -22,7 +22,10 @@ public class Room {
     @NotNull
     private String name;
 
+    /*@OneToMany(fetch = FetchType.EAGER, mappedBy = "room",cascade = CascadeType.ALL)
+    private List<RoomCleaning> roomCleanings=new ArrayList<>();*/
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "room",cascade = CascadeType.ALL)
-    private List<RoomCleaning> roomCleanings=new ArrayList<>();
+    private List<RoomCleaningItemPairing> roomCleaningItemPairings=new ArrayList<>();
 
 }
