@@ -1,12 +1,11 @@
 package hu.bme.vik.tbs.onlab.CsotthonApp.web;
 
-import hu.bme.vik.tbs.onlab.CsotthonApp.dto.CleaningDTO;
-import hu.bme.vik.tbs.onlab.CsotthonApp.dto.RoomCleaningDTO;
-import hu.bme.vik.tbs.onlab.CsotthonApp.dto.RoomDTO;
+import hu.bme.vik.tbs.onlab.CsotthonApp.dto.*;
 import hu.bme.vik.tbs.onlab.CsotthonApp.service.CleaningService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,6 +35,11 @@ public class CleaningController {
     @GetMapping("/rooms")
     public List<RoomDTO> getRooms() {
         return cleaningService.getRooms();
+    }
+
+    @GetMapping("/pairings")
+    public List<RoomCleaningItemPairingMapDTO> getPairings(){
+        return cleaningService.getPairings();
     }
 
     @PostMapping

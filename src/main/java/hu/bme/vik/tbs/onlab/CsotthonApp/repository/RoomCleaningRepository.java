@@ -12,6 +12,5 @@ import java.util.List;
 @Repository
 public interface RoomCleaningRepository extends JpaRepository<RoomCleaning, Integer> {
     List<RoomCleaning> findByCleaning(Cleaning cleaning);
-    //List<RoomCleaning> findByCleaningAndRoom(Cleaning cleaning, Room room);
     List<RoomCleaning> findByCleaningAndRoomCleaningItemPairingRoomName(Cleaning cleaning, String roomName);
 }

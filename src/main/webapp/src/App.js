@@ -28,7 +28,8 @@ class App extends Component {
     logs: [],
     maintenances: [],
     rooms: [],
-    cleanings: []
+    cleanings: [],
+    pairings: []
   }
 
   //GET requests
@@ -41,6 +42,8 @@ class App extends Component {
       .then(res => this.setState({ rooms: res.data }));
     axios.get(fetchURL + 'cleanings')
       .then(res => this.setState({ cleanings: res.data }));
+    axios.get(fetchURL + 'cleanings/pairings')
+      .then(res => this.setState({ pairings: res.data }));
   }
 
   //POST requests
@@ -70,7 +73,7 @@ class App extends Component {
   }
 
   //TODO: JAVÍTANI, MERT NAGYON UNDORÍTÓ
-  createCleaning = (
+  /*createCleaning = (
     pince_rekeszek_name, pince_rekeszek_done,
     pince_felmosas_name, pince_felmosas_done,
 
@@ -120,7 +123,7 @@ class App extends Component {
       .then(
         res => this.setState({ cleanings: [res.data, ...this.state.cleanings] })
       )
-  }
+  }*/
 
   //DELETE requests
   deleteLog = (id) => {

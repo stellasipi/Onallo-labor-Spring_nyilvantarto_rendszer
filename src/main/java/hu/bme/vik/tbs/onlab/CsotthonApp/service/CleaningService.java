@@ -1,20 +1,19 @@
 package hu.bme.vik.tbs.onlab.CsotthonApp.service;
 
-import hu.bme.vik.tbs.onlab.CsotthonApp.dto.CleaningDTO;
-import hu.bme.vik.tbs.onlab.CsotthonApp.dto.RoomCleaningDTO;
-import hu.bme.vik.tbs.onlab.CsotthonApp.dto.RoomCleaningItemPairingDTO;
-import hu.bme.vik.tbs.onlab.CsotthonApp.dto.RoomDTO;
+import hu.bme.vik.tbs.onlab.CsotthonApp.dto.*;
 import hu.bme.vik.tbs.onlab.CsotthonApp.mapper.CleaningMapper;
 import hu.bme.vik.tbs.onlab.CsotthonApp.mapper.RoomCleaningMapper;
 import hu.bme.vik.tbs.onlab.CsotthonApp.mapper.RoomMapper;
 import hu.bme.vik.tbs.onlab.CsotthonApp.model.Cleaning;
 import hu.bme.vik.tbs.onlab.CsotthonApp.model.Room;
 import hu.bme.vik.tbs.onlab.CsotthonApp.model.RoomCleaning;
+import hu.bme.vik.tbs.onlab.CsotthonApp.model.RoomCleaningItemPairing;
 import hu.bme.vik.tbs.onlab.CsotthonApp.repository.*;
 import hu.bme.vik.tbs.onlab.CsotthonApp.util.Time;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,10 +107,28 @@ public class CleaningService {
         return roomDTOs;
     }
 
+    public List<RoomCleaningItemPairingMapDTO> getPairings() {
+        List<Room> rooms=roomRepository.findAll();
+        List<RoomCleaningItemPairing> pairings = roomCleaningItemPairingRepository.findAll();
+
+        List<RoomCleaningItemPairingMapDTO> pairingMapDTOs = new ArrayList<>();
+
+        for(Room room:rooms){
+            List<RoomCleaningItemPairing> pairingsByRoomName=roomCleaningItemPairingRepository.findByRoomName(room.getName());
+            List<String> cleaningItems=new ArrayList<>();
+            for(RoomCleaningItemPairing pairing:pairingsByRoomName){
+                cleaningItems.add(pairing.getCleaningItem().getName());
+            }
+            RoomCleaningItemPairingMapDTO mapDTO=new RoomCleaningItemPairingMapDTO(room.getName(),cleaningItems);
+            pairingMapDTOs.add(mapDTO);
+        }
+        return pairingMapDTOs;
+    }
+
     public CleaningDTO createCleaning(List<RoomCleaningDTO> roomCleaningDTOs) {
         Cleaning cleaning = Cleaning.builder()
-                .scoutGroup(scoutGroupRepository.findByName("Levendula"))
-                .user(userRepository.findByEmail("stella@email.com")) //ezt majd javítani
+                .scoutGroup(scoutGroupRepository.findByName("Levendula")) //TODO ezt majd javítani
+                .user(userRepository.findByEmail("stella@email.com")) //TODO ezt majd javítani
                 .time(Time.getNowInUTC())
                 .build();
         cleaningRepository.save(cleaning);
@@ -120,10 +137,8 @@ public class CleaningService {
 
         for (RoomCleaningDTO roomCleaningDTO : roomCleaningDTOs) {
             RoomCleaning roomCleaning = roomCleaningMapper.roomCleaningDTOtoRoomCleaning(roomCleaningDTO);
-
-            /*roomCleaning.setRoom(roomRepository.findByName(roomCleaning.getRoom().getName()));
-            roomCleaning.setCleaningItem(cleaningItemRepository.findByName(roomCleaning.getCleaningItem().getName()));*/
-            //roomCleaning.setRoomCleaningItemPairing();
+            RoomCleaningItemPairing pairing=roomCleaningItemPairingRepository.findByRoomNameAndCleaningItemName(roomCleaningDTO.getRoomCleaningItemPairing().getRoomName(),roomCleaningDTO.getRoomCleaningItemPairing().getCleaningItemName());
+            roomCleaning.setRoomCleaningItemPairing(pairing);
             roomCleaning.setCleaning(cleaning);
 
             roomCleaningRepository.save(roomCleaning);
@@ -133,19 +148,20 @@ public class CleaningService {
         return cleaningMapper.cleaingToCleaningDTO(cleaning);
     }
 
+    //TODO: fix child element removals
+    @Transactional
     public Boolean deleteCleaning(Integer cleaningId) {
         Optional<Cleaning> cleaningOptional = cleaningRepository.findById(cleaningId);
         if (cleaningOptional.isPresent()) {
-            List<RoomCleaning> roomCleanings = roomCleaningRepository.findByCleaning(cleaningOptional.get());
+            List<RoomCleaning> roomCleanings = cleaningOptional.get().getRoomCleanings();
             for (RoomCleaning roomCleaning : roomCleanings) {
-                roomCleaningRepository.deleteById(roomCleaning.getId());
+                roomCleaningRepository.delete(roomCleaning);
             }
-            cleaningRepository.deleteById(cleaningId);
+            cleaningRepository.delete(cleaningOptional.get());
             return true;
         } else {
             return false;
         }
-
     }
 
 }
