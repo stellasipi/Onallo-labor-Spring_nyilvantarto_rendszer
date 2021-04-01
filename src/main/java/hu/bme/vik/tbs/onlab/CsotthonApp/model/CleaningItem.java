@@ -22,9 +22,6 @@ public class CleaningItem {
     @Column(length = 30, unique = true)
     private String name;
 
-    /*@OneToMany(fetch = FetchType.EAGER, mappedBy = "cleaningItem",cascade = CascadeType.ALL)
-    private List<RoomCleaning> roomCleanings=new ArrayList<>();*/
-
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "cleaningItem",cascade = CascadeType.ALL)
     private List<RoomCleaningItemPairing> roomCleaningItemPairings=new ArrayList<>();
 
