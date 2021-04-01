@@ -27,7 +27,7 @@ public class RoomCleaning {
     private Boolean done;
 
     @ManyToOne
-    @NotNull
+    //@NotNull
     private Cleaning cleaning;
 
     public void setRoomCleaningItemPairing(RoomCleaningItemPairing roomCleaningItemPairing) {
@@ -40,8 +40,10 @@ public class RoomCleaning {
 
     public void setCleaning(Cleaning cleaning) {
         this.cleaning = cleaning;
-        if (cleaning.getRoomCleanings() == null) cleaning.setRoomCleanings(new ArrayList<>());
-        cleaning.getRoomCleanings().add(this);
+        if (cleaning != null) {
+            if (cleaning.getRoomCleanings() == null) cleaning.setRoomCleanings(new ArrayList<>());
+            cleaning.getRoomCleanings().add(this);
+        }
     }
 
 }

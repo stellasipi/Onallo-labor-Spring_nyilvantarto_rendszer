@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -151,17 +152,30 @@ public class CleaningService {
     //TODO: fix child element removals
     @Transactional
     public Boolean deleteCleaning(Integer cleaningId) {
-        Optional<Cleaning> cleaningOptional = cleaningRepository.findById(cleaningId);
-        if (cleaningOptional.isPresent()) {
+        cleaningRepository.deleteById(cleaningId);
+        return true;
+        //Optional<Cleaning> cleaningOptional = cleaningRepository.findById(cleaningId);
+
+        /*if (cleaningOptional.isPresent()) {
             List<RoomCleaning> roomCleanings = cleaningOptional.get().getRoomCleanings();
-            for (RoomCleaning roomCleaning : roomCleanings) {
+            /*for (RoomCleaning roomCleaning : roomCleanings) {
+                roomCleaning.setCleaning(null);
                 roomCleaningRepository.delete(roomCleaning);
+            }*/
+
+            /*Iterator<RoomCleaning> iterator= roomCleanings.iterator();
+            while (iterator.hasNext()){
+                RoomCleaning roomCleaning=iterator.next();
+                roomCleaning.setCleaning(null);
+
+                iterator.remove();
+                roomCleaningRepository.deleteById(roomCleaning.getId());
             }
-            cleaningRepository.delete(cleaningOptional.get());
+
             return true;
         } else {
             return false;
-        }
+        }*/
     }
 
 }

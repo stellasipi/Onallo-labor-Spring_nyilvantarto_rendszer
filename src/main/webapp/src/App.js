@@ -10,8 +10,9 @@ import axios from 'axios';
 import Maintenances from './components/pages/Maintenance/Maintenances';
 import CreateMaintenance from './components/pages/Maintenance/CreateMaintenance';
 import Cleanings from './components/pages/Cleaning/Cleanings';
-import CreateCleanings from './components/pages/Cleaning/CreateCleaning';
+import CreateCleaning from './components/pages/Cleaning/CreateCleaning';
 import PageHeader from './components/pages/PageHeader'
+import CreateCleaningNew from './components/pages/Cleaning/CreateCleaningNew';
 
 const fetchURL = 'http://localhost:8080/'; //localhost, for mobile testing: 192.168.0.102
 
@@ -171,7 +172,8 @@ class App extends Component {
           <Route path="/cleaning" render={props => (
             <React.Fragment>
               <PageHeader title="Takarítás"/>
-              <CreateCleanings createCleaning={this.createCleaning} />
+              <CreateCleaning createCleaning={this.createCleaning} />
+              {/* <CreateCleaningNew createCleaning={this.createCleaning} pairings={this.state.pairings} /> */}
               <Cleanings cleanings={this.state.cleanings}
                 rooms={this.state.rooms}
                 deleteCleaning={this.deleteCleaning} />
