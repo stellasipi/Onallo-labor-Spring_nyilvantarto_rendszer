@@ -68,16 +68,17 @@ public class CleaningService {
         return cleaningDTOs;
     }
 
-    public List<RoomCleaningDTO> getRoomCleaningsForCleanging(Integer cleaningId) {
-        Cleaning cleaning = cleaningRepository.findById(cleaningId).get();
-        List<RoomCleaning> roomCleanings = roomCleaningRepository.findByCleaning(cleaning);
+    public List<RoomCleaningDTO> getRoomCleaningsForCleanging(Integer cleaningId, String roomName) {
+        List<RoomCleaning> roomCleanings=new ArrayList<>();
+        Optional<Cleaning> cleaning = cleaningRepository.findById(cleaningId);
+        if(cleaning.isPresent()) {
+            if (roomName != null) {
+                roomCleanings = roomCleaningRepository.findByCleaningAndRoomCleaningItemPairingRoomName(cleaning.get(), roomRepository.findByName(roomName).getName());
+            } else {
+                roomCleanings = roomCleaningRepository.findByCleaning(cleaning.get());
+            }
+        }
         return createRoomCleaningDTOs(roomCleanings);
-    }
-
-    public List<RoomCleaningDTO> getRoomCleaningsForCleangingByRoom(Integer cleaningId, String roomName) {
-        Cleaning cleaning = cleaningRepository.findById(cleaningId).get();
-        List<RoomCleaning> roomCleaningsByRoom = roomCleaningRepository.findByCleaningAndRoomCleaningItemPairingRoomName(cleaning, roomRepository.findByName(roomName).getName());
-        return createRoomCleaningDTOs(roomCleaningsByRoom);
     }
 
     private List<RoomCleaningDTO> createRoomCleaningDTOs(List<RoomCleaning> roomCleanings) {

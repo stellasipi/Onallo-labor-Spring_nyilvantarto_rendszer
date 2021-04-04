@@ -1,8 +1,7 @@
 package hu.bme.vik.tbs.onlab.CsotthonApp.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.*;
-import org.springframework.transaction.annotation.Transactional;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

@@ -1,11 +1,12 @@
 package hu.bme.vik.tbs.onlab.CsotthonApp.web;
 
-import hu.bme.vik.tbs.onlab.CsotthonApp.dto.*;
+import hu.bme.vik.tbs.onlab.CsotthonApp.dto.CleaningDTO;
+import hu.bme.vik.tbs.onlab.CsotthonApp.dto.RoomCleaningDTO;
+import hu.bme.vik.tbs.onlab.CsotthonApp.dto.RoomCleaningItemPairingMapDTO;
+import hu.bme.vik.tbs.onlab.CsotthonApp.dto.RoomDTO;
 import hu.bme.vik.tbs.onlab.CsotthonApp.service.CleaningService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,11 +24,12 @@ public class CleaningController {
     }
 
     @GetMapping("/{cleaningId}/roomCleaning")
-    public List<RoomCleaningDTO> getRoomCleaningsForCleanging(@PathVariable Integer cleaningId, @RequestParam(required = false) String roomName) {
-        if (roomName == null) {
-            return cleaningService.getRoomCleaningsForCleanging(cleaningId);
+    public ResponseEntity<List<RoomCleaningDTO>> getRoomCleaningsForCleanging(@PathVariable Integer cleaningId, @RequestParam(required = false) String roomName) {
+        List<RoomCleaningDTO> response = cleaningService.getRoomCleaningsForCleanging(cleaningId, roomName);
+        if (!response.isEmpty()) {
+            return ResponseEntity.ok(response);
         } else {
-            return cleaningService.getRoomCleaningsForCleangingByRoom(cleaningId, roomName);
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -50,9 +52,9 @@ public class CleaningController {
     public ResponseEntity<Integer> deleteCleaning(@PathVariable Integer cleaningId) {
         Boolean isRemoved = cleaningService.deleteCleaning(cleaningId);
         if (!isRemoved) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
-        return new ResponseEntity<>(cleaningId, HttpStatus.OK);
+        return ResponseEntity.ok(cleaningId);
     }
 
 }
