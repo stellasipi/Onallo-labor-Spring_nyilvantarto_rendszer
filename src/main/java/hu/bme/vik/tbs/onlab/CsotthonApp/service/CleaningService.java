@@ -69,11 +69,12 @@ public class CleaningService {
     }
 
     public List<RoomCleaningDTO> getRoomCleaningsForCleanging(Integer cleaningId, String roomName) {
-        List<RoomCleaning> roomCleanings=new ArrayList<>();
+        List<RoomCleaning> roomCleanings = new ArrayList<>();
         Optional<Cleaning> cleaning = cleaningRepository.findById(cleaningId);
-        if(cleaning.isPresent()) {
+        if (cleaning.isPresent()) {
             if (roomName != null) {
-                roomCleanings = roomCleaningRepository.findByCleaningAndRoomCleaningItemPairingRoomName(cleaning.get(), roomRepository.findByName(roomName).getName());
+                if (roomRepository.findByName(roomName) != null)
+                    roomCleanings = roomCleaningRepository.findByCleaningAndRoomCleaningItemPairingRoomName(cleaning.get(), roomRepository.findByName(roomName).getName());
             } else {
                 roomCleanings = roomCleaningRepository.findByCleaning(cleaning.get());
             }
@@ -102,7 +103,6 @@ public class CleaningService {
         List<Room> rooms = roomRepository.findAll();
         List<RoomDTO> roomDTOs = new ArrayList<>();
         for (Room room : rooms) {
-            //room.setName(StringUtils.stripAccents(room.getName()));
             roomDTOs.add(roomMapper.roomToRoomDTO(room));
         }
         return roomDTOs;
