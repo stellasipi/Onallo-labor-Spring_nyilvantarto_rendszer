@@ -13,7 +13,7 @@ class Room extends Component {
     };
 
     componentDidMount() {
-        axios.get(this.context.fetchURL+'cleanings/'+ this.props.cleaningId + '/roomCleaning/'+this.props.room.name)
+        axios.get(this.context.fetchURL+'cleanings/'+ this.props.cleaningId + '/roomCleaning?roomName='+this.props.room.name)
             .then(res => this.setState({ roomCleaningItems: res.data }))
     }
     render() {

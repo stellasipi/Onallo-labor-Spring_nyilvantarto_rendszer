@@ -10,16 +10,20 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class CleaningItem {
+public class RoomCleaningItemPairing {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @ManyToOne
     @NotNull
-    @Column(length = 30, unique = true)
-    private String name;
+    private Room room;
 
-    @OneToMany(mappedBy = "cleaningItem", orphanRemoval = true)
-    private List<RoomCleaningItemPairing> roomCleaningItemPairings = new ArrayList<>();
+    @ManyToOne
+    @NotNull
+    private CleaningItem cleaningItem;
+
+    @OneToMany(orphanRemoval = true, mappedBy = "roomCleaningItemPairing")
+    private List<RoomCleaning> roomCleanings = new ArrayList<>();
 
 }

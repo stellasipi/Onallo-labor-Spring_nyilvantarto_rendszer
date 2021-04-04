@@ -16,11 +16,11 @@ import java.util.List;
 @AllArgsConstructor
 public class Cleaning {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "cleaning",cascade = CascadeType.ALL)
-    private List<RoomCleaning> roomCleanings=new ArrayList<>();
+    @OneToMany(orphanRemoval = true, mappedBy = "cleaning")
+    private List<RoomCleaning> roomCleanings = new ArrayList<>();
 
     @NotNull
     private Timestamp time;

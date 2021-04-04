@@ -1,8 +1,7 @@
 package hu.bme.vik.tbs.onlab.CsotthonApp.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.*;
-import org.springframework.transaction.annotation.Transactional;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,21 +10,14 @@ import java.util.ArrayList;
 @Getter
 @Setter
 @Entity
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class RoomCleaning {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne
     @NotNull
-    private Room room;
-
-    @ManyToOne
-    @NotNull
-    private CleaningItem cleaningItem;
+    private RoomCleaningItemPairing roomCleaningItemPairing;
 
     @NotNull
     private Boolean done;
@@ -34,21 +26,17 @@ public class RoomCleaning {
     @NotNull
     private Cleaning cleaning;
 
-    public void setRoom(Room room){
-        this.room=room;
-        if(room.getRoomCleanings()==null) room.setRoomCleanings(new ArrayList<>());
-        room.getRoomCleanings().add(this);
+    public void setRoomCleaningItemPairing(RoomCleaningItemPairing roomCleaningItemPairing) {
+        this.roomCleaningItemPairing = roomCleaningItemPairing;
+        if (roomCleaningItemPairing.getRoomCleanings() == null)
+            roomCleaningItemPairing.setRoomCleanings(new ArrayList<>());
+        roomCleaningItemPairing.getRoomCleanings().add(this);
+
     }
 
-    public void setCleaningItem(CleaningItem cleaningItem){
-        this.cleaningItem=cleaningItem;
-        if(cleaningItem.getRoomCleanings()==null) cleaningItem.setRoomCleanings(new ArrayList<>());
-        cleaningItem.getRoomCleanings().add(this);
-    }
-
-    public void setCleaning(Cleaning cleaning){
-        this.cleaning=cleaning;
-        if(cleaning.getRoomCleanings()==null) cleaning.setRoomCleanings(new ArrayList<>());
+    public void setCleaning(Cleaning cleaning) {
+        this.cleaning = cleaning;
+        if (cleaning.getRoomCleanings() == null) cleaning.setRoomCleanings(new ArrayList<>());
         cleaning.getRoomCleanings().add(this);
     }
 

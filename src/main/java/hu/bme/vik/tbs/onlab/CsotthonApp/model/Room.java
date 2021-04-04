@@ -10,9 +10,6 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,7 +19,7 @@ public class Room {
     @NotNull
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "room",cascade = CascadeType.ALL)
-    private List<RoomCleaning> roomCleanings=new ArrayList<>();
+    @OneToMany(mappedBy = "room", orphanRemoval = true)
+    private List<RoomCleaningItemPairing> roomCleaningItemPairings = new ArrayList<>();
 
 }

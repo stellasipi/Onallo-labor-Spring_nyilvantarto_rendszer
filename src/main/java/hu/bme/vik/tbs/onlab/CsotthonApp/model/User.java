@@ -18,7 +18,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotNull
@@ -32,7 +32,6 @@ public class User {
     @NotNull
     private String password;
 
-
     @NotNull
     @ManyToOne
     private ScoutGroup scoutGroup;
@@ -44,12 +43,12 @@ public class User {
     private Boolean scout;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Log> logs=new ArrayList<>();
+    private List<Log> logs = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Cleaning> cleanings=new ArrayList<>();
+    private List<Cleaning> cleanings = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Maintenance> maintenances=new ArrayList<>();
+    private List<Maintenance> maintenances = new ArrayList<>();
 
 }

@@ -7,8 +7,6 @@ import lombok.Setter;
 @Setter
 public class RoomCleaningDTO {
     private Integer id;
-    private RoomDTO room;
-    private CleaningItemDTO cleaningItem;
     private Boolean done;
-    private CleaningDTO cleaning;
+    private RoomCleaningItemPairingDTO roomCleaningItemPairing;
 }

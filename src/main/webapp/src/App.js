@@ -10,8 +10,9 @@ import axios from 'axios';
 import Maintenances from './components/pages/Maintenance/Maintenances';
 import CreateMaintenance from './components/pages/Maintenance/CreateMaintenance';
 import Cleanings from './components/pages/Cleaning/Cleanings';
-import CreateCleanings from './components/pages/Cleaning/CreateCleaning';
+import CreateCleaning from './components/pages/Cleaning/CreateCleaning';
 import PageHeader from './components/pages/PageHeader'
+import CreateCleaningNew from './components/pages/Cleaning/CreateCleaningNew';
 
 const fetchURL = 'http://localhost:8080/'; //localhost, for mobile testing: 192.168.0.102
 
@@ -28,7 +29,8 @@ class App extends Component {
     logs: [],
     maintenances: [],
     rooms: [],
-    cleanings: []
+    cleanings: [],
+    pairings: []
   }
 
   //GET requests
@@ -41,6 +43,8 @@ class App extends Component {
       .then(res => this.setState({ rooms: res.data }));
     axios.get(fetchURL + 'cleanings')
       .then(res => this.setState({ cleanings: res.data }));
+    axios.get(fetchURL + 'cleanings/pairings')
+      .then(res => this.setState({ pairings: res.data }));
   }
 
   //POST requests
@@ -69,7 +73,8 @@ class App extends Component {
       );
   }
 
-  createCleaning = (
+  //TODO: JAVÍTANI, MERT NAGYON UNDORÍTÓ
+  /*createCleaning = (
     pince_rekeszek_name, pince_rekeszek_done,
     pince_felmosas_name, pince_felmosas_done,
 
@@ -119,7 +124,7 @@ class App extends Component {
       .then(
         res => this.setState({ cleanings: [res.data, ...this.state.cleanings] })
       )
-  }
+  }*/
 
   //DELETE requests
   deleteLog = (id) => {
@@ -167,7 +172,8 @@ class App extends Component {
           <Route path="/cleaning" render={props => (
             <React.Fragment>
               <PageHeader title="Takarítás"/>
-              <CreateCleanings createCleaning={this.createCleaning} />
+              <CreateCleaning createCleaning={this.createCleaning} />
+              {/* <CreateCleaningNew createCleaning={this.createCleaning} pairings={this.state.pairings} /> */}
               <Cleanings cleanings={this.state.cleanings}
                 rooms={this.state.rooms}
                 deleteCleaning={this.deleteCleaning} />
