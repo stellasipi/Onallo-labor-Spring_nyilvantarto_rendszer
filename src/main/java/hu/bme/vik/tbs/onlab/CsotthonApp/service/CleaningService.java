@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -109,23 +108,24 @@ public class CleaningService {
     }
 
     public List<RoomCleaningItemPairingMapDTO> getPairings() {
-        List<Room> rooms=roomRepository.findAll();
+        List<Room> rooms = roomRepository.findAll();
         List<RoomCleaningItemPairing> pairings = roomCleaningItemPairingRepository.findAll();
 
         List<RoomCleaningItemPairingMapDTO> pairingMapDTOs = new ArrayList<>();
 
-        for(Room room:rooms){
-            List<RoomCleaningItemPairing> pairingsByRoomName=roomCleaningItemPairingRepository.findByRoomName(room.getName());
-            List<String> cleaningItems=new ArrayList<>();
-            for(RoomCleaningItemPairing pairing:pairingsByRoomName){
+        for (Room room : rooms) {
+            List<RoomCleaningItemPairing> pairingsByRoomName = roomCleaningItemPairingRepository.findByRoomName(room.getName());
+            List<String> cleaningItems = new ArrayList<>();
+            for (RoomCleaningItemPairing pairing : pairingsByRoomName) {
                 cleaningItems.add(pairing.getCleaningItem().getName());
             }
-            RoomCleaningItemPairingMapDTO mapDTO=new RoomCleaningItemPairingMapDTO(room.getName(),cleaningItems);
+            RoomCleaningItemPairingMapDTO mapDTO = new RoomCleaningItemPairingMapDTO(room.getName(), cleaningItems);
             pairingMapDTOs.add(mapDTO);
         }
         return pairingMapDTOs;
     }
 
+    @Transactional
     public CleaningDTO createCleaning(List<RoomCleaningDTO> roomCleaningDTOs) {
         Cleaning cleaning = Cleaning.builder()
                 .scoutGroup(scoutGroupRepository.findByName("Levendula")) //TODO ezt majd javítani
@@ -138,7 +138,7 @@ public class CleaningService {
 
         for (RoomCleaningDTO roomCleaningDTO : roomCleaningDTOs) {
             RoomCleaning roomCleaning = roomCleaningMapper.roomCleaningDTOtoRoomCleaning(roomCleaningDTO);
-            RoomCleaningItemPairing pairing=roomCleaningItemPairingRepository.findByRoomNameAndCleaningItemName(roomCleaningDTO.getRoomCleaningItemPairing().getRoomName(),roomCleaningDTO.getRoomCleaningItemPairing().getCleaningItemName());
+            RoomCleaningItemPairing pairing = roomCleaningItemPairingRepository.findByRoomNameAndCleaningItemName(roomCleaningDTO.getRoomCleaningItemPairing().getRoomName(), roomCleaningDTO.getRoomCleaningItemPairing().getCleaningItemName());
             roomCleaning.setRoomCleaningItemPairing(pairing);
             roomCleaning.setCleaning(cleaning);
 
@@ -149,33 +149,15 @@ public class CleaningService {
         return cleaningMapper.cleaingToCleaningDTO(cleaning);
     }
 
-    //TODO: fix child element removals
     @Transactional
     public Boolean deleteCleaning(Integer cleaningId) {
-        cleaningRepository.deleteById(cleaningId);
-        return true;
-        //Optional<Cleaning> cleaningOptional = cleaningRepository.findById(cleaningId);
-
-        /*if (cleaningOptional.isPresent()) {
-            List<RoomCleaning> roomCleanings = cleaningOptional.get().getRoomCleanings();
-            /*for (RoomCleaning roomCleaning : roomCleanings) {
-                roomCleaning.setCleaning(null);
-                roomCleaningRepository.delete(roomCleaning);
-            }*/
-
-            /*Iterator<RoomCleaning> iterator= roomCleanings.iterator();
-            while (iterator.hasNext()){
-                RoomCleaning roomCleaning=iterator.next();
-                roomCleaning.setCleaning(null);
-
-                iterator.remove();
-                roomCleaningRepository.deleteById(roomCleaning.getId());
-            }
-
+        Optional<Cleaning> cleaningOptional = cleaningRepository.findById(cleaningId);
+        if (cleaningOptional.isPresent()) {
+            cleaningRepository.delete(cleaningOptional.get());
             return true;
         } else {
             return false;
-        }*/
+        }
     }
 
 }

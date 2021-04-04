@@ -11,9 +11,6 @@ import java.util.ArrayList;
 @Getter
 @Setter
 @Entity
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class RoomCleaning {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +24,7 @@ public class RoomCleaning {
     private Boolean done;
 
     @ManyToOne
-    //@NotNull
+    @NotNull
     private Cleaning cleaning;
 
     public void setRoomCleaningItemPairing(RoomCleaningItemPairing roomCleaningItemPairing) {
@@ -40,10 +37,8 @@ public class RoomCleaning {
 
     public void setCleaning(Cleaning cleaning) {
         this.cleaning = cleaning;
-        if (cleaning != null) {
-            if (cleaning.getRoomCleanings() == null) cleaning.setRoomCleanings(new ArrayList<>());
-            cleaning.getRoomCleanings().add(this);
-        }
+        if (cleaning.getRoomCleanings() == null) cleaning.setRoomCleanings(new ArrayList<>());
+        cleaning.getRoomCleanings().add(this);
     }
 
 }

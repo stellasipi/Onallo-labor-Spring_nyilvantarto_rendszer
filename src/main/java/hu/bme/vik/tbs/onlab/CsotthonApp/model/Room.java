@@ -10,19 +10,16 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Room {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column(length = 30, unique = true)
     @NotNull
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "room",cascade = CascadeType.ALL)
-    private List<RoomCleaningItemPairing> roomCleaningItemPairings=new ArrayList<>();
+    @OneToMany(mappedBy = "room", orphanRemoval = true)
+    private List<RoomCleaningItemPairing> roomCleaningItemPairings = new ArrayList<>();
 
 }

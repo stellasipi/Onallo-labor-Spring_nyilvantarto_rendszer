@@ -15,7 +15,7 @@ import java.util.List;
 public class CleaningController {
 
     @Autowired
-    CleaningService cleaningService;
+    private CleaningService cleaningService;
 
     @GetMapping
     public List<CleaningDTO> getAllCleanings() {
@@ -23,13 +23,12 @@ public class CleaningController {
     }
 
     @GetMapping("/{cleaningId}/roomCleaning")
-    public List<RoomCleaningDTO> getRoomCleaningsForCleanging(@PathVariable Integer cleaningId) {
-        return cleaningService.getRoomCleaningsForCleanging(cleaningId);
-    }
-
-    @GetMapping("/{cleaningId}/roomCleaning/{roomName}")
-    public List<RoomCleaningDTO> getRoomCleaningsForCleangingByRoom(@PathVariable Integer cleaningId, @PathVariable String roomName){
-        return cleaningService.getRoomCleaningsForCleangingByRoom(cleaningId, roomName);
+    public List<RoomCleaningDTO> getRoomCleaningsForCleanging(@PathVariable Integer cleaningId, @RequestParam(required = false) String roomName) {
+        if (roomName == null) {
+            return cleaningService.getRoomCleaningsForCleanging(cleaningId);
+        } else {
+            return cleaningService.getRoomCleaningsForCleangingByRoom(cleaningId, roomName);
+        }
     }
 
     @GetMapping("/rooms")
@@ -38,7 +37,7 @@ public class CleaningController {
     }
 
     @GetMapping("/pairings")
-    public List<RoomCleaningItemPairingMapDTO> getPairings(){
+    public List<RoomCleaningItemPairingMapDTO> getPairings() {
         return cleaningService.getPairings();
     }
 
