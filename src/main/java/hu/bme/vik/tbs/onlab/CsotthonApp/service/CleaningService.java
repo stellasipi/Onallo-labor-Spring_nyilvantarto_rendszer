@@ -120,7 +120,7 @@ public class CleaningService {
             for (RoomCleaningItemPairing pairing : pairingsByRoomName) {
                 cleaningItems.add(pairing.getCleaningItem().getName());
             }
-            RoomCleaningItemPairingMapDTO mapDTO = new RoomCleaningItemPairingMapDTO(room.getName(), cleaningItems);
+            RoomCleaningItemPairingMapDTO mapDTO = new RoomCleaningItemPairingMapDTO(room.getId(), room.getName(), cleaningItems);
             pairingMapDTOs.add(mapDTO);
         }
         return pairingMapDTOs;

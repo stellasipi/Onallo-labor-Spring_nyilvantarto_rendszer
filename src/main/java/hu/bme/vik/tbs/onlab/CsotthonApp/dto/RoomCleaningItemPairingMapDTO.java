@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoomCleaningItemPairingMapDTO {
-    String roomName;
-    List<String> cleaningItems;
+    private Integer id; //roomId
+    private String roomName;
+    private List<String> cleaningItems;
 }
