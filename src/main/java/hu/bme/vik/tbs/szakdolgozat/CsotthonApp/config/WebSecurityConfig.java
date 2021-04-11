@@ -1,4 +1,4 @@
-package hu.bme.vik.tbs.szakdolgozat.CsotthoApp.config;
+package hu.bme.vik.tbs.szakdolgozat.CsotthonApp.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
