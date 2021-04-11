@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 public class RoomCleaningItemPairing {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne

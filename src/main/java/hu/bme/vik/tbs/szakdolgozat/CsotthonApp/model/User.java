@@ -40,13 +40,13 @@ public class User {
     @NotNull
     private Boolean scout;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Log> logs = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Cleaning> cleanings = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Maintenance> maintenances = new ArrayList<>();
 
 }

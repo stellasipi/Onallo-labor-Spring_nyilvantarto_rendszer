@@ -18,41 +18,45 @@ import java.util.List;
 @Service
 public class MaintenanceService {
     @Autowired
-    MaintenanceRepository maintenanceRepository;
+    private MaintenanceRepository maintenanceRepository;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private final MaintenanceMapper maintenanceMapper;
 
-    public MaintenanceService(){ maintenanceMapper = Mappers.getMapper(MaintenanceMapper.class);}
+    public MaintenanceService() {
+        maintenanceMapper = Mappers.getMapper(MaintenanceMapper.class);
+    }
 
     @Transactional
-    public MaintenanceDTO createMaintenance(MaintenanceDTO maintenanceDTO){
-        Maintenance maintenance=maintenanceMapper.maintenanceDTOtoMaintenance(maintenanceDTO);
+    public MaintenanceDTO createMaintenance(MaintenanceDTO maintenanceDTO) {
+        Maintenance maintenance = maintenanceMapper.maintenanceDTOtoMaintenance(maintenanceDTO);
         maintenance.setId(null);
         maintenance.setTime(Time.getNowInUTC());
         //majd a user setelése
-        User user=userRepository.findById(maintenance.getUser().getId()).get();
+        User user = userRepository.findById(maintenance.getUser().getId()).get();
         maintenance.setUser(user);
         maintenanceRepository.save(maintenance);
         return maintenanceMapper.maintenanceToMaintenanceDTO(maintenance);
     }
 
-    public List<MaintenanceDTO> getAll(){
-        List<Maintenance> maintenances=maintenanceRepository.findAllByOrderByTimeDesc();
-        List<MaintenanceDTO> maintenanceDTOs=new ArrayList<>();
-        for(Maintenance maintenance:maintenances){
+    public List<MaintenanceDTO> getAll() {
+        List<Maintenance> maintenances = maintenanceRepository.findAllByOrderByTimeDesc();
+        List<MaintenanceDTO> maintenanceDTOs = new ArrayList<>();
+        for (Maintenance maintenance : maintenances) {
             maintenanceDTOs.add(maintenanceMapper.maintenanceToMaintenanceDTO(maintenance));
         }
         return maintenanceDTOs;
     }
-    public Boolean delete(Integer id){
-        if(maintenanceRepository.findById(id).isPresent()){
+
+    @Transactional
+    public Boolean delete(Integer id) {
+        if (maintenanceRepository.findById(id).isPresent()) {
             maintenanceRepository.deleteById(id);
             return true;
-        }else {
+        } else {
             return false;
         }
     }

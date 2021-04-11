@@ -18,43 +18,45 @@ import java.util.List;
 @Service
 public class LogService {
     @Autowired
-    LogRepository logRepository;
+    private LogRepository logRepository;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private final LogMapper logMapper;
 
-    public LogService(){
+    public LogService() {
         logMapper = Mappers.getMapper(LogMapper.class);
     }
 
     @Transactional
-    public LogDTO createLog(LogDTO logDTO){
-        Log log=logMapper.logDTOtoLog(logDTO);
+    public LogDTO createLog(LogDTO logDTO) {
+        Log log = logMapper.logDTOtoLog(logDTO);
         log.setId(null);
         log.setTime(Time.getNowInUTC());
-        User user=userRepository.findById(log.getUser().getId()).get();
+        User user = userRepository.findById(log.getUser().getId()).get();
         log.setUser(user);
         //majd a user setelése is ide jön, autentikáció során
         logRepository.save(log);
         return logMapper.logToLogDTO(log);
     }
 
-    public List<LogDTO> getAll(){
-        List<Log> logs=logRepository.findAllByOrderByTimeDesc();
-        List<LogDTO> logDTOs=new ArrayList<>();
-        for(Log log:logs){
+    public List<LogDTO> getAll() {
+        List<Log> logs = logRepository.findAllByOrderByTimeDesc();
+        List<LogDTO> logDTOs = new ArrayList<>();
+        for (Log log : logs) {
             logDTOs.add(logMapper.logToLogDTO(log));
         }
         return logDTOs;
     }
-    public Boolean delete(Integer id){
-        if(logRepository.findById(id).isPresent()){
+
+    @Transactional
+    public Boolean delete(Integer id) {
+        if (logRepository.findById(id).isPresent()) {
             logRepository.deleteById(id);
             return true;
-        }else {
+        } else {
             return false;
         }
     }

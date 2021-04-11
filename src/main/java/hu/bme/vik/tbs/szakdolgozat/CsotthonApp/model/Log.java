@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class Log {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotNull
