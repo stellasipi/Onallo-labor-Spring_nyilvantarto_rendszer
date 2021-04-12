@@ -9,6 +9,7 @@ public class UserDTO {
     private Integer id;
     private String name;
     private String email;
+    private String username;
     private ScoutGroupDTO scoutGroup;
     private Boolean groupLeader;
     private Boolean scout;

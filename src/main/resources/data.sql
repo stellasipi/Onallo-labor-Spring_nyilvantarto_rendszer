@@ -42,9 +42,6 @@ INSERT INTO room_cleaning_item_pairing (id, room_id,cleaning_item_id) VALUES (18
 INSERT INTO scout_group (id, name, sex) VALUES (1, 'Levendula', 0);
 INSERT INTO scout_group (id, name, sex) VALUES (2, 'Szalamandra', 1);
 
-INSERT INTO user (id, email, group_leader, name, password, scout, scout_group_id) VALUES (1, 'stella@email.com', true, 'Tóth-Baranyi Stella', 'password', true, 1);
-INSERT INTO user (id, email, group_leader, name, password, scout, scout_group_id) VALUES (2, 'dadi@email.com', true, 'Kovács Dávid', 'password', true, 2);
-
 INSERT INTO log (id, comment, time, type, user_id) VALUES (1, 'Minden rendben', NOW(), 0, 1);
 INSERT INTO log (id, time, type, user_id) VALUES (2, NOW(), 0, 2);
 
