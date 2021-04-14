@@ -38,56 +38,71 @@ INSERT INTO room_cleaning_item_pairing (id, room_id,cleaning_item_id) VALUES (16
 INSERT INTO room_cleaning_item_pairing (id, room_id,cleaning_item_id) VALUES (17,5,13);
 INSERT INTO room_cleaning_item_pairing (id, room_id,cleaning_item_id) VALUES (18,5,1);
 
---Test data
-INSERT INTO scout_group (id, name, sex) VALUES (1, 'Levendula', 0);
-INSERT INTO scout_group (id, name, sex) VALUES (2, 'Szalamandra', 1);
+--Default scout groups
+INSERT INTO scout_group (id, name, sex) VALUES (1, 'Krumpli', 0);
+INSERT INTO scout_group (id, name, sex) VALUES (2, 'Bambusz', 0);
+INSERT INTO scout_group (id, name, sex) VALUES (3, 'Tarkabab', 0);
+INSERT INTO scout_group (id, name, sex) VALUES (4, 'Tobzoska', 1);
+INSERT INTO scout_group (id, name, sex) VALUES (5, 'Tukán', 1);
+INSERT INTO scout_group (id, name, sex) VALUES (6, 'Jaguár', 1);
+INSERT INTO scout_group (id, name, sex) VALUES (7, 'Levendula', 0);
+INSERT INTO scout_group (id, name, sex) VALUES (8, 'Lótusz', 0);
+INSERT INTO scout_group (id, name, sex) VALUES (9, 'Sebespisztráng', 1);
+INSERT INTO scout_group (id, name, sex) VALUES (10, 'Szalamandra', 1);
+INSERT INTO scout_group (id, name, sex) VALUES (11, 'Cseresznye', 0);
+INSERT INTO scout_group (id, name, sex) VALUES (12, 'Jázmin', 0);
+INSERT INTO scout_group (id, name, sex) VALUES (13, 'Mangó', 0);
+INSERT INTO scout_group (id, name, sex) VALUES (14, 'Puma', 1);
+INSERT INTO scout_group (id, name, sex) VALUES (15, 'Sün', 1);
+INSERT INTO scout_group (id, name, sex) VALUES (16, 'Szürkefarkas', 1);
 
+--Test data
 INSERT INTO log (id, comment, time, type, user_id) VALUES (1, 'Minden rendben', NOW(), 0, 1);
 INSERT INTO log (id, time, type, user_id) VALUES (2, NOW(), 0, 2);
 
 INSERT INTO maintenance (id, comment, time, user_id) VALUES (1, 'Elfogyott a citromlé és nyikorog kapu.', NOW(), 1);
 
-INSERT INTO cleaning (id, time, scout_group_id, user_id) VALUES (1, '2021-02-13 17:44:00', 1, 1);
-INSERT INTO cleaning (id, time, scout_group_id, user_id) VALUES (2, '2021-03-01 13:17:18', 2, 2);
+INSERT INTO cleaning (id, time, scout_group_id, user_id) VALUES (1, '2021-02-13 17:44:00', 7, 1);
+INSERT INTO cleaning (id, time, scout_group_id, user_id) VALUES (2, '2021-03-01 13:17:18', 10, 2);
 
 
 --cleaning id: 1
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (1,true,1,1);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (2,true,1,2);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (3,false,1,3);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (4,true,1,4);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (5,true,1,5);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (6,true,1,6);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (7,false,1,7);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (8,true,1,8);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (9,true,1,9);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (10,false,1,10);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (11,true,1,11);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (12,true,1,12);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (13,true,1,13);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (14,false,1,14);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (15,true,1,15);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (16,true,1,16);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (17,true,1,17);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (18,true,1,18);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (1,true,7,1);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (2,true,7,2);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (3,false,7,3);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (4,true,7,4);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (5,true,7,5);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (6,true,7,6);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (7,false,7,7);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (8,true,7,8);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (9,true,7,9);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (10,false,7,10);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (11,true,7,11);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (12,true,7,12);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (13,true,7,13);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (14,false,7,14);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (15,true,7,15);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (16,true,7,16);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (17,true,7,17);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (18,true,7,18);
 
 
 --cleaning id: 2
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (19,false,2,1);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (20,false,2,2);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (21,false,2,3);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (22,false,2,4);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (23,false,2,5);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (24,false,2,6);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (25,false,2,7);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (26,false,2,8);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (27,false,2,9);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (28,false,2,10);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (29,true,2,11);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (30,false,2,12);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (31,true,2,13);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (32,false,2,14);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (33,true,2,15);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (34,true,2,16);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (35,true,2,17);
-INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (36,true,2,18);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (19,false,10,1);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (20,false,10,2);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (21,false,10,3);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (22,false,10,4);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (23,false,10,5);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (24,false,10,6);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (25,false,10,7);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (26,false,10,8);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (27,false,10,9);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (28,false,10,10);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (29,true,10,11);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (30,false,10,12);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (31,true,10,13);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (32,false,10,14);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (33,true,10,15);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (34,true,10,16);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (35,true,10,17);
+INSERT INTO room_cleaning (id, done, cleaning_id, room_cleaning_item_pairing_id) VALUES (36,true,10,18);
