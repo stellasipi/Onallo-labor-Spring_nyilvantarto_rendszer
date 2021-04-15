@@ -21,10 +21,10 @@ import java.io.IOException;
 @Slf4j
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
-    private String jwtSecret;
-    private String jwtIssuer;
-    private String jwtType;
-    private String jwtAudience;
+    private final String jwtSecret;
+    private final String jwtIssuer;
+    private final String jwtType;
+    private final String jwtAudience;
 
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager, JdbcTemplate jdbcTemplate, String jwtAudience, String jwtIssuer, String jwtSecret, String jwtType) {
         super(authenticationManager);

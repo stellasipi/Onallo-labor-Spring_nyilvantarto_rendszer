@@ -1,26 +1,36 @@
 package hu.bme.vik.tbs.szakdolgozat.CsotthonApp.security;
 
-import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.model.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.LoginDTO;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.crypto.SecretKey;
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Date;
 
+@Slf4j
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    private String jwtAudience;
-    private String jwtIssuer;
-    private String jwtSecret;
-    private String jwtType;
+    private final String jwtAudience;
+    private final String jwtIssuer;
+    private final String jwtSecret;
+    private final String jwtType;
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    private static final String ERROR_MESSAGE = "Something went wrong while parsing /login request body";
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager, String jwtAudience, String jwtIssuer, String jwtSecret, String jwtType) {
         this.jwtAudience = jwtAudience;
@@ -28,7 +38,22 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         this.jwtSecret = jwtSecret;
         this.jwtType = jwtType;
         this.setAuthenticationManager(authenticationManager);
-        setFilterProcessesUrl("/login");
+    }
+
+    @Override
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        String requestBody;
+        try {
+            requestBody = IOUtils.toString(request.getReader());
+            LoginDTO authRequest = objectMapper.readValue(requestBody, LoginDTO.class);
+            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword());
+            setDetails(request, token);
+
+            return this.getAuthenticationManager().authenticate(token);
+        } catch(IOException e) {
+            log.error(ERROR_MESSAGE,e);
+            throw new InternalAuthenticationServiceException(ERROR_MESSAGE,e);
+        }
     }
 
     @Override
