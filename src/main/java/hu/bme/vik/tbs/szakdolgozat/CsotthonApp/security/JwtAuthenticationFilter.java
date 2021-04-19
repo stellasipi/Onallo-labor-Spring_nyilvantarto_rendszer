@@ -50,15 +50,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             setDetails(request, token);
 
             return this.getAuthenticationManager().authenticate(token);
-        } catch(IOException e) {
-            log.error(ERROR_MESSAGE,e);
-            throw new InternalAuthenticationServiceException(ERROR_MESSAGE,e);
+        } catch (IOException e) {
+            log.error(ERROR_MESSAGE, e);
+            throw new InternalAuthenticationServiceException(ERROR_MESSAGE, e);
         }
     }
 
     @Override
-    protected void successfulAuthentication( HttpServletRequest request, HttpServletResponse response, FilterChain filterChain, Authentication authentication) {
-        UserDetailsImpl user = (UserDetailsImpl)authentication.getPrincipal();
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain, Authentication authentication) throws IOException {
+        UserDetailsImpl user = (UserDetailsImpl) authentication.getPrincipal();
         SecretKey secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes());
         String token = Jwts.builder()
                 .signWith(secretKey, SignatureAlgorithm.HS512)
@@ -70,5 +70,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .compact();
 
         response.addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + token);
+        response.setContentType("application/json");
+        response.getWriter().write("{\"token\":\""+token+"\"}");
+        response.getWriter().flush();
     }
 }

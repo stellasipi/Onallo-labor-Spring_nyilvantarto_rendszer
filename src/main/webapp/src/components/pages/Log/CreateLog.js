@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
+import './../../layouts/ComponentSytle.css';
 
 class CreateLog extends Component {
     state = {
         type: '',
-        comment: '',
-        userId: '2' //majd javítani
+        comment: ''
     }
 
     onChange = (e) => {
@@ -17,7 +17,7 @@ class CreateLog extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         //pass fields
-        this.props.createLog(this.state.type, this.state.comment,this.state.userId);
+        this.props.createLog(this.state.type, this.state.comment);
 
         //clear fields
         this.setState({ type: '', comment: '' })
@@ -26,8 +26,8 @@ class CreateLog extends Component {
     render() {
         return (
             
-                <form style={logStyle} onSubmit={this.onSubmit}>
-                    <div className="form-group" style={formGroupStyle}>
+                <form className="component component-create" onSubmit={this.onSubmit}>
+                    <div className="form-group form-group-comp">
                         <label >Válaszd ki, hogy nyitottál vagy zártál?</label>
                         <select className="form-control" name="type" value={this.state.type} onChange={this.onChange} required>
                             <option></option>
@@ -35,31 +35,16 @@ class CreateLog extends Component {
                             <option value='CLOSING'>Zárás</option> 
                         </select>
                     </div>  
-                    <div className="form-group" style={formGroupStyle}>
+                    <div className="form-group form-group-comp" >
                         <label >Megjegyzés:</label>
                         <textarea className="form-control" name="comment" rows="2" value={this.state.comment} onChange={this.onChange}/>
                     </div>
-                    <button  type="submit" className="btn btn-primary" style={formGroupStyle}>Hozzáadás</button>
+                    <button  type="submit" className="btn btn-primary form-group-comp">Hozzáadás</button>
                 </form>
                 
             
         )
     }
-}
-
-const logStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: '#f4f4f4',
-    textAlign: 'center',
-    margin: '10px 30px',
-}
-
-const formGroupStyle = {
-    flex: '1',
-    margin: '16px 16px',
-    alignSelf: 'center',
-    width: '80%'
 }
 
 CreateLog.propTypes = {

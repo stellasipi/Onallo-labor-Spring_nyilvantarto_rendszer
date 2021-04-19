@@ -12,10 +12,20 @@ class Room extends Component {
         roomCleaningItems: []
     };
 
+    ismounted = false;
+    
     componentDidMount() {
         axios.get(this.context.fetchURL+'cleanings/'+ this.props.cleaningId + '/roomCleaning?roomName='+this.props.room.name)
-            .then(res => this.setState({ roomCleaningItems: res.data }))
+            .then(res => 
+                {if(this.ismounted) this.setState({ roomCleaningItems: res.data })}
+            )
+        this.ismounted=true;
     }
+
+    componentWillUnmount(){
+        this.ismounted=false;
+    }
+
     render() {
         return (
             <div style={RoomStyle}>

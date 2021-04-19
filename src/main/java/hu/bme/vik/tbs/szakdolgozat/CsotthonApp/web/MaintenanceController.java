@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -21,8 +22,8 @@ public class MaintenanceController {
     }
 
     @PostMapping
-    public MaintenanceDTO createMaintenance(@RequestBody MaintenanceDTO maintenance) {
-        return maintenanceService.createMaintenance(maintenance);
+    public MaintenanceDTO createMaintenance(@RequestBody MaintenanceDTO maintenance, Principal principal) {
+        return maintenanceService.createMaintenance(maintenance, principal);
     }
 
     @DeleteMapping("/{id}")

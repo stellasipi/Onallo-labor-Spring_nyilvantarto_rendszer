@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import './../../layouts/ComponentSytle.css';
 
 class CreateMaintenance extends Component {
     state = {
@@ -24,30 +25,15 @@ class CreateMaintenance extends Component {
 
     render() {
         return (
-            <form style={maintenanceStyle} onSubmit={this.onSubmit}>
-                <div className="form-group" style={formGroupStyle}>
+            <form className="component component-create component-create-text" onSubmit={this.onSubmit}>
+                <div className="form-group form-group-comp">
                     <label >Megjegyzés:</label>
                     <textarea className="form-control" name="comment" rows="2" value={this.state.comment} onChange={this.onChange} />
                 </div>
-                <button type="submit" className="btn btn-primary" style={formGroupStyle}>Hozzáadás</button>
+                <button type="submit" className="btn btn-primary form-group-comp">Hozzáadás</button>
             </form>
         )
     }
-}
-
-const maintenanceStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: '#f4f4f4',
-    textAlign: 'center',
-    margin: '10px 30px',
-}
-
-const formGroupStyle = {
-    flex: '1',
-    margin: '16px 16px',
-    alignSelf: 'center',
-    width: '80%'
 }
 
 CreateMaintenance.propTypes = {

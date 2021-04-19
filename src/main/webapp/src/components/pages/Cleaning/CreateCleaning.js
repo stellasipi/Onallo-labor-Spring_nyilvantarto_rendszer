@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './CleaningStyle.css';
-import CreateCleaningRoom from './CreateCleaningRoom'
+import CreateCleaningRoom from './CreateCleaningRoom';
+import './../../layouts/ComponentSytle.css';
 
 class CreateCleaning extends Component {
 
@@ -59,8 +60,8 @@ class CreateCleaning extends Component {
 
     render() {
         return (
-            <form style={cleaningStyle} onSubmit={this.onSubmit}>
-                <div className="form-group" style={formGroupStyle}>
+            <form className="component component-create component-create-text" onSubmit={this.onSubmit}>
+                <div className="form-group form-group-comp">
                     {this.props.pairings.map((room)=>
                         [
                             <p key="{room}" style={roomNameStyle}>{room.roomName}</p>,
@@ -68,7 +69,7 @@ class CreateCleaning extends Component {
                         ]
                     )}
               </div>
-              <button type="submit" className="btn btn-primary" style={formGroupStyle}>Hozzáadás</button>
+              <button type="submit" className="btn btn-primary form-group-comp">Hozzáadás</button>
             </form>      
         )
     }
@@ -78,21 +79,6 @@ const roomNameStyle = {
     fontWeight: 'bold',
     marginBottom: '8px',
     marginTop: '8px'
-}
-
-const cleaningStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: '#f4f4f4',
-    textAlign: 'center',
-    margin: '10px 30px',
-}
-
-const formGroupStyle = {
-    flex: '1',
-    margin: '16px 16px',
-    alignSelf: 'center',
-    width: '80%'
 }
 
 CreateCleaning.propTypes = {

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -20,8 +21,8 @@ public class LogController {
     }
 
     @PostMapping
-    public LogDTO createLog(@RequestBody LogDTO log) {
-        return logService.createLog(log);
+    public LogDTO createLog(@RequestBody LogDTO log, Principal principal) {
+        return logService.createLog(log, principal);
     }
 
     @DeleteMapping("/{id}")

@@ -57,10 +57,10 @@ INSERT INTO scout_group (id, name, sex) VALUES (15, 'Sün', 1);
 INSERT INTO scout_group (id, name, sex) VALUES (16, 'Szürkefarkas', 1);
 
 --Test data
-INSERT INTO log (id, comment, time, type, user_id) VALUES (1, 'Minden rendben', NOW(), 0, 1);
+INSERT INTO log (id, comment, time, type, user_id) VALUES (1, 'Minden rendben', '2021-02-13 17:44:00', 0, 1);
 INSERT INTO log (id, time, type, user_id) VALUES (2, NOW(), 0, 2);
 
-INSERT INTO maintenance (id, comment, time, user_id) VALUES (1, 'Elfogyott a citromlé és nyikorog kapu.', NOW(), 1);
+INSERT INTO maintenance (id, comment, time, user_id) VALUES (1, 'Elfogyott a citromlé és nyikorog kapu.', '2021-03-01 13:17:18', 1);
 
 INSERT INTO cleaning (id, time, scout_group_id, user_id) VALUES (1, '2021-02-13 17:44:00', 7, 1);
 INSERT INTO cleaning (id, time, scout_group_id, user_id) VALUES (2, '2021-03-01 13:17:18', 10, 2);

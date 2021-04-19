@@ -19,7 +19,7 @@ PageHeader.propTypes = {
 const pageStyle = {
     backgroundColor: '#f4f4f4',
     textAlign: 'center',
-    margin: '10px 30px',
+    margin: '20px 10%',
     fontWeight: 'bold',
     fontVariant: 'small-caps',
     fontSize: '30px',

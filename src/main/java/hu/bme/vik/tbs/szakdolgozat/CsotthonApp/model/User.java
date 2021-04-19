@@ -22,11 +22,6 @@ public class User {
     @NotNull
     private String name;
 
-    //a Hibernateben csak lengthtel együtt működik a unique
-    @Column(length = 60, unique = true)
-    @NotNull
-    private String email;
-
     @Column(length = 60, unique = true)
     @NotNull
     private String username;

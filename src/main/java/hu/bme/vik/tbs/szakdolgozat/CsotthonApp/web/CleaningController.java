@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -44,8 +45,8 @@ public class CleaningController {
     }
 
     @PostMapping
-    public CleaningDTO createCleaning(@RequestBody List<RoomCleaningDTO> roomCleanings) {
-        return cleaningService.createCleaning(roomCleanings);
+    public CleaningDTO createCleaning(@RequestBody List<RoomCleaningDTO> roomCleanings, Principal principal) {
+        return cleaningService.createCleaning(roomCleanings, principal);
     }
 
     @DeleteMapping("/{cleaningId}")

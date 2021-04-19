@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +32,11 @@ public class MaintenanceService {
     }
 
     @Transactional
-    public MaintenanceDTO createMaintenance(MaintenanceDTO maintenanceDTO) {
+    public MaintenanceDTO createMaintenance(MaintenanceDTO maintenanceDTO, Principal principal) {
         Maintenance maintenance = maintenanceMapper.maintenanceDTOtoMaintenance(maintenanceDTO);
         maintenance.setId(null);
         maintenance.setTime(Time.getNowInUTC());
-        //majd a user setelése
-        User user = userRepository.findById(maintenance.getUser().getId()).get();
+        User user = userRepository.findByUsername(principal.getName());
         maintenance.setUser(user);
         maintenanceRepository.save(maintenance);
         return maintenanceMapper.maintenanceToMaintenanceDTO(maintenance);
