@@ -38,20 +38,32 @@ INSERT INTO room_cleaning_item_pairing (id, room_id,cleaning_item_id) VALUES (16
 INSERT INTO room_cleaning_item_pairing (id, room_id,cleaning_item_id) VALUES (17,5,13);
 INSERT INTO room_cleaning_item_pairing (id, room_id,cleaning_item_id) VALUES (18,5,1);
 
+--Default scout groups
+INSERT INTO scout_group (id, name, sex) VALUES (1, 'Krumpli', 0);
+INSERT INTO scout_group (id, name, sex) VALUES (2, 'Bambusz', 0);
+INSERT INTO scout_group (id, name, sex) VALUES (3, 'Tarkabab', 0);
+INSERT INTO scout_group (id, name, sex) VALUES (4, 'Tobzoska', 1);
+INSERT INTO scout_group (id, name, sex) VALUES (5, 'Tukán', 1);
+INSERT INTO scout_group (id, name, sex) VALUES (6, 'Jaguár', 1);
+INSERT INTO scout_group (id, name, sex) VALUES (7, 'Levendula', 0);
+INSERT INTO scout_group (id, name, sex) VALUES (8, 'Lótusz', 0);
+INSERT INTO scout_group (id, name, sex) VALUES (9, 'Sebespisztráng', 1);
+INSERT INTO scout_group (id, name, sex) VALUES (10, 'Szalamandra', 1);
+INSERT INTO scout_group (id, name, sex) VALUES (11, 'Cseresznye', 0);
+INSERT INTO scout_group (id, name, sex) VALUES (12, 'Jázmin', 0);
+INSERT INTO scout_group (id, name, sex) VALUES (13, 'Mangó', 0);
+INSERT INTO scout_group (id, name, sex) VALUES (14, 'Puma', 1);
+INSERT INTO scout_group (id, name, sex) VALUES (15, 'Sün', 1);
+INSERT INTO scout_group (id, name, sex) VALUES (16, 'Szürkefarkas', 1);
+
 --Test data
-INSERT INTO scout_group (id, name, sex) VALUES (1, 'Levendula', 0);
-INSERT INTO scout_group (id, name, sex) VALUES (2, 'Szalamandra', 1);
-
-INSERT INTO user (id, email, group_leader, name, password, scout, scout_group_id) VALUES (1, 'stella@email.com', true, 'Tóth-Baranyi Stella', 'password', true, 1);
-INSERT INTO user (id, email, group_leader, name, password, scout, scout_group_id) VALUES (2, 'dadi@email.com', true, 'Kovács Dávid', 'password', true, 2);
-
-INSERT INTO log (id, comment, time, type, user_id) VALUES (1, 'Minden rendben', NOW(), 0, 1);
+INSERT INTO log (id, comment, time, type, user_id) VALUES (1, 'Minden rendben', '2021-02-13 17:44:00', 0, 1);
 INSERT INTO log (id, time, type, user_id) VALUES (2, NOW(), 0, 2);
 
-INSERT INTO maintenance (id, comment, time, user_id) VALUES (1, 'Elfogyott a citromlé és nyikorog kapu.', NOW(), 1);
+INSERT INTO maintenance (id, comment, time, user_id) VALUES (1, 'Elfogyott a citromlé és nyikorog kapu.', '2021-03-01 13:17:18', 1);
 
-INSERT INTO cleaning (id, time, scout_group_id, user_id) VALUES (1, '2021-02-13 17:44:00', 1, 1);
-INSERT INTO cleaning (id, time, scout_group_id, user_id) VALUES (2, '2021-03-01 13:17:18', 2, 2);
+INSERT INTO cleaning (id, time, scout_group_id, user_id) VALUES (1, '2021-02-13 17:44:00', 7, 1);
+INSERT INTO cleaning (id, time, scout_group_id, user_id) VALUES (2, '2021-03-01 13:17:18', 10, 2);
 
 
 --cleaning id: 1

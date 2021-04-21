@@ -22,10 +22,9 @@ public class User {
     @NotNull
     private String name;
 
-    //a Hibernateben csak lengthtel együtt működik a unique
-    @Column(length = 30, unique = true)
+    @Column(length = 60, unique = true)
     @NotNull
-    private String email;
+    private String username;
 
     @NotNull
     private String password;

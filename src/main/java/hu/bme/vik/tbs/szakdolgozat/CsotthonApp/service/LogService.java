@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,13 +32,12 @@ public class LogService {
     }
 
     @Transactional
-    public LogDTO createLog(LogDTO logDTO) {
+    public LogDTO createLog(LogDTO logDTO, Principal principal) {
         Log log = logMapper.logDTOtoLog(logDTO);
         log.setId(null);
         log.setTime(Time.getNowInUTC());
-        User user = userRepository.findById(log.getUser().getId()).get();
+        User user = userRepository.findByUsername(principal.getName());
         log.setUser(user);
-        //majd a user setelése is ide jön, autentikáció során
         logRepository.save(log);
         return logMapper.logToLogDTO(log);
     }

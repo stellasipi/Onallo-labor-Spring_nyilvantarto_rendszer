@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { ListGroupItem, Collapse } from 'reactstrap';
 import './CleaningStyle.css';
 import Rooms from './Rooms';
+import './../../layouts/ComponentSytle.css';
 
 
 class Cleaning extends Component {
@@ -18,24 +19,24 @@ class Cleaning extends Component {
         return (
             <ListGroupItem >
                 {/* fejléc rész */}
-                <div style={cleaningStyle} onClick={() => {
+                <div className="component" onClick={() => {
                     this.toggle();
                 }}>
-                    <div style={itemStyle}>
+                    <div className="component-item">
                         <p style={dateStyle}>{this.props.cleaning.time}</p> {this.props.cleaning.scoutGroup.name} őrs
                         <p style={creatorStyle}>{this.props.cleaning.user.name}</p>
                     </div>
                     <svg className="bi bi-chevron-down" width="32" height="32" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" d="M1.646 4.646a.5.5 0 01.708 0L8 10.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 010-.708z" clipRule="evenodd" />
                     </svg>
-                    <div style={deleteButtonStyle}>
+                    <div className="delete-button">
                     <button onClick={this.props.deleteCleaning.bind(this, this.props.cleaning.id)} type="button" className="btn btn-danger">X</button>
                 </div>
                 </div>
                 {/* legördülő rész */}
                 <Collapse isOpen={this.state.collapse}>
-                    <div style={collapseStyle}>
-                        <div style={itemStyle}>
+                    <div className="component component-collapse">
+                        <div className="component-item">
                             <Rooms rooms={this.props.rooms}
                                 cleaningId={this.props.cleaning.id} />
                         </div>
@@ -50,35 +51,6 @@ class Cleaning extends Component {
 Cleaning.propTypes = {
     cleaning: PropTypes.object.isRequired,
     rooms: PropTypes.array.isRequired
-}
-
-const deleteButtonStyle = {
-    flex: '1',
-    margin: '16px 16px',
-    fontWeight: 'bold',
-    alignSelf: 'center',
-    textAlign: 'center'
-}
-
-const cleaningStyle = {
-    display: 'flex',
-    flexDirection: 'row',
-    backgroundColor: '#f4f4f4',
-    textAlign: 'left',
-    margin: '10px 30px'
-}
-
-const collapseStyle = {
-    display: 'flex',
-    flexDirection: 'row',
-    backgroundColor: '#dbdbdb',
-    textAlign: 'left',
-    margin: '10px 30px'
-}
-
-const itemStyle = {
-    flex: '6',
-    margin: '16px 16px'
 }
 
 const dateStyle = {

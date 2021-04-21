@@ -1,4 +1,4 @@
-package hu.bme.vik.tbs.szakdolgozat.CsotthonApp.config;
+package hu.bme.vik.tbs.szakdolgozat.CsotthonApp.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

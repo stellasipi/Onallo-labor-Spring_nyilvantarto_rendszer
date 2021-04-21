@@ -1,0 +1,57 @@
+package hu.bme.vik.tbs.szakdolgozat.CsotthonApp.security;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+@EnableWebSecurity
+@Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Value("${jwt.secret}")
+    private String jwtSecret;
+    @Value("${jwt.issuer}")
+    private String jwtIssuer;
+    @Value("${jwt.type}")
+    private String jwtType;
+    @Value("${jwt.audience}")
+    private String jwtAudience;
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService);
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .cors().and()
+                .csrf().disable()
+                .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtAudience, jwtIssuer, jwtSecret, jwtType))
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), null, jwtAudience, jwtIssuer, jwtSecret, jwtType))
+                .authorizeRequests()
+                .antMatchers("/cleanings","/cleanings/*","/logs","/logs/*","/maintenances","/maintenances/*").authenticated()
+                .antMatchers("/*").permitAll().and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS); //disabled sessions
+    }
+
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+}
