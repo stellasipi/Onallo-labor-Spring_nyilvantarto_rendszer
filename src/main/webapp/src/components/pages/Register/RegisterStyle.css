@@ -1,5 +1,6 @@
 /*desktop*/
-.login {
+
+.register {
     background-color: #f4f4f4;
     margin: 20px 10%;
     display: flex;
@@ -7,7 +8,7 @@
     justify-content: center;
 }
 
-.div-text-group-login{
+.div-text-group-reg1{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -15,15 +16,24 @@
     margin-bottom: 20px;
 }
 
-.div-text{
+.div-text-reg{
     margin: 10px !important;
+}
+
+.div-text-reg-checkbox{
+    margin: 10px 10px 10px 0px !important;
+}
+
+.div-form-control{
+    margin: 8px;
+    width: 280px;
 }
 
 .MuiOutlinedInput-input {  /*width of textfields*/
     width: 280px !important;
 }
 
-.div-button-group{
+.div-text-group-reg2{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -31,44 +41,58 @@
     margin-bottom: 20px;
 }
 
-.div-button{
+.div-button-reg{
     margin: 10px !important;
     width: 200px;
 }
+
+.MuiList-padding{
+    margin-left: 13px !important;
+}
+
+.MuiPaper-root{
+    background-color: #f4f4f4 !important;
+}
+
+.MuiListItem-button{
+    padding-bottom: 2px !important;
+}
+
+.MuiSelect-root{
+    text-align: left !important;
+    padding-left: 2px !important;
+}
+
 
 @media only screen and (max-width: 800px){ /*tablet*/
     .MuiOutlinedInput-input {
         width: 200px !important;
     }
+
+    .div-form-control{
+        width: 200px;
+    }
 }
 
 @media only screen and (max-width: 600px){ /*mobile*/
-    .login {
+    .register {
         flex-direction: column;
+
     }
 
-    .div-text-group-login{
-        margin: 0px 10px;
+    .div-text-group-reg1{
+        margin: 20px 10px 0px 10px;
     }
 
-    .div-text{
-        margin: 10px !important;
+    .div-text-group-reg2{
+        margin: 0px 20px 20px 20px;
     }
 
-    .div-text:first-child{
-        margin-top: 30px !important;
-    }
-
-    .div-button-group{
-        flex-direction: row;
-        margin-bottom: 20px !important;
-        padding-left: 0px;
-        padding-right: 0px;
-        margin-top: 0px;
-        margin-bottom: 0px;
-    }
-
-    .div-button{
+    .div-button-reg{
         width: 120px;
+    }
+
+    .MuiListItem-button{
+        padding-bottom: 0px !important;
     }
 }
