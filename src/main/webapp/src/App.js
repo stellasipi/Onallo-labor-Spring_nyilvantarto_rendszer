@@ -13,10 +13,12 @@ import CreateMaintenance from './components/pages/Maintenance/CreateMaintenance'
 import Cleanings from './components/pages/Cleaning/Cleanings';
 import PageHeader from './components/pages/PageHeader';
 import Login from './components/pages/Login/Login';
+import Register from './components/pages/Register/Register';
 import CreateCleaning from './components/pages/Cleaning/CreateCleaning';
 import PrivateRoute from './components/PrivateRoute';
 
-const fetchURL = 'http://localhost:8080/';
+//const fetchURL = 'http://localhost:8080/';
+const fetchURL = 'http://192.168.31.235:8080/'; //for mobile testing
 const cookies = new Cookies();
 
 class App extends Component {
@@ -35,20 +37,21 @@ class App extends Component {
     rooms: [],
     cleanings: [],
     pairings: [],
-    authenticated: false
+    authenticated: false,
+    registration: false
   }
 
   //GET requests
   componentDidMount(){
-    if(sessionStorage.getItem("authenticated")==='true'){
+    if(localStorage.getItem("authenticated")==='true'){
       this.getRequests();
     }
   }
 
   componentDidUpdate(){
-    if(sessionStorage.getItem("authenticated")==='true' && sessionStorage.getItem("updated")==='false'){
+    if(localStorage.getItem("authenticated")==='true' && localStorage.getItem("updated")==='false'){
       this.getRequests();
-      sessionStorage.setItem('updated',true);
+      localStorage.setItem('updated',true);
     }
   }
 
@@ -69,16 +72,23 @@ class App extends Component {
 
   setAuthenticated = (token) => {
     cookies.set("token",token)
-    sessionStorage.setItem('authenticated', true);
-    sessionStorage.setItem('updated',false);
+    localStorage.setItem('authenticated', true);
+    localStorage.setItem('updated',false);
     this.setState({authenticated: true})
   }
 
   logout = () => {
     cookies.remove("token")
-    sessionStorage.removeItem('authenticated');
-    sessionStorage.removeItem('updated');
+    localStorage.removeItem('authenticated');
+    localStorage.removeItem('updated');
     this.setState({authenticated:false});
+  }
+
+  setRegistration = (object) =>{
+    sessionStorage.setItem('userCreated', true);
+    sessionStorage.setItem('registration', false);
+    this.setState({registration:true});
+    this.setState({registration:false});
   }
 
   //POST requests
@@ -161,6 +171,11 @@ class App extends Component {
                 <React.Fragment>
                   <PageHeader title="Bejelentkezés"/>
                   <Login setAuthenticated={this.setAuthenticated}/>
+                </React.Fragment>}/>
+          <Route path="/register" exact component={() => 
+                <React.Fragment>
+                  <PageHeader title="Regisztráció"/>
+                  <Register setRegistration={this.setRegistration}/>
                 </React.Fragment>}/>
           <Route exact component={() => 
                 <React.Fragment>

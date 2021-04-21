@@ -1,6 +1,7 @@
 package hu.bme.vik.tbs.szakdolgozat.CsotthonApp.service;
 
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.RegisterDTO;
+import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.model.ScoutGroup;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.model.User;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.repository.ScoutGroupRepository;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.repository.UserRepository;
@@ -49,7 +50,17 @@ public class UserService {
                 return "";
             }
         }
+    }
 
+    public List<String> getExistingScoutGroups() {
+        List<String> scoutGroupsNames = new ArrayList<>();
+        List<ScoutGroup> scoutGroups = scoutGroupRepository.findAll();
+        if (!scoutGroups.isEmpty()) {
+            for (ScoutGroup scoutGroup : scoutGroups) {
+                scoutGroupsNames.add(scoutGroup.getName());
+            }
+        }
+        return scoutGroupsNames;
     }
 
 }
