@@ -22,7 +22,7 @@ public class User {
     @NotNull
     private String name;
 
-    @Column(length = 60, unique = true)
+    @Column(length = 30, unique = true)
     @NotNull
     private String username;
 
@@ -47,5 +47,12 @@ public class User {
 
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Maintenance> maintenances = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles;
 
 }
