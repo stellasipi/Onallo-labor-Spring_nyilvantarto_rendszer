@@ -58,23 +58,35 @@ public class CleaningController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/room")
-    public RoomDTO createRoom(@RequestBody RoomDTO room){
-        //TODO
-        return cleaningService.createRoom(room);
+    public ResponseEntity createRoom(@RequestBody RoomDTO roomDTO) {
+        RoomDTO room = cleaningService.createRoom(roomDTO);
+        if (room != null) {
+            return ResponseEntity.ok(room);
+        } else {
+            return ResponseEntity.badRequest().body("A megadott név már létezik");
+        }
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/cleaningItem")
-    public CleaningItemDTO createCleaningItem(@RequestBody CleaningItemDTO cleaningItemDTO){
-        //TODO
-        return cleaningService.createCleaningItem(cleaningItemDTO);
+    public ResponseEntity createCleaningItem(@RequestBody CleaningItemDTO cleaningItemDTO) {
+        CleaningItemDTO cleaningItem = cleaningService.createCleaningItem(cleaningItemDTO);
+        if (cleaningItem != null) {
+            return ResponseEntity.ok(cleaningItem);
+        } else {
+            return ResponseEntity.badRequest().body("A megadott név már létezik");
+        }
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/pairings")
-    public void createRoomCleaningItemPairing(){
-        //TODO
-        //return cleaningService.createCleaningItem(cleaningItemDTO);
+    @PostMapping("/pairing")
+    public ResponseEntity createRoomCleaningItemPairing(@RequestBody RoomCleaningItemPairingDTO roomCleaningItemPairingDTO) {
+        RoomCleaningItemPairingDTO pairing = cleaningService.createRoomCleaningItemPairing(roomCleaningItemPairingDTO);
+        if (pairing != null) {
+            return ResponseEntity.ok(pairing);
+        } else {
+            return ResponseEntity.badRequest().body("A szoba vagy az elvégzendő feladat neve nem megfelelő vagy már létezik a párosítás");
+        }
     }
 
 }

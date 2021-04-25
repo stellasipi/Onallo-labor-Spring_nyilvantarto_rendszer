@@ -1,9 +1,7 @@
 package hu.bme.vik.tbs.szakdolgozat.CsotthonApp.service;
 
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.*;
-import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.mapper.CleaningMapper;
-import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.mapper.RoomCleaningMapper;
-import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.mapper.RoomMapper;
+import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.mapper.*;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.model.*;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.repository.*;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.util.Time;
@@ -22,39 +20,31 @@ public class CleaningService {
 
     @Autowired
     private CleaningRepository cleaningRepository;
-
     @Autowired
     private RoomCleaningRepository roomCleaningRepository;
-
     @Autowired
     private RoomRepository roomRepository;
-
-    @Autowired
-    private ScoutGroupRepository scoutGroupRepository;
-
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private CleaningItemRepository cleaningItemRepository;
-
     @Autowired
     private RoomCleaningItemPairingRepository roomCleaningItemPairingRepository;
 
     @Autowired
     private final CleaningMapper cleaningMapper;
-
     @Autowired
     private final RoomCleaningMapper roomCleaningMapper;
-
     @Autowired
     private final RoomMapper roomMapper;
+    @Autowired
+    private final CleaningItemMapper cleaningItemMapper;
 
     public CleaningService() {
         cleaningMapper = Mappers.getMapper(CleaningMapper.class);
         roomCleaningMapper = Mappers.getMapper(RoomCleaningMapper.class);
         roomMapper = Mappers.getMapper(RoomMapper.class);
-
+        cleaningItemMapper = Mappers.getMapper(CleaningItemMapper.class);
     }
 
     public List<CleaningDTO> getAllCleanings() {
@@ -108,8 +98,6 @@ public class CleaningService {
 
     public List<RoomCleaningItemPairingMapDTO> getPairings() {
         List<Room> rooms = roomRepository.findAll();
-        List<RoomCleaningItemPairing> pairings = roomCleaningItemPairingRepository.findAll();
-
         List<RoomCleaningItemPairingMapDTO> pairingMapDTOs = new ArrayList<>();
 
         for (Room room : rooms) {
@@ -162,21 +150,57 @@ public class CleaningService {
     }
 
     @Transactional
-    public RoomDTO createRoom(RoomDTO roomDTO){
-        //TODO
-        return null;
+    public RoomDTO createRoom(RoomDTO roomDTO) {
+        if (roomRepository.findByName(roomDTO.getName()) != null) {
+            return null;
+        }
+
+        Room room = new Room();
+        room.setName(roomDTO.getName());
+
+        return roomMapper.roomToRoomDTO(roomRepository.save(room));
     }
 
     @Transactional
-    public CleaningItemDTO createCleaningItem(CleaningItemDTO cleaningItemDTO){
-        //TODO
-        return null;
+    public CleaningItemDTO createCleaningItem(CleaningItemDTO cleaningItemDTO) {
+        if (cleaningItemRepository.findByName(cleaningItemDTO.getName()) != null) {
+            return null;
+        }
+
+        CleaningItem cleaningItem = new CleaningItem();
+        cleaningItem.setName(cleaningItemDTO.getName());
+
+        return cleaningItemMapper.cleaningItemtoCleaningItemDTO(cleaningItemRepository.save(cleaningItem));
     }
 
     @Transactional
-    public void createRoomCleaningItemPairing(){
-        //TODO
-        //return null;
+    public RoomCleaningItemPairingDTO createRoomCleaningItemPairing(RoomCleaningItemPairingDTO roomCleaningItemPairingDTO) {
+        Room room = roomRepository.findByName(roomCleaningItemPairingDTO.getRoomName());
+        if (room == null) {
+            return null;
+        }
+
+        CleaningItem cleaningItem = cleaningItemRepository.findByName(roomCleaningItemPairingDTO.getCleaningItemName());
+        if (cleaningItem == null) {
+            return null;
+        }
+
+        if (roomCleaningItemPairingRepository.findByRoomNameAndCleaningItemName(room.getName(), cleaningItem.getName()) != null) {
+            return null;
+        }
+
+        RoomCleaningItemPairing pairing = new RoomCleaningItemPairing();
+        pairing.setRoom(room);
+        pairing.setCleaningItem(cleaningItem);
+
+        pairing = roomCleaningItemPairingRepository.save(pairing);
+
+        RoomCleaningItemPairingDTO pairingDTO = new RoomCleaningItemPairingDTO();
+        pairingDTO.setId(pairing.getId());
+        pairingDTO.setRoomName(pairing.getRoom().getName());
+        pairingDTO.setCleaningItemName(pairing.getCleaningItem().getName());
+
+        return pairingDTO;
     }
 
 }
