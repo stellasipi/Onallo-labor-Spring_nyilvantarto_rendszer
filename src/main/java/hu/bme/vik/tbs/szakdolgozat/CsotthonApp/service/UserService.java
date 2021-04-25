@@ -110,7 +110,7 @@ public class UserService {
             user.get().setRoles(roles);
         } else {
             for (Role role : roles) {
-                if(!user.get().getRoles().contains(role)){
+                if (!user.get().getRoles().contains(role)) {
                     user.get().getRoles().add(role);
                 }
             }
