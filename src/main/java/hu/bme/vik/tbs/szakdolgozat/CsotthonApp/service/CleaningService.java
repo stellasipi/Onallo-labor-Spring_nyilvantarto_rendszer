@@ -161,4 +161,22 @@ public class CleaningService {
         }
     }
 
+    @Transactional
+    public RoomDTO createRoom(RoomDTO roomDTO){
+        //TODO
+        return null;
+    }
+
+    @Transactional
+    public CleaningItemDTO createCleaningItem(CleaningItemDTO cleaningItemDTO){
+        //TODO
+        return null;
+    }
+
+    @Transactional
+    public void createRoomCleaningItemPairing(){
+        //TODO
+        //return null;
+    }
+
 }

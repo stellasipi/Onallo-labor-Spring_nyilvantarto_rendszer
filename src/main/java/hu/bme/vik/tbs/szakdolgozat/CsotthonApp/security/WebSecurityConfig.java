@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtAudience, jwtIssuer, jwtSecret, jwtType))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), jwtAudience, jwtIssuer, jwtSecret, jwtType, userRepository))
                 .authorizeRequests()
-                //.antMatchers("/admin/**").hasAuthority("ADMIN") //teszt
+                .antMatchers("/user/**").hasAuthority("ADMIN")
                 .antMatchers("/cleanings/**","/logs/**","/maintenances/**").authenticated()
                 .antMatchers("/*").permitAll().and()
                 .sessionManagement()

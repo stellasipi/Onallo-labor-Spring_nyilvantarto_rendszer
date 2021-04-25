@@ -1,12 +1,16 @@
 package hu.bme.vik.tbs.szakdolgozat.CsotthonApp.service;
 
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.RegisterDTO;
+import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.RoleDTO;
+import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.UserDTO;
+import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.mapper.UserMapper;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.model.Role;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.model.ScoutGroup;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.model.User;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.repository.RoleRepository;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.repository.ScoutGroupRepository;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.repository.UserRepository;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -29,6 +34,13 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private final UserMapper userMapper;
+
+    public UserService() {
+        userMapper = Mappers.getMapper(UserMapper.class);
+    }
 
     @Transactional
     public String createUser(RegisterDTO registerDTO) {
@@ -50,12 +62,16 @@ public class UserService {
                         .groupLeader(registerDTO.getGroupLeader())
                         .scout(true)
                         .build();
-                if(newUser.getGroupLeader()){
-                    Role admin=roleRepository.findByName("ADMIN");
-                    newUser.setRoles(new ArrayList<>(){{add(admin);}});
-                }else {
-                    Role user=roleRepository.findByName("USER");
-                    newUser.setRoles(new ArrayList<>(){{add(user);}});
+                if (newUser.getGroupLeader()) {
+                    Role admin = roleRepository.findByName("ADMIN");
+                    newUser.setRoles(new ArrayList<>() {{
+                        add(admin);
+                    }});
+                } else {
+                    Role user = roleRepository.findByName("USER");
+                    newUser.setRoles(new ArrayList<>() {{
+                        add(user);
+                    }});
                 }
                 userRepository.save(newUser);
                 return "";
@@ -74,4 +90,43 @@ public class UserService {
         return scoutGroupsNames;
     }
 
+    @Transactional
+    public String changeUserRole(Integer userId, List<RoleDTO> roleDTOs, Boolean overwriteExisting) {
+        Optional<User> user = userRepository.findById(userId);
+        if (!user.isPresent()) {
+            return "Ez a felhasználó nem létezik";
+        }
+
+        List<Role> roles = new ArrayList<>();
+        for (RoleDTO roleDTO : roleDTOs) {
+            Role role = roleRepository.findByName(roleDTO.getName());
+            if (role == null) {
+                return "Az egyik felsorolt szerepkör nem létezik";
+            }
+            roles.add(role);
+        }
+
+        if (overwriteExisting) {
+            user.get().setRoles(roles);
+        } else {
+            for (Role role : roles) {
+                if(!user.get().getRoles().contains(role)){
+                    user.get().getRoles().add(role);
+                }
+            }
+        }
+
+        userRepository.save(user.get());
+
+        return "";
+    }
+
+    public List<UserDTO> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        List<UserDTO> userDTOs = new ArrayList<>();
+        for (User user : users) {
+            userDTOs.add(userMapper.userToUserDTO(user));
+        }
+        return userDTOs;
+    }
 }

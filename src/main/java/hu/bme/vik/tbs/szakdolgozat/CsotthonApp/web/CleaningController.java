@@ -1,12 +1,10 @@
 package hu.bme.vik.tbs.szakdolgozat.CsotthonApp.web;
 
-import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.CleaningDTO;
-import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.RoomCleaningDTO;
-import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.RoomCleaningItemPairingMapDTO;
-import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.RoomDTO;
+import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.*;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.service.CleaningService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -56,6 +54,27 @@ public class CleaningController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(cleaningId);
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/room")
+    public RoomDTO createRoom(@RequestBody RoomDTO room){
+        //TODO
+        return cleaningService.createRoom(room);
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/cleaningItem")
+    public CleaningItemDTO createCleaningItem(@RequestBody CleaningItemDTO cleaningItemDTO){
+        //TODO
+        return cleaningService.createCleaningItem(cleaningItemDTO);
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/pairings")
+    public void createRoomCleaningItemPairing(){
+        //TODO
+        //return cleaningService.createCleaningItem(cleaningItemDTO);
     }
 
 }
