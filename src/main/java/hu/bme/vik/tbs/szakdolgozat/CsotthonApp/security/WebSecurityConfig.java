@@ -1,9 +1,11 @@
 package hu.bme.vik.tbs.szakdolgozat.CsotthonApp.security;
 
+import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,6 +32,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
@@ -41,9 +46,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().and()
                 .csrf().disable()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtAudience, jwtIssuer, jwtSecret, jwtType))
-                .addFilter(new JwtAuthorizationFilter(authenticationManager(), null, jwtAudience, jwtIssuer, jwtSecret, jwtType))
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), jwtAudience, jwtIssuer, jwtSecret, jwtType, userRepository))
                 .authorizeRequests()
-                .antMatchers("/cleanings","/cleanings/*","/logs","/logs/*","/maintenances","/maintenances/*").authenticated()
+                //.antMatchers("/admin/**").hasAuthority("ADMIN") //teszt
+                .antMatchers("/cleanings/**","/logs/**","/maintenances/**").authenticated()
                 .antMatchers("/*").permitAll().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS); //disabled sessions

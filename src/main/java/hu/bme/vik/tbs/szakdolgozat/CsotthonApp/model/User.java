@@ -48,7 +48,7 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Maintenance> maintenances = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),

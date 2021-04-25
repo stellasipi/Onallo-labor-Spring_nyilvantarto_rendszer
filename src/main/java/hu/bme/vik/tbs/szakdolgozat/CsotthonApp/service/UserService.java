@@ -1,8 +1,10 @@
 package hu.bme.vik.tbs.szakdolgozat.CsotthonApp.service;
 
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.RegisterDTO;
+import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.model.Role;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.model.ScoutGroup;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.model.User;
+import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.repository.RoleRepository;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.repository.ScoutGroupRepository;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class UserService {
 
     @Autowired
     private ScoutGroupRepository scoutGroupRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -44,8 +49,14 @@ public class UserService {
                         .scoutGroup(scoutGroupRepository.findByName(registerDTO.getScoutGroup()))
                         .groupLeader(registerDTO.getGroupLeader())
                         .scout(true)
-                        //arraylisteket inicializálni kéne?
                         .build();
+                if(newUser.getGroupLeader()){
+                    Role admin=roleRepository.findByName("ADMIN");
+                    newUser.setRoles(new ArrayList<>(){{add(admin);}});
+                }else {
+                    Role user=roleRepository.findByName("USER");
+                    newUser.setRoles(new ArrayList<>(){{add(user);}});
+                }
                 userRepository.save(newUser);
                 return "";
             }

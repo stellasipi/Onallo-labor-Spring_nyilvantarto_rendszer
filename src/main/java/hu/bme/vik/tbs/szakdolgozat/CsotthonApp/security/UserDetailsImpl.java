@@ -1,25 +1,32 @@
 package hu.bme.vik.tbs.szakdolgozat.CsotthonApp.security;
 
+import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.model.Role;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.model.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     private User user;
-    private boolean enabled;
 
     public UserDetailsImpl(User user) {
         this.user = user;
-        this.enabled=true;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<SimpleGrantedAuthority> roles = new ArrayList<>();
+        for (Role role : user.getRoles()) {
+            SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.getName());
+            roles.add(authority);
+        }
+        return roles;
     }
 
     @Override
@@ -49,6 +56,6 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return this.enabled;
+        return true;
     }
 }

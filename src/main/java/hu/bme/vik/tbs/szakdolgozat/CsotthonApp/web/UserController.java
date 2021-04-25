@@ -20,17 +20,22 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity createLog(@RequestBody RegisterDTO registerDTO) {
-        String userCreationMessage= userService.createUser(registerDTO);
-        if(userCreationMessage.equals("")){
+        String userCreationMessage = userService.createUser(registerDTO);
+        if (userCreationMessage.equals("")) {
             return ResponseEntity.ok().build();
-        }else {
+        } else {
             return ResponseEntity.badRequest().body(userCreationMessage);
         }
     }
 
     @GetMapping("/scoutGroups")
-    public ResponseEntity<List<String>> getExistingScoutGroups(){
+    public ResponseEntity<List<String>> getExistingScoutGroups() {
         return ResponseEntity.ok(userService.getExistingScoutGroups());
     }
+
+//    @GetMapping("/admin") //teszt
+//    public ResponseEntity<String> admin() {
+//        return ResponseEntity.ok("Ez egy admin felület.");
+//    }
 
 }
