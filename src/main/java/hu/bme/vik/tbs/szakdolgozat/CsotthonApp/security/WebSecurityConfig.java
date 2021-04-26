@@ -48,8 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtAudience, jwtIssuer, jwtSecret, jwtType))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), jwtAudience, jwtIssuer, jwtSecret, jwtType, userRepository))
                 .authorizeRequests()
-                .antMatchers("/user/**").hasAuthority("ADMIN")
-                .antMatchers("/cleanings/**","/logs/**","/maintenances/**").authenticated()
+                .antMatchers("/cleanings/**", "/logs/**", "/maintenances/**", "/user/**", "/users/**").authenticated()
                 .antMatchers("/*").permitAll().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS); //disabled sessions

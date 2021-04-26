@@ -6,9 +6,11 @@ import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.UserDTO;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -32,6 +34,7 @@ public class UserController {
         return ResponseEntity.ok(userService.getExistingScoutGroups());
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/user/{userId}/role")
     public ResponseEntity changeUserRole(@PathVariable Integer userId, @RequestBody List<RoleDTO> roleDTOs, @RequestParam(required = true) Boolean overwriteExisting) {
         String userRoleChangeMessage = userService.changeUserRole(userId, roleDTOs, overwriteExisting);
@@ -42,9 +45,14 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/users")
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
+    @GetMapping("/user")
+    public ResponseEntity<UserDTO> getUser(Principal principal) {
+        return ResponseEntity.ok(userService.getUser(principal));
+    }
 }
