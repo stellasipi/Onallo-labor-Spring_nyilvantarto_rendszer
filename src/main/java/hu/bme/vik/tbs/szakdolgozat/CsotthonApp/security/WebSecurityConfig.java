@@ -50,6 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/cleanings/**", "/logs/**", "/maintenances/**", "/user/**", "/users/**").authenticated()
                 .antMatchers("/*").permitAll().and()
+                .logout().logoutSuccessHandler(new LogoutSuccessHandler()).and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS); //disabled sessions
     }
