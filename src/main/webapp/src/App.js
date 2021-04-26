@@ -15,6 +15,7 @@ import PageHeader from './components/pages/PageHeader';
 import Login from './components/pages/Login/Login';
 import Register from './components/pages/Register/Register';
 import CreateCleaning from './components/pages/Cleaning/CreateCleaning';
+import Admin from './components/pages/Admin/Admin'
 import PrivateRoute from './components/PrivateRoute';
 
 //const fetchURL = 'http://localhost:8080/';
@@ -37,6 +38,7 @@ class App extends Component {
     rooms: [],
     cleanings: [],
     pairings: [],
+    currentUser: '',
     authenticated: false,
     registration: false
   }
@@ -68,6 +70,8 @@ class App extends Component {
       .then(res => this.setState({ cleanings: res.data }));
     axios.get(fetchURL + 'cleanings/pairings')
       .then(res => this.setState({ pairings: res.data }));
+    axios.get(fetchURL + 'user')
+      .then(res => this.setState({ currentUser: res.data }));
   }
 
   setAuthenticated = (token) => {
@@ -82,6 +86,7 @@ class App extends Component {
     localStorage.removeItem('authenticated');
     localStorage.removeItem('updated');
     this.setState({authenticated:false});
+    axios.get(fetchURL + 'logout');
   }
 
   setRegistration = (object) =>{
@@ -147,7 +152,7 @@ class App extends Component {
         <Switch>
           <PrivateRoute path="/" exact component={() => 
                         <React.Fragment>
-                          <Home />
+                          <Home roles={this.state.currentUser.roles} />
                         </React.Fragment>} />
           <PrivateRoute path="/log" exact component={() => 
                         <React.Fragment>
@@ -166,6 +171,11 @@ class App extends Component {
                           <PageHeader title="Takarítás"/>
                           <CreateCleaning createCleaning={this.createCleaning} pairings={this.state.pairings} />
                           <Cleanings cleanings={this.state.cleanings} rooms={this.state.rooms} deleteCleaning={this.deleteCleaning} />
+                        </React.Fragment>} />
+          <PrivateRoute path="/admin" requiredRole="ADMIN" roles={this.state.currentUser.roles} exact component={() => 
+                        <React.Fragment>
+                          <PageHeader title="Admin felület"/>
+                          <Admin />
                         </React.Fragment>} />
           <Route path="/login" exact component={() => 
                 <React.Fragment>

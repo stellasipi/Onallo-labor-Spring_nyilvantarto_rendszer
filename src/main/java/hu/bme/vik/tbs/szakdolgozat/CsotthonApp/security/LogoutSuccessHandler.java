@@ -15,7 +15,7 @@ public class LogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         response.setContentType("application/json");
-        response.getWriter().write("{\"token\":\"Successfully logged out\" }");
+        response.getWriter().write("{\"message\":\"Successfully logged out\" }");
         response.getWriter().flush();
     }
 }

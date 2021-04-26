@@ -1,14 +1,35 @@
 import React, { Component } from 'react';
-import './HomeStyle.css'
+import './HomeStyle.css';
+import PropTypes from 'prop-types';
 
 class Home extends Component {
+
+    state = {
+        isAdmin: false
+    };
+
+    componentDidMount(){
+        this.setIsAdmin();
+    }
+
+    setIsAdmin = () => {
+        if(this.props.roles){
+            this.props.roles.map((role)=>{
+                if(role.name==="ADMIN"){
+                    this.setState({isAdmin: true})
+                }
+                return "";
+            })
+        }
+    }
+
     render() {
         return (
             <div style={homeStyle}>
                 <a role="button" className="button btn btn-outline-light" style={buttonStyle} href="/log">Nyitás/zárás</a>
                 <a role="button" className="button btn btn-outline-light" style={buttonStyle} href="/maintenance">Karbantartás</a>
                 <a role="button" className="button btn btn-outline-light" style={buttonStyle} href="/cleaning">Takarítás</a>
-                {/* <a role="button" className="button btn btn-outline-light" style={buttonStyle} href="/login">Bejelentkezés</a> */}
+                {this.state.isAdmin ? <a role="button" className="button btn btn-outline-light" style={buttonStyle} href="/admin">Admin</a> : ""}
             </div>
         )
     }
@@ -30,6 +51,10 @@ const buttonStyle={
     paddingBottom: '3%',
     marginTop: '1%',
     marginBottom: '1%'    
+}
+
+Home.propTypes = {
+    roles: PropTypes.array
 }
 
 export default Home
