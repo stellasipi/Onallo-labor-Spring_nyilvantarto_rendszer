@@ -51,6 +51,12 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/user/roles")
+    public ResponseEntity<List<RoleDTO>> getAllRoles() {
+        return ResponseEntity.ok(userService.getAllRoles());
+    }
+
     @GetMapping("/user")
     public ResponseEntity<UserDTO> getUser(Principal principal) {
         return ResponseEntity.ok(userService.getUser(principal));

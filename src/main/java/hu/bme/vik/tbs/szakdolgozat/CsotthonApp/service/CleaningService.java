@@ -96,6 +96,15 @@ public class CleaningService {
         return roomDTOs;
     }
 
+    public List<CleaningItemDTO> getCleaningItems() {
+        List<CleaningItem> cleaningItems = cleaningItemRepository.findAll();
+        List<CleaningItemDTO> cleaningItemDTOs = new ArrayList<>();
+        for (CleaningItem cleaningItem : cleaningItems) {
+            cleaningItemDTOs.add(cleaningItemMapper.cleaningItemtoCleaningItemDTO(cleaningItem));
+        }
+        return cleaningItemDTOs;
+    }
+
     public List<RoomCleaningItemPairingMapDTO> getPairings() {
         List<Room> rooms = roomRepository.findAll();
         List<RoomCleaningItemPairingMapDTO> pairingMapDTOs = new ArrayList<>();

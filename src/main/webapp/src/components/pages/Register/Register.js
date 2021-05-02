@@ -95,7 +95,7 @@ class Register extends Component {
                 <div className="div-text-group-reg2">
                     <FormControl className="div-form-control div-text-reg">
                         <InputLabel>Őrs</InputLabel>
-                        <Select name="scoutGroup" value={this.state.scoutGroup} labelId="demo-simple-select-label" onChange={this.onChange}>
+                        <Select name="scoutGroup" value={this.state.scoutGroup} onChange={this.onChange}>
                             {this.state.scoutGroups.map((scoutGroup)=>(
                                 <MenuItem key={scoutGroup} value={scoutGroup}>{scoutGroup}</MenuItem>
                             ))}

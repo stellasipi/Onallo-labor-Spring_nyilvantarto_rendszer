@@ -1,7 +1,5 @@
 package hu.bme.vik.tbs.szakdolgozat.CsotthonApp.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 

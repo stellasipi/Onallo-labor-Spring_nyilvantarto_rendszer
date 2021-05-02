@@ -3,6 +3,7 @@ package hu.bme.vik.tbs.szakdolgozat.CsotthonApp.service;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.RegisterDTO;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.RoleDTO;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.UserDTO;
+import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.mapper.RoleMapper;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.mapper.UserMapper;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.model.Role;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.model.ScoutGroup;
@@ -39,8 +40,12 @@ public class UserService {
     @Autowired
     private final UserMapper userMapper;
 
+    @Autowired
+    private final RoleMapper roleMapper;
+
     public UserService() {
         userMapper = Mappers.getMapper(UserMapper.class);
+        roleMapper = Mappers.getMapper(RoleMapper.class);
     }
 
     @Transactional
@@ -131,7 +136,16 @@ public class UserService {
         return userDTOs;
     }
 
-    public UserDTO getUser(Principal principal){
+    public List<RoleDTO> getAllRoles() {
+        List<Role> roles = roleRepository.findAll();
+        List<RoleDTO> roleDTOs = new ArrayList<>();
+        for (Role role : roles) {
+            roleDTOs.add(roleMapper.roleToRoleDTO(role));
+        }
+        return roleDTOs;
+    }
+
+    public UserDTO getUser(Principal principal) {
         User user = userRepository.findByUsername(principal.getName());
         return userMapper.userToUserDTO(user);
     }

@@ -4,9 +4,9 @@ import axios from 'axios';
 import RoomCleaningItems from './RoomCleaningItems'
 
 class Room extends Component {
-    static contextTypes = {
-        fetchURL: PropTypes.string
-    }
+        static contextTypes = {
+            fetchURL: PropTypes.string
+        }
 
     state = {
         roomCleaningItems: []
@@ -22,7 +22,6 @@ class Room extends Component {
             )
             .catch(error=>{
                 this.isRoomExists=false;
-                console.log(this.isRoomExists);
             })
         this.ismounted=true;
     }

@@ -37,6 +37,11 @@ public class CleaningController {
         return cleaningService.getRooms();
     }
 
+    @GetMapping("/cleaningItems")
+    public List<CleaningItemDTO> getCleaningItems() {
+        return cleaningService.getCleaningItems();
+    }
+
     @GetMapping("/pairings")
     public List<RoomCleaningItemPairingMapDTO> getPairings() {
         return cleaningService.getPairings();

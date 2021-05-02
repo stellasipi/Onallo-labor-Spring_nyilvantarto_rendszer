@@ -25,11 +25,12 @@ const cookies = new Cookies();
 class App extends Component {
   
   static childContextTypes = {
-    fetchURL: PropTypes.string
+    fetchURL: PropTypes.string,
+    cookies: PropTypes.any
   }
 
   getChildContext() {
-    return { fetchURL }
+    return { fetchURL, cookies }
   }
 
   state = {

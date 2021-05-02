@@ -1,0 +1,169 @@
+/*desktop*/
+
+.admin {
+    background-color: #f4f4f4;
+    margin: 20px 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-dividing-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.form-admin{
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 20px 10px;
+}
+
+.form-header-admin{
+    text-align: center;
+    font-weight: 500;
+    font-variant: small-caps;
+    font-size: 20px;
+    padding-bottom: 10px;
+}
+
+/* USER ROLE */
+.user-role-input-admin{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.user-role-input-select-admin{
+    margin: 20px 10px !important;
+    width: 250px;    
+}
+
+.user-role-input-check-admin{
+    display: flex;
+    flex-direction: column;
+    margin: 20px 10px;
+    justify-content: center;
+}
+
+.MuiFormControlLabel-root{
+    margin: 0px !important;
+}
+
+.user-role-submit-button-admin{
+    width: 200px;
+    align-self: center;
+}
+
+.user-role-submit-button-admin > *{
+    width: 200px;   
+}
+
+
+/* ROOM & CLEANING ITEM */
+.room-cleaningitem-input-admin{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.room-cleaningitem-list-admin{
+    margin: 0px 10px !important;
+    width: 200px;
+}
+
+.room-cleaningitem-scrollbar-admin{
+    max-height: 300px;
+    overflow: auto;
+}
+
+.room-cleaningitem-text-admin{
+    margin: 0px 10px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+}
+
+.room-cleaningitem-text-admin > :nth-child(n+2){ /*all child except first*/
+    margin: 10px 0px !important;
+    width: 200px;
+}
+
+
+.MuiList-padding {
+    margin-left: 0px !important;
+}
+
+.room-cleaningitem-sub-header{
+    font-weight: 250;
+    font-size: 17px;
+}
+
+@media only screen and (max-width: 1200px){ /*extra*/
+    .room-cleaningitem-list-admin{
+        width: 170px;
+    }
+
+    .room-cleaningitem-text-admin{
+        width: 170px;
+    }
+}
+
+@media only screen and (max-width: 1000px){ /*mobile*/
+    .form-dividing-div{
+        flex-direction: column;
+        align-items: center; 
+    }
+
+    .form-admin{
+        text-align: center;
+        justify-content: center;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        width: 400px;
+    }
+
+    .form-header-admin{
+        padding-top: 15px;
+        padding-bottom: 5px;
+    }
+
+    /* USER ROLE */
+    .user-role-input-admin{
+        flex-direction: column;
+    }
+
+    .user-role-input-select-admin{
+        width: 250px;
+        align-self: center;    
+    }
+
+    .user-role-input-check-admin{
+        margin-top: 10px;
+        width: 250px; 
+        align-self: center;
+    }
+
+    /* ROOM & CLEANING ITEM */
+    .room-cleaningitem-input-admin{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .room-cleaningitem-list-admin{
+        width: 200px;
+    }
+    
+    .room-cleaningitem-text-admin{
+        width: 200px;
+    }
+
+    .room-cleaningitem-sub-header{
+        margin-top: 20px;
+        margin-bottom: 5px;
+    }
+}

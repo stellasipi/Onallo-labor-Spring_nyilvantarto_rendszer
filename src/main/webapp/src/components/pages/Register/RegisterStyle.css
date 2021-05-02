@@ -46,7 +46,7 @@
     width: 200px;
 }
 
-.MuiList-padding{
+.MuiMenuItem-gutters { /*legördülő*/
     margin-left: 13px !important;
 }
 
