@@ -103,12 +103,45 @@
     font-size: 17px;
 }
 
+/* PAIRING */
+.pairing-input-admin{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.pairing-list-admin{
+    margin: 0px 10px !important;
+    width: 200px;
+}
+
+.pairing-text-admin{
+    margin: 0px 10px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+}
+
+.pairing-text-admin > :nth-child(n+2){ /*all child except first*/
+    margin: 10px 0px !important;
+    width: 200px;
+}
+
 @media only screen and (max-width: 1200px){ /*extra*/
     .room-cleaningitem-list-admin{
         width: 170px;
     }
 
     .room-cleaningitem-text-admin{
+        width: 170px;
+    }
+
+    .pairing-list-admin{
+        width: 170px;
+    }
+
+    .pairing-text-admin{
         width: 170px;
     }
 }
@@ -165,5 +198,24 @@
     .room-cleaningitem-sub-header{
         margin-top: 20px;
         margin-bottom: 5px;
+    }
+
+    /* PAIRING */
+    .pairing-input-admin{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pairing-list-admin{
+        width: 200px;
+    }
+
+    .pairing-text-admin{
+        width: 200px;
+    }
+
+    .form-header-admin-word{
+        font-size: 20px;
+        letter-spacing: -1px;
     }
 }

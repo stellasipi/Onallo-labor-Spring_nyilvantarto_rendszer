@@ -40,6 +40,9 @@ public class TestUserCreator {
         List<Role> user = new ArrayList<>(){{
             add(userRole);
         }};
+        List<Role> admin = new ArrayList<>(){{
+            add(adminRole);
+        }};
 
         User user1 = User.builder()
                 .name("Tóth-Baranyi Stella")
@@ -55,13 +58,24 @@ public class TestUserCreator {
                 .name("Kovács Dávid")
                 .username("dadikovi")
                 .password(encoder.encode("password2"))
-                .roles(user)
+                .roles(admin)
                 .scoutGroup(scoutGroupRepository.findByName("Szalamandra"))
                 .groupLeader(true)
                 .scout(true)
                 .build();
 
+        User user3 = User.builder()
+                .name("Teszt Elek")
+                .username("tesztelek")
+                .password(encoder.encode("password3"))
+                .roles(user)
+                .scoutGroup(scoutGroupRepository.findByName("Jaguár"))
+                .groupLeader(false)
+                .scout(true)
+                .build();
+
         userRepository.save(user1);
         userRepository.save(user2);
+        userRepository.save(user3);
     }
 }

@@ -14,6 +14,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import ArrowRightOutlinedIcon from '@material-ui/icons/ArrowRightOutlined';
 import swal from 'sweetalert';
 
  class Admin extends Component {
@@ -35,10 +36,11 @@ import swal from 'sweetalert';
         cleaningItems: [],
         newCleaningItem: '',
 
-        pairings: []
+        pairings: [],
+        selectedRoom: '',
+        selectedCleaningItem: ''
     };
 
-    testText="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
     ismounted = false;
     didUpdateRunOnce = false;
 
@@ -56,6 +58,7 @@ import swal from 'sweetalert';
         axios.get(this.context.fetchURL+'cleanings/cleaningItems')
         .then(res => {if(this.ismounted) this.setState({ cleaningItems: res.data })})
         .catch(error=>{});
+        this.setPairings();
         this.ismounted=true;
         
     }
@@ -78,6 +81,12 @@ import swal from 'sweetalert';
             // console.log(this.state[testRole.name])
             this.didUpdateRunOnce=true;
         }
+    }
+
+    setPairings(){
+        axios.get(this.context.fetchURL+'cleanings/pairings')
+        .then(res => {if(this.ismounted) this.setState({ pairings: res.data })})
+        .catch(error=>{});
     }
 
     setRoles(){
@@ -144,6 +153,27 @@ import swal from 'sweetalert';
       this.setState({ newCleaningItem:'' })
     }
 
+    onCreateNewPairing = (e) => {
+        e.preventDefault();
+        axios.post(this.context.fetchURL + 'cleanings/pairing', {
+            roomName: this.state.selectedRoom,
+            cleaningItemName: this.state.selectedCleaningItem
+        })
+      .then(
+        res=>this.setPairings(),
+        swal({
+            title: "A párosítás sikeresen létrejött",
+            icon: "success",
+            timer: 1500
+          })
+      )
+      .catch(
+        err=>{swal("Upsz!", err.response.data, "error")}
+      );
+      this.setPairings();
+      this.setState({ selectedRoom: '' , selectedCleaningItem: ''})
+    }
+
     render() {
         return (
             <div className="admin" onSubmit={this.onSubmit}>
@@ -190,7 +220,7 @@ import swal from 'sweetalert';
                                 <Paper className="room-cleaningitem-scrollbar-admin">
                                     <List>
                                         {this.state.rooms.map((room)=>(
-                                            <ListItem key={room.id}> <ListItemText primary={room.name} /> </ListItem>
+                                            <ListItem button key={room.id}> <ListItemText primary={room.name} /> </ListItem>
                                         ))}
                                     </List>
                                 </Paper>
@@ -221,7 +251,7 @@ import swal from 'sweetalert';
                                 <Paper className="room-cleaningitem-scrollbar-admin">
                                     <List>
                                         {this.state.cleaningItems.map((cleaningItem)=>(
-                                            <ListItem key={cleaningItem.id}> <ListItemText primary={cleaningItem.name} /> </ListItem>
+                                            <ListItem button key={cleaningItem.id}> <ListItemText primary={cleaningItem.name} /> </ListItem>
                                         ))}
                                     </List>
                                 </Paper>
@@ -238,9 +268,53 @@ import swal from 'sweetalert';
                     </form>
 
                     {/* PAIRING */}
-                    <form className="form-admin">
-                        <div className="form-header-admin">Szoba és teendő párosítás létrehozása</div>
-                        {this.testText}
+                    <form className="form-admin"onSubmit={this.onCreateNewPairing}>
+                        <div className="form-header-admin form-header-admin-word" >Szoba és teendő párosítás létrehozása</div>
+                        <div className="pairing-input-admin">
+                            {/* list */}
+                            <div className="pairing-list-admin">
+                                <div className="room-cleaningitem-sub-header">Már létező párosítások:</div>
+                                <Paper className="room-cleaningitem-scrollbar-admin">
+                                    <List>
+                                        {this.state.pairings.map((pairing)=>([
+                                            <ListItem button key={pairing.id}> <ListItemText primary={pairing.roomName} /> </ListItem>,
+                                            pairing.cleaningItems.map((item)=>(
+                                                <ListItem button key={item} style={{marginLeft: '10px'}}> 
+                                                    <ArrowRightOutlinedIcon/> 
+                                                    <ListItemText primary={item} /> 
+                                                </ListItem>
+                                            ))
+                                        ]))}
+                                    </List>
+                                </Paper>
+                            </div>
+
+                            {/* new room */}
+                            <div className="pairing-text-admin">
+                                <div className="room-cleaningitem-sub-header">Új:</div>
+
+                                <FormControl className="user-role-input-select-admin">
+                                    <InputLabel>Szoba</InputLabel>
+                                    <Select name="selectedRoom" value={this.state.selectedRoom} onChange={this.onChange}>
+                                        {this.state.rooms.map((room)=>(
+                                            <MenuItem key={room.id} value={room.name}> {room.name} </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+
+                                <FormControl className="user-role-input-select-admin">
+                                    <InputLabel>Teendő</InputLabel>
+                                    <Select name="selectedCleaningItem" value={this.state.selectedCleaningItem} onChange={this.onChange}>
+                                        {this.state.cleaningItems.map((cleaningItem)=>(
+                                            <MenuItem key={cleaningItem.id} value={cleaningItem.name}> {cleaningItem.name} </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+
+                                <Button variant="outlined" type="submit">Mentés</Button>
+                            </div>
+                        </div>
+
                     </form>
                 </div>
             </div>
