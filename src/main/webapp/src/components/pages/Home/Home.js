@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import './HomeStyle.css';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
+import VpnKeyOutlinedIcon from '@material-ui/icons/VpnKeyOutlined';
+import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
+import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
+import SupervisorAccountOutlinedIcon from '@material-ui/icons/SupervisorAccountOutlined';
 
 class Home extends Component {
 
@@ -25,32 +30,30 @@ class Home extends Component {
 
     render() {
         return (
-            <div style={homeStyle}>
-                <a role="button" className="button btn btn-outline-light" style={buttonStyle} href="/log">Nyitás/zárás</a>
-                <a role="button" className="button btn btn-outline-light" style={buttonStyle} href="/maintenance">Karbantartás</a>
-                <a role="button" className="button btn btn-outline-light" style={buttonStyle} href="/cleaning">Takarítás</a>
-                {this.state.isAdmin ? <a role="button" className="button btn btn-outline-light" style={buttonStyle} href="/admin">Admin</a> : ""}
+            <div className="home-style">
+                <Button className="button-style" variant="outlined" type="button" href="/log"> 
+                    <div className="button-text-home">Nyitás/zárás</div> 
+                    <VpnKeyOutlinedIcon className="icon-stlye"/> 
+                </Button>
+                <Button className="button-style" variant="outlined" type="button" href="/maintenance">
+                    <div className="button-text-home">Karbantartás</div> 
+                    <SettingsOutlinedIcon className="icon-stlye"/> 
+                    
+                </Button>
+                <Button className="button-style" variant="outlined" type="button" href="/cleaning">
+                    <div className="button-text-home">Takarítás</div> 
+                    <DeleteOutlinedIcon className="icon-stlye"/> 
+                    
+                </Button>
+                {this.state.isAdmin ? 
+                    <Button className="button-style" variant="outlined" type="button" href="/admin">
+                        <div className="button-text-home">Admin</div> 
+                        <SupervisorAccountOutlinedIcon className="icon-stlye"/> 
+                    </Button> : 
+                    ""}
             </div>
         )
     }
-}
-
-const homeStyle={
-    display: 'flex',
-    flexDirection: 'column',
-    margin: '1% 10%',
-}
-
-
-
-const buttonStyle={
-    fontSize: '30px',
-    color: '#44bb44',
-    textShadow: '1.5px 1.5px 5px #517351',
-    paddingTop: '3%',
-    paddingBottom: '3%',
-    marginTop: '1%',
-    marginBottom: '1%'    
 }
 
 Home.propTypes = {

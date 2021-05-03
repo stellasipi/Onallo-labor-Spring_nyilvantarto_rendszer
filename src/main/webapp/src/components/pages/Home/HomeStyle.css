@@ -1,3 +1,41 @@
-.button:active{
-    background-color: #f8f9fa !important;
+.home-style{
+    display: flex;
+    flex-direction: column;
+    margin: 10px 100px !important;
+}
+
+.button-style{
+    font-size: 25px !important;
+    color: #699769 !important;
+    text-shadow: 1.2px 1.2px 3.5px #334e33 !important;
+    padding: 35px 13px !important;
+    margin-bottom: 10px !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.button-text-home{
+    margin-right: 10px;
+}
+
+.icon-stlye{
+    color: gray !important;
+    width: 35px !important;
+    height: 35px !important;
+}
+
+@media only screen and (max-width: 800px){ /*tablet*/
+    .home-style{
+        margin: 10px 50px !important;
+    }
+
+    .button-style{
+        text-shadow: 1.2px 1.2px 2.5px #517351 !important;
+    }
+}
+
+@media only screen and (max-width: 600px){ /*mobile*/
+    .home-style{
+        margin: 10px 25px !important;
+    }
 }
