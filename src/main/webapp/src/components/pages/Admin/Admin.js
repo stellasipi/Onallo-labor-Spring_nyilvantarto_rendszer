@@ -46,9 +46,7 @@ import swal from 'sweetalert';
 
     componentDidMount(){
         axios.defaults.headers.common['Authorization'] = `Bearer ${this.context.cookies.get('token')}`;
-        axios.get(this.context.fetchURL+'users')
-        .then(res => {if(this.ismounted) this.setState({ users: res.data }) })
-        .catch(error=>{});
+        this.setUsers();
         axios.get(this.context.fetchURL+'user/roles')
         .then(res => {if(this.ismounted) this.setState({ roles: res.data })})
         .catch(error=>{});
@@ -70,15 +68,6 @@ import swal from 'sweetalert';
     componentDidUpdate(){
         if(!this.didUpdateRunOnce && this.ismounted && this.state.roles.length>0){
             this.setRoles();
-            // console.log("TESZT:")
-            // var testRole={
-            //     name: 'ADMIN',
-            //     id: 2
-            // }
-            // console.log(testRole.name);
-            // //`Bearer ${cookies.get('token')}`
-            // //console.log(this.state.`${testRole.name}`)
-            // console.log(this.state[testRole.name])
             this.didUpdateRunOnce=true;
         }
     }
@@ -97,6 +86,12 @@ import swal from 'sweetalert';
         }
     }
 
+    setUsers(){
+        axios.get(this.context.fetchURL+'users')
+        .then(res => {if(this.ismounted) this.setState({ users: res.data }) })
+        .catch(error=>{});
+    }
+
     onChange = (e) =>{
         this.setState({
             [e.target.name]: e.target.value
@@ -106,13 +101,56 @@ import swal from 'sweetalert';
                 selectedUserName: e.target.value,
                 selectedRolesForUser: e.target.value.roles
             })
-            //set selected User role for checkbox checkings
+            //reset
+            this.setRoles() 
+            //load selected user's roles:
+            for(var i=0;i<this.state.roles.length;i++){
+                for(var j=0;j<e.target.value.roles.length;j++){
+                    if(this.state.roles[i].name===e.target.value.roles[j].name){
+                        this.setState({
+                            [this.state.roles[i].name]: true
+                        })
+                    }
+                    
+                }
+            }
         }
+    }
+
+    onChangeUserRole = (e) =>{
+        this.setState({
+            [e.target.name]: e.target.checked
+        })
     }
 
     onUpdateUserRole = (e) => {
         e.preventDefault();
-        console.log("onUpdateUserRole");
+        var payload=[];
+
+        for(var i=0;i<this.state.roles.length;i++){
+            if(this.state[this.state.roles[i].name]){
+                payload.push({name: this.state.roles[i].name})
+            }
+        }
+
+        axios.put(this.context.fetchURL + 'user/'+this.state.selectedUser.id+'/role?overwriteExisting=true', payload)
+        .then(
+        res=>this.setUsers(),
+        swal({
+            title: "A szerepkörök módosultak",
+            icon: "success",
+            timer: 1500
+          })
+      )
+      .catch(
+        err=>{}
+      );
+      this.setState({
+        selectedUser: {},
+        selectedUserName:'',
+        selectedRolesForUser: [],
+      })
+      this.setRoles();
     }
 
     onCreateNewRoom = (e) => {
@@ -197,8 +235,8 @@ import swal from 'sweetalert';
                                     <FormControlLabel key={role.id} control={
                                         <Checkbox 
                                             name={role.name} 
-                                            // checked={this.ismounted?this.state[role.name]:false} 
-                                            // onChange={this.onChange}
+                                            checked={this.didUpdateRunOnce?this.state[role.name]:false} 
+                                            onChange={this.onChangeUserRole}
                                             disabled={this.state.selectedUserName?false:true} 
                                             color="default" />
                                     } label={role.name} />
