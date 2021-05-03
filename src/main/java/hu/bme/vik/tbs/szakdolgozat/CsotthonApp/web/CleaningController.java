@@ -1,12 +1,10 @@
 package hu.bme.vik.tbs.szakdolgozat.CsotthonApp.web;
 
-import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.CleaningDTO;
-import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.RoomCleaningDTO;
-import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.RoomCleaningItemPairingMapDTO;
-import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.RoomDTO;
+import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.*;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.service.CleaningService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -39,6 +37,11 @@ public class CleaningController {
         return cleaningService.getRooms();
     }
 
+    @GetMapping("/cleaningItems")
+    public List<CleaningItemDTO> getCleaningItems() {
+        return cleaningService.getCleaningItems();
+    }
+
     @GetMapping("/pairings")
     public List<RoomCleaningItemPairingMapDTO> getPairings() {
         return cleaningService.getPairings();
@@ -56,6 +59,39 @@ public class CleaningController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(cleaningId);
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/room")
+    public ResponseEntity createRoom(@RequestBody RoomDTO roomDTO) {
+        RoomDTO room = cleaningService.createRoom(roomDTO);
+        if (room != null) {
+            return ResponseEntity.ok(room);
+        } else {
+            return ResponseEntity.badRequest().body("A megadott név már létezik");
+        }
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/cleaningItem")
+    public ResponseEntity createCleaningItem(@RequestBody CleaningItemDTO cleaningItemDTO) {
+        CleaningItemDTO cleaningItem = cleaningService.createCleaningItem(cleaningItemDTO);
+        if (cleaningItem != null) {
+            return ResponseEntity.ok(cleaningItem);
+        } else {
+            return ResponseEntity.badRequest().body("A megadott név már létezik");
+        }
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/pairing")
+    public ResponseEntity createRoomCleaningItemPairing(@RequestBody RoomCleaningItemPairingDTO roomCleaningItemPairingDTO) {
+        RoomCleaningItemPairingDTO pairing = cleaningService.createRoomCleaningItemPairing(roomCleaningItemPairingDTO);
+        if (pairing != null) {
+            return ResponseEntity.ok(pairing);
+        } else {
+            return ResponseEntity.badRequest().body("A szoba vagy az elvégzendő feladat neve nem megfelelő vagy már létezik a párosítás");
+        }
     }
 
 }

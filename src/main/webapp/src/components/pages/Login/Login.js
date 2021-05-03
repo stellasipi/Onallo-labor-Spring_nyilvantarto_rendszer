@@ -18,6 +18,11 @@ class Login extends Component {
         password: ''
     }
 
+    componentDidMount(){
+        sessionStorage.setItem('userCreated', false);
+        sessionStorage.setItem('registration', false);
+    }
+
     onChange = (e) =>{
         this.setState({
             [e.target.id]: e.target.value
@@ -34,7 +39,7 @@ class Login extends Component {
         swal({
             title: "Siker",
             icon: "success",
-            timer: 1000
+            timer: 1500
           })
       )
       .catch(()=>{
@@ -48,15 +53,24 @@ class Login extends Component {
         this.setState({ username: '', password: '' })
     }
 
+    registrationClick = (e) => {
+        sessionStorage.setItem("registration",true);
+    }
+
     render() {
-        if (sessionStorage.getItem("authenticated")) {
+        if (localStorage.getItem("authenticated")) {
             return <Redirect to='/'/>
         }
         return (
             <form className="login" onSubmit={this.onClick}>
-                <TextField className="form-group" id="username" label="Felhasználónév" variant="outlined" value={this.state.username} onChange={this.onChange} />
-                <TextField className="form-group" id="password" label="Jelszó" type="password" variant="outlined" value={this.state.password} onChange={this.onChange} />
-                <Button className="form-group" variant="outlined" type="submit">Belépés</Button>
+                <div className="div-text-group-login">
+                    <TextField className="div-text" id="username" label="Felhasználónév" variant="outlined" value={this.state.username} onChange={this.onChange} />
+                    <TextField className="div-text" id="password" label="Jelszó" type="password" variant="outlined" value={this.state.password} onChange={this.onChange} />
+                </div>
+                <div className="div-button-group">
+                    <Button className="div-button" variant="outlined" type="submit">Belépés</Button>
+                    <Button className="div-button" variant="outlined" href="/register" color="primary" onClick={this.registrationClick}>Regisztráció</Button>
+                </div>
             </form>
         )
     }

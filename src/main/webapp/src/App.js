@@ -13,20 +13,24 @@ import CreateMaintenance from './components/pages/Maintenance/CreateMaintenance'
 import Cleanings from './components/pages/Cleaning/Cleanings';
 import PageHeader from './components/pages/PageHeader';
 import Login from './components/pages/Login/Login';
+import Register from './components/pages/Register/Register';
 import CreateCleaning from './components/pages/Cleaning/CreateCleaning';
+import Admin from './components/pages/Admin/Admin'
 import PrivateRoute from './components/PrivateRoute';
 
-const fetchURL = 'http://localhost:8080/';
+//const fetchURL = 'http://localhost:8080/';
+const fetchURL = 'http://192.168.31.235:8080/'; //for mobile testing
 const cookies = new Cookies();
 
 class App extends Component {
   
   static childContextTypes = {
-    fetchURL: PropTypes.string
+    fetchURL: PropTypes.string,
+    cookies: PropTypes.any
   }
 
   getChildContext() {
-    return { fetchURL }
+    return { fetchURL, cookies }
   }
 
   state = {
@@ -35,20 +39,22 @@ class App extends Component {
     rooms: [],
     cleanings: [],
     pairings: [],
-    authenticated: false
+    currentUser: '',
+    authenticated: false,
+    registration: false
   }
 
   //GET requests
   componentDidMount(){
-    if(sessionStorage.getItem("authenticated")==='true'){
+    if(localStorage.getItem("authenticated")==='true'){
       this.getRequests();
     }
   }
 
   componentDidUpdate(){
-    if(sessionStorage.getItem("authenticated")==='true' && sessionStorage.getItem("updated")==='false'){
+    if(localStorage.getItem("authenticated")==='true' && localStorage.getItem("updated")==='false'){
       this.getRequests();
-      sessionStorage.setItem('updated',true);
+      localStorage.setItem('updated',true);
     }
   }
 
@@ -65,20 +71,30 @@ class App extends Component {
       .then(res => this.setState({ cleanings: res.data }));
     axios.get(fetchURL + 'cleanings/pairings')
       .then(res => this.setState({ pairings: res.data }));
+    axios.get(fetchURL + 'user')
+      .then(res => this.setState({ currentUser: res.data }));
   }
 
   setAuthenticated = (token) => {
     cookies.set("token",token)
-    sessionStorage.setItem('authenticated', true);
-    sessionStorage.setItem('updated',false);
+    localStorage.setItem('authenticated', true);
+    localStorage.setItem('updated',false);
     this.setState({authenticated: true})
   }
 
   logout = () => {
     cookies.remove("token")
-    sessionStorage.removeItem('authenticated');
-    sessionStorage.removeItem('updated');
+    localStorage.removeItem('authenticated');
+    localStorage.removeItem('updated');
     this.setState({authenticated:false});
+    axios.get(fetchURL + 'logout');
+  }
+
+  setRegistration = (object) =>{
+    sessionStorage.setItem('userCreated', true);
+    sessionStorage.setItem('registration', false);
+    this.setState({registration:true});
+    this.setState({registration:false});
   }
 
   //POST requests
@@ -137,7 +153,7 @@ class App extends Component {
         <Switch>
           <PrivateRoute path="/" exact component={() => 
                         <React.Fragment>
-                          <Home />
+                          <Home roles={this.state.currentUser.roles} />
                         </React.Fragment>} />
           <PrivateRoute path="/log" exact component={() => 
                         <React.Fragment>
@@ -157,10 +173,20 @@ class App extends Component {
                           <CreateCleaning createCleaning={this.createCleaning} pairings={this.state.pairings} />
                           <Cleanings cleanings={this.state.cleanings} rooms={this.state.rooms} deleteCleaning={this.deleteCleaning} />
                         </React.Fragment>} />
+          <PrivateRoute path="/admin" requiredRole="ADMIN" roles={this.state.currentUser.roles} exact component={() => 
+                        <React.Fragment>
+                          <PageHeader title="Admin felület"/>
+                          <Admin />
+                        </React.Fragment>} />
           <Route path="/login" exact component={() => 
                 <React.Fragment>
                   <PageHeader title="Bejelentkezés"/>
                   <Login setAuthenticated={this.setAuthenticated}/>
+                </React.Fragment>}/>
+          <Route path="/register" exact component={() => 
+                <React.Fragment>
+                  <PageHeader title="Regisztráció"/>
+                  <Register setRegistration={this.setRegistration}/>
                 </React.Fragment>}/>
           <Route exact component={() => 
                 <React.Fragment>

@@ -1,5 +1,6 @@
 package hu.bme.vik.tbs.szakdolgozat.CsotthonApp.security;
 
+import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -30,6 +31,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
@@ -41,10 +45,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().and()
                 .csrf().disable()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtAudience, jwtIssuer, jwtSecret, jwtType))
-                .addFilter(new JwtAuthorizationFilter(authenticationManager(), null, jwtAudience, jwtIssuer, jwtSecret, jwtType))
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), jwtAudience, jwtIssuer, jwtSecret, jwtType, userRepository))
                 .authorizeRequests()
-                .antMatchers("/cleanings","/cleanings/*","/logs","/logs/*","/maintenances","/maintenances/*").authenticated()
+                .antMatchers("/cleanings/**", "/logs/**", "/maintenances/**", "/user/**", "/users/**", "/logout/**").authenticated()
                 .antMatchers("/*").permitAll().and()
+                .logout().logoutSuccessHandler(new LogoutSuccessHandler()).and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS); //disabled sessions
     }

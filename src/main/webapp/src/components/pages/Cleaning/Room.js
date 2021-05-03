@@ -4,21 +4,25 @@ import axios from 'axios';
 import RoomCleaningItems from './RoomCleaningItems'
 
 class Room extends Component {
-    static contextTypes = {
-        fetchURL: PropTypes.string
-    }
+        static contextTypes = {
+            fetchURL: PropTypes.string
+        }
 
     state = {
         roomCleaningItems: []
     };
 
     ismounted = false;
+    isRoomExists = true;
     
     componentDidMount() {
         axios.get(this.context.fetchURL+'cleanings/'+ this.props.cleaningId + '/roomCleaning?roomName='+this.props.room.name)
             .then(res => 
                 {if(this.ismounted) this.setState({ roomCleaningItems: res.data })}
             )
+            .catch(error=>{
+                this.isRoomExists=false;
+            })
         this.ismounted=true;
     }
 
@@ -27,12 +31,16 @@ class Room extends Component {
     }
 
     render() {
-        return (
-            <div style={RoomStyle}>
-                <p style={roomNameStyle}>{this.props.room.name}</p>
-                <RoomCleaningItems roomCleaningItems={this.state.roomCleaningItems}/>
-            </div>
-        )
+        if(this.isRoomExists){
+            return (
+                <div style={RoomStyle}>
+                    <p style={roomNameStyle}>{this.props.room.name}</p>
+                    <RoomCleaningItems roomCleaningItems={this.state.roomCleaningItems}/>
+                </div>
+            )
+        }else{
+            return <div></div>
+        }
     }
 }
 

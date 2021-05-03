@@ -56,6 +56,10 @@ INSERT INTO scout_group (id, name, sex) VALUES (14, 'Puma', 1);
 INSERT INTO scout_group (id, name, sex) VALUES (15, 'Sün', 1);
 INSERT INTO scout_group (id, name, sex) VALUES (16, 'Szürkefarkas', 1);
 
+--Default roles
+INSERT INTO role (id, name) VALUES (1, 'ADMIN');
+INSERT INTO role (id, name) VALUES (2, 'USER');
+
 --Test data
 INSERT INTO log (id, comment, time, type, user_id) VALUES (1, 'Minden rendben', '2021-02-13 17:44:00', 0, 1);
 INSERT INTO log (id, time, type, user_id) VALUES (2, NOW(), 0, 2);
