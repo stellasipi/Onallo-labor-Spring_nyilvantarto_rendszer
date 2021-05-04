@@ -4,6 +4,7 @@ import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.MaintenanceDTO;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.service.MaintenanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -26,6 +27,7 @@ public class MaintenanceController {
         return maintenanceService.createMaintenance(maintenance, principal);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Integer> deleteMaintenance(@PathVariable Integer id) {
         Boolean isRemoved = maintenanceService.delete(id);

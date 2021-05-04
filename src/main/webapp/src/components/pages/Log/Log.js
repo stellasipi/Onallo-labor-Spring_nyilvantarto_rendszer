@@ -14,9 +14,11 @@ class Log extends Component {
                     {this.props.log.comment != null ? <p style={commentStyle}><strong>Megjegyzések:</strong> {this.props.log.comment}</p> : ''}
                     <strong>Ki?</strong> {this.props.log.user.name}
                 </div>
+                {this.props.isAdmin ? 
                 <Button id="delete-button" className="delete-button" onClick={this.props.deleteLog.bind(this, this.props.log.id)} variant="outlined" type="button">
                         <HighlightOffOutlinedIcon/>
                 </Button>
+                : ""}
             </div>
 
         )
@@ -25,7 +27,8 @@ class Log extends Component {
 
 //PropTypes
 Log.propTypes = {
-    log: PropTypes.object.isRequired
+    log: PropTypes.object.isRequired,
+    isAdmin: PropTypes.bool.isRequired
 }
 
 const commentStyle = {

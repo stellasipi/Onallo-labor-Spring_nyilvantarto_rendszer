@@ -17,7 +17,7 @@ class Cleaning extends Component {
     state = {
         collapse: null
     };
-
+    
     toggle() {
         this.setState({ collapse: !this.state.collapse });
     }
@@ -34,9 +34,11 @@ class Cleaning extends Component {
                         <p style={dateStyle}>{this.props.cleaning.time}</p> {this.props.cleaning.scoutGroup.name} őrs
                         <p style={creatorStyle}>{this.props.cleaning.user.name}</p>
                     </div>
+                    {this.props.isAdmin ? 
                     <Button id="delete-button" className="delete-button" onClick={this.props.deleteCleaning.bind(this, this.props.cleaning.id)} variant="outlined" type="button">
                         <HighlightOffOutlinedIcon/>
                     </Button>
+                    : ""}
                     {this.state.collapse ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
 
@@ -59,7 +61,8 @@ class Cleaning extends Component {
 //PropTypes
 Cleaning.propTypes = {
     cleaning: PropTypes.object.isRequired,
-    rooms: PropTypes.array.isRequired
+    rooms: PropTypes.array.isRequired,
+    isAdmin: PropTypes.bool.isRequired
 }
 
 const dateStyle = {

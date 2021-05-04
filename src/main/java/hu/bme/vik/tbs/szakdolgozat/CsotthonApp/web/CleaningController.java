@@ -52,6 +52,7 @@ public class CleaningController {
         return cleaningService.createCleaning(roomCleanings, principal);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{cleaningId}")
     public ResponseEntity<Integer> deleteCleaning(@PathVariable Integer cleaningId) {
         Boolean isRemoved = cleaningService.deleteCleaning(cleaningId);

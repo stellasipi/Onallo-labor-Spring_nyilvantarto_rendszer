@@ -4,6 +4,7 @@ import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.dto.LogDTO;
 import hu.bme.vik.tbs.szakdolgozat.CsotthonApp.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -25,6 +26,7 @@ public class LogController {
         return logService.createLog(log, principal);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Integer> deleteLog(@PathVariable Integer id) {
         Boolean isRemoved = logService.delete(id);

@@ -13,9 +13,11 @@ class Maintenance extends Component {
                     <strong>Megjegyzések:</strong> {this.props.maintenance.comment}<br />
                     <strong>Ki?</strong> {this.props.maintenance.user.name}
                 </div>
+                {this.props.isAdmin ? 
                 <Button id="delete-button" className="delete-button" onClick={this.props.deleteMaintenance.bind(this, this.props.maintenance.id)} variant="outlined" type="button">
                         <HighlightOffOutlinedIcon/>
                 </Button>
+                : "" }
             </div>
         )
     }
@@ -23,7 +25,8 @@ class Maintenance extends Component {
 
 //PropTypes
 Maintenance.propTypes = {
-    maintenance: PropTypes.object.isRequired
+    maintenance: PropTypes.object.isRequired,
+    isAdmin: PropTypes.bool.isRequired
 }
 
 export default Maintenance;

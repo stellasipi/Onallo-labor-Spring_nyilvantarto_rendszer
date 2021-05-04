@@ -162,19 +162,19 @@ class App extends Component {
                         <React.Fragment>
                           <PageHeader title="Nyitás/Zárás"/> 
                           <CreateLog createLog={this.createLog} /> 
-                          <Logs logs={this.state.logs} deleteLog={this.deleteLog} />
+                          <Logs logs={this.state.logs} deleteLog={this.deleteLog} roles={this.state.currentUser.roles} />
                         </React.Fragment>} />
           <PrivateRoute path="/maintenance" exact component={() => 
                         <React.Fragment>
                           <PageHeader title="Karbantartás"/>
                           <CreateMaintenance createMaintenance={this.createMaintenance} />
-                          <Maintenances maintenances={this.state.maintenances} deleteMaintenance={this.deleteMaintenance} />
+                          <Maintenances maintenances={this.state.maintenances} deleteMaintenance={this.deleteMaintenance} roles={this.state.currentUser.roles} />
                         </React.Fragment>} />
           <PrivateRoute path="/cleaning" exact component={() => 
                         <React.Fragment>
                           <PageHeader title="Takarítás"/>
                           <CreateCleaning createCleaning={this.createCleaning} pairings={this.state.pairings} />
-                          <Cleanings cleanings={this.state.cleanings} rooms={this.state.rooms} deleteCleaning={this.deleteCleaning} />
+                          <Cleanings cleanings={this.state.cleanings} rooms={this.state.rooms} deleteCleaning={this.deleteCleaning} roles={this.state.currentUser.roles} />
                         </React.Fragment>} />
           <PrivateRoute path="/admin" requiredRole="ADMIN" roles={this.state.currentUser.roles} exact component={() => 
                         <React.Fragment>
