@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 class CreateCleaningRoomItem extends Component {
 
@@ -29,10 +31,9 @@ class CreateCleaningRoomItem extends Component {
 
     render() {
         return (
-            <div className="form-check"  >
-                <input type="checkbox" className="form-check-input" checked={this.state.value} onChange={(e)=>this.onChange(e)}/>
-                <label className="form-check-label">{this.props.roomCleaningItem}</label>
-            </div>
+                <FormControlLabel control={
+                    <Checkbox  checked={this.state.value} onChange={(e)=>this.onChange(e)} color="default" />
+                } label={this.props.roomCleaningItem} />
         )
     }
 }
