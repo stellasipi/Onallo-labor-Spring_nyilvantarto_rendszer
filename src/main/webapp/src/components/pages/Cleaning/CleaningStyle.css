@@ -3,12 +3,40 @@ li{
     padding: 0px !important;
 }
 
-.bi-chevron-down {
-    /* margin-right: 3%; */
-    align-self: center;
-    text-align: center;
+/* .bi-square {
+    margin-right: 5px;
+} */
+.collapse-item-cl{
+    background-color: #f4f4f4;
+    margin: 20px 10%;
+    display: flex;
+    flex-direction: column;
 }
 
-.bi-square {
-    margin-right: 5px;
+.collapse-item-cl .MuiListItem-button{
+    padding-bottom: unset !important;
+}
+
+.collapse-open-rooms-cl{
+    background-color: #f4f4f4;
+    /* margin: 20px 0px; */
+    margin-left: 5%;
+    margin-right: 5%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+}
+
+#collapse-list-cl li{
+    justify-content: center;
+}
+
+.collapse-open-rooms-cl div{
+    margin-top: 0px !important;
+    margin-bottom: 2px !important;
+    margin-left: 2px !important;
+    margin-right: 2px !important;
+    flex: 1 0 16%;
+    width: 130px !important;
 }
