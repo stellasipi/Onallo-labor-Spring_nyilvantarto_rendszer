@@ -105,7 +105,8 @@ class App extends Component {
     })
       .then(
         res => this.setState({ logs: [res.data, ...this.state.logs] })
-      );
+      )
+      .catch(error=>{});
   }
 
   createMaintenance = (comment, userId) => {
@@ -117,7 +118,8 @@ class App extends Component {
     })
       .then(
         res => this.setState({ maintenances: [res.data, ...this.state.maintenances] })
-      );
+      )
+      .catch(error=>{});
   }
 
   createCleaning = (roomCleaningItems) => {
@@ -126,6 +128,7 @@ class App extends Component {
     .then(
       res => this.setState({ cleanings: [res.data, ...this.state.cleanings] })
     )
+    .catch(error=>{});
   }
 
   //DELETE requests
