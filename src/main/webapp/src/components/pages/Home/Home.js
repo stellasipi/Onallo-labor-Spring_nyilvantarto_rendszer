@@ -32,23 +32,25 @@ class Home extends Component {
         return (
             <div className="home-style">
                 <Button className="button-style" variant="outlined" type="button" href="/log"> 
+                    <VpnKeyOutlinedIcon className="icon-stlye"/>
                     <div className="button-text-home">Nyitás/zárás</div> 
-                    <VpnKeyOutlinedIcon className="icon-stlye"/> 
+                     
                 </Button>
                 <Button className="button-style" variant="outlined" type="button" href="/maintenance">
+                    <SettingsOutlinedIcon className="icon-stlye"/>
                     <div className="button-text-home">Karbantartás</div> 
-                    <SettingsOutlinedIcon className="icon-stlye"/> 
                     
                 </Button>
                 <Button className="button-style" variant="outlined" type="button" href="/cleaning">
+                    
+                    <DeleteOutlinedIcon className="icon-stlye"/>
                     <div className="button-text-home">Takarítás</div> 
-                    <DeleteOutlinedIcon className="icon-stlye"/> 
                     
                 </Button>
                 {this.state.isAdmin ? 
                     <Button className="button-style" variant="outlined" type="button" href="/admin">
+                        <SupervisorAccountOutlinedIcon className="icon-stlye"/>
                         <div className="button-text-home">Admin</div> 
-                        <SupervisorAccountOutlinedIcon className="icon-stlye"/> 
                     </Button> : 
                     ""}
             </div>
