@@ -58,7 +58,8 @@ const RoomStyle = {
 }
 
 const roomNameStyle = {
-    fontWeight: 'bold',
+    fontWeight: '500',
+    fontSize: '16.5px',
     marginBottom: '8px'
 }
 

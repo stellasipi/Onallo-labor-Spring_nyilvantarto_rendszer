@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import './../../layouts/ComponentSytle.css';
+import Button from '@material-ui/core/Button';
+import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
 
 class Log extends Component {
     render() {
@@ -12,9 +14,9 @@ class Log extends Component {
                     {this.props.log.comment != null ? <p style={commentStyle}><strong>Megjegyzések:</strong> {this.props.log.comment}</p> : ''}
                     <strong>Ki?</strong> {this.props.log.user.name}
                 </div>
-                <div className="delete-button">
-                    <button onClick={this.props.deleteLog.bind(this, this.props.log.id)} type="button" className="btn btn-danger">X</button>
-                </div>
+                <Button id="delete-button" className="delete-button" onClick={this.props.deleteLog.bind(this, this.props.log.id)} variant="outlined" type="button">
+                        <HighlightOffOutlinedIcon/>
+                </Button>
             </div>
 
         )

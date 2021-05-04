@@ -3,12 +3,82 @@ li{
     padding: 0px !important;
 }
 
-.bi-chevron-down {
-    /* margin-right: 3%; */
-    align-self: center;
+.collapse-item-cl{
+    background-color: #f4f4f4;
+    margin: 20px 10%;
+    display: flex;
+    flex-direction: column;
+}
+
+.collapse-item-cl .MuiListItem-button{
+    padding-bottom: unset !important;
+}
+
+.collapse-open-rooms-cl{
+    background-color: #f4f4f4;
+    margin-left: 5%;
+    margin-right: 5%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+}
+
+#collapse-list-cl li{
+    justify-content: center;
+}
+
+.collapse-open-rooms-cl div{
+    margin-top: 0px !important;
+    margin-bottom: 2px !important;
+    margin-left: 2px !important;
+    margin-right: 2px !important;
+    flex: 1 0 16%;
+    width: 130px !important;
+}
+
+.collapse-open-rooms-cl div :first-child{
     text-align: center;
 }
 
-.bi-square {
-    margin-right: 5px;
+/*CREATE CLEANING*/
+
+.create-btn-cl{ 
+    margin: 10px 0px !important;
+    width: 400px;
+}
+
+.create-rooms-cl{
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+}
+
+.create-room-cl{
+    background-color: #f4f4f4;
+    margin: 10px 2px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 12%;
+    max-width: 180px !important;
+    min-width: 130px !important;
+}
+
+.create-room-cl > :nth-child(n+2){ /*all child except first*/
+    text-align: left;
+    
+}
+
+#room-cleaning-item-cl .MuiSvgIcon-root{
+    width: 16px !important;
+    height: 16px !important;
+}
+
+@media only screen and (max-width: 800px){ /*mobile*/
+    .create-btn-cl{ 
+        width: 200px;
+    }
 }

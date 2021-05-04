@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ListGroupItem, Collapse } from 'reactstrap';
+import { ListGroupItem } from 'reactstrap';
 import './CleaningStyle.css';
 import Rooms from './Rooms';
 import './../../layouts/ComponentSytle.css';
+import Button from '@material-ui/core/Button';
+import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 
 
 class Cleaning extends Component {
@@ -17,31 +24,33 @@ class Cleaning extends Component {
 
     render() {
         return (
-            <ListGroupItem >
+            <ListGroupItem  className="collapse-item-cl">
+
                 {/* fejléc rész */}
-                <div className="component" onClick={() => {
+                <ListItem button onClick={() => {
                     this.toggle();
                 }}>
                     <div className="component-item">
                         <p style={dateStyle}>{this.props.cleaning.time}</p> {this.props.cleaning.scoutGroup.name} őrs
                         <p style={creatorStyle}>{this.props.cleaning.user.name}</p>
                     </div>
-                    <svg className="bi bi-chevron-down" width="32" height="32" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fillRule="evenodd" d="M1.646 4.646a.5.5 0 01.708 0L8 10.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 010-.708z" clipRule="evenodd" />
-                    </svg>
-                    <div className="delete-button">
-                    <button onClick={this.props.deleteCleaning.bind(this, this.props.cleaning.id)} type="button" className="btn btn-danger">X</button>
-                </div>
-                </div>
+                    <Button id="delete-button" className="delete-button" onClick={this.props.deleteCleaning.bind(this, this.props.cleaning.id)} variant="outlined" type="button">
+                        <HighlightOffOutlinedIcon/>
+                    </Button>
+                    {this.state.collapse ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
+
                 {/* legördülő rész */}
-                <Collapse isOpen={this.state.collapse}>
-                    <div className="component component-collapse">
-                        <div className="component-item">
-                            <Rooms rooms={this.props.rooms}
-                                cleaningId={this.props.cleaning.id} />
+                <Collapse in={this.state.collapse} timeout="auto" unmountOnExit>
+                    <List id="collapse-list-cl" component="div" disablePadding>
+                    <ListItem >
+                        <div className="collapse-open-rooms-cl">
+                            <Rooms rooms={this.props.rooms} cleaningId={this.props.cleaning.id} />
                         </div>
-                    </div>
+                    </ListItem>
+                    </List>
                 </Collapse>
+
             </ListGroupItem>
         )
     }

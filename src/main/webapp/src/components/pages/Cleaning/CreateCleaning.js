@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import './CleaningStyle.css';
 import CreateCleaningRoom from './CreateCleaningRoom';
 import './../../layouts/ComponentSytle.css';
+import Button from '@material-ui/core/Button';
+import swal from 'sweetalert';
 
 class CreateCleaning extends Component {
 
@@ -56,27 +58,34 @@ class CreateCleaning extends Component {
             isSubmitted: true
         });
         this.props.createCleaning(submitableItems);
+        swal({
+            title: "Hozzáadva",
+            icon: "success",
+            timer: 1500
+        });
     }
 
     render() {
         return (
             <form className="component component-create component-create-text" onSubmit={this.onSubmit}>
-                <div className="form-group form-group-comp">
+                <div className="form-group form-group-comp create-rooms-cl">
                     {this.props.pairings.map((room)=>
-                        [
-                            <p key="{room}" style={roomNameStyle}>{room.roomName}</p>,
-                            <CreateCleaningRoom key={room.id} room={room.roomName} roomCleaningItems={room.cleaningItems} checkedRoomCleaningItems={this.checkedRoomCleaningItems} submitted={this.state.isSubmitted}/>
-                        ]
+                        <div key={room.id} className="create-room-cl">
+                            <p style={roomNameStyle}>{room.roomName}</p>
+                            <CreateCleaningRoom room={room.roomName} roomCleaningItems={room.cleaningItems} checkedRoomCleaningItems={this.checkedRoomCleaningItems} submitted={this.state.isSubmitted}/>
+                        </div>
                     )}
               </div>
-              <button type="submit" className="btn btn-primary form-group-comp">Hozzáadás</button>
+              <Button className="create-btn-cl" variant="outlined" type="submit">Hozzáadás</Button>
             </form>      
         )
     }
 }
 
 const roomNameStyle = {
-    fontWeight: 'bold',
+    fontWeight: '500',
+    fontSize: '20px',
+    letterSpacing: '1.1px',
     marginBottom: '8px',
     marginTop: '8px'
 }
