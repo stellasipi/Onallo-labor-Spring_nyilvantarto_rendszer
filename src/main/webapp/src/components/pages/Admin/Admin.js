@@ -132,63 +132,75 @@ import swal from 'sweetalert';
                 payload.push({name: this.state.roles[i].name})
             }
         }
-
-        axios.put(this.context.fetchURL + 'user/'+this.state.selectedUser.id+'/role?overwriteExisting=true', payload)
-        .then(
-        res=>this.setUsers(),
-        swal({
-            title: "A szerepkörök módosultak",
-            icon: "success",
-            timer: 1500
-          })
-      )
-      .catch(
-        err=>{}
-      );
-      this.setState({
-        selectedUser: {},
-        selectedUserName:'',
-        selectedRolesForUser: [],
-      })
-      this.setRoles();
+        if(payload.length!==0){
+            axios.put(this.context.fetchURL + 'user/'+this.state.selectedUser.id+'/role?overwriteExisting=true', payload)
+            .then(
+            res=>this.setUsers(),
+                swal({
+                    title: "A szerepkörök módosultak",
+                    icon: "success",
+                    timer: 1500
+                })
+            )
+            .catch(
+                err=>{}
+            );
+            this.setState({
+                selectedUser: {},
+                selectedUserName:'',
+                selectedRolesForUser: [],
+            })
+            this.setRoles();
+        }else{
+            swal("Upsz!", "Nem választottál ki felhasználót!", "error")
+        }
     }
 
     onCreateNewRoom = (e) => {
         e.preventDefault();
-        axios.post(this.context.fetchURL + 'cleanings/room', {
-            name: this.state.newRoom
-        })
-      .then(
-        res=>this.setState({ rooms: [...this.state.rooms, res.data] }),
-        swal({
-            title: "A szoba sikeresen létrejött",
-            icon: "success",
-            timer: 1500
-          })
-      )
-      .catch(
-        err=>{swal("Upsz!", err.response.data, "error")}
-      );
-      this.setState({ newRoom:'' })
+        if(this.state.newRoom!==''){
+            axios.post(this.context.fetchURL + 'cleanings/room', {
+                name: this.state.newRoom
+            })
+            .then(
+                res=>this.setState({ rooms: [...this.state.rooms, res.data] }),
+                    swal({
+                        title: "A szoba sikeresen létrejött",
+                        icon: "success",
+                        timer: 1500
+                    })
+            )
+            .catch(
+                err=>{swal("Upsz!", err.response.data, "error")}
+            );
+            this.setState({ newRoom:'' })
+        }else{
+            swal("Upsz!", "Üresen hagytad a mezőt!", "error")
+        }
     }
 
     onCreateNewCleaningItem = (e) => {
         e.preventDefault();
-        axios.post(this.context.fetchURL + 'cleanings/cleaningItem', {
-            name: this.state.newCleaningItem
-        })
-      .then(
-        res=>this.setState({ cleaningItems: [...this.state.cleaningItems, res.data] }),
-        swal({
-            title: "A takarítási teendő sikeresen létrejött",
-            icon: "success",
-            timer: 1500
-          })
-      )
-      .catch(
-        err=>{swal("Upsz!", err.response.data, "error")}
-      );
-      this.setState({ newCleaningItem:'' })
+        if(this.state.newCleaningItem!==''){
+            axios.post(this.context.fetchURL + 'cleanings/cleaningItem', {
+                    name: this.state.newCleaningItem
+                })
+            .then(
+                res=>this.setState({ cleaningItems: [...this.state.cleaningItems, res.data] }),
+                swal({
+                    title: "A takarítási teendő sikeresen létrejött",
+                    icon: "success",
+                    timer: 1500
+                })
+            )
+            .catch(
+                err=>{swal("Upsz!", err.response.data, "error")}
+            );
+            this.setState({ newCleaningItem:'' })
+        }else{
+            swal("Upsz!", "Üresen hagytad a mezőt!", "error")
+        }
+        
     }
 
     onCreateNewPairing = (e) => {

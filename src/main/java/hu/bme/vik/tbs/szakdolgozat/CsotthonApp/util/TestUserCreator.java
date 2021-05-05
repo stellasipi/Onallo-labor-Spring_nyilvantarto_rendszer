@@ -64,18 +64,18 @@ public class TestUserCreator {
                 .scout(true)
                 .build();
 
-        User user3 = User.builder()
-                .name("Teszt Elek")
-                .username("tesztelek")
-                .password(encoder.encode("password3"))
-                .roles(user)
-                .scoutGroup(scoutGroupRepository.findByName("Jaguár"))
-                .groupLeader(false)
-                .scout(true)
-                .build();
+//        User user3 = User.builder()
+//                .name("Teszt Elek")
+//                .username("tesztelek")
+//                .password(encoder.encode("password3"))
+//                .roles(user)
+//                .scoutGroup(scoutGroupRepository.findByName("Jaguár"))
+//                .groupLeader(false)
+//                .scout(true)
+//                .build();
 
         userRepository.save(user1);
         userRepository.save(user2);
-        userRepository.save(user3);
+        //userRepository.save(user3);
     }
 }
