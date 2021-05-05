@@ -14,7 +14,7 @@ The project now can log the closes and openings, the cleanings and the maintenan
 <img src="imgs/mobile/01-login.PNG" width="150"> <img src="imgs/mobile/03-home.PNG" width="150"> <img src="imgs/mobile/04-log.PNG" width="150"> 
 
 ### Desktop:
-<img src="imgs/desktop/01-login.PNG" width="200"> <img src="imgs/desktop/03-home.PNG" width="200"> <img src="imgs/desktop/04-log.PNG" width="200"> 
+<img src="imgs/desktop/01-login.png" width="200"> <img src="imgs/desktop/03-home.png" width="200"> <img src="imgs/desktop/04-log.png" width="200"> 
 
 #### You can find more screenshots in the *.../imgs* folder
 
