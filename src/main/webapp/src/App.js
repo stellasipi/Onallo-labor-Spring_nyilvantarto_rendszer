@@ -18,8 +18,8 @@ import CreateCleaning from './components/pages/Cleaning/CreateCleaning';
 import Admin from './components/pages/Admin/Admin'
 import PrivateRoute from './components/PrivateRoute';
 
-// const fetchURL = 'http://localhost:8080/';
-const fetchURL = 'http://192.168.31.235:8080/'; //for mobile testing
+const fetchURL = 'http://localhost:8080/';
+// const fetchURL = 'http://192.168.31.235:8080/'; //for mobile testing
 const cookies = new Cookies();
 
 class App extends Component {
