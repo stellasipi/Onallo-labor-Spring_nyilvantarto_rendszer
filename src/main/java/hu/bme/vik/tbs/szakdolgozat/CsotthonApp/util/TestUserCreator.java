@@ -33,49 +33,54 @@ public class TestUserCreator {
         Role userRole = roleRepository.findByName("USER");
         Role adminRole = roleRepository.findByName("ADMIN");
 
-        List<Role> user_admin = new ArrayList<>(){{
+        List<Role> user_admin = new ArrayList<>() {{
             add(adminRole);
             add(userRole);
         }};
-        List<Role> user = new ArrayList<>(){{
+        List<Role> user = new ArrayList<>() {{
             add(userRole);
         }};
-        List<Role> admin = new ArrayList<>(){{
+        List<Role> admin = new ArrayList<>() {{
             add(adminRole);
         }};
 
-        User user1 = User.builder()
-                .name("Tóth-Baranyi Stella")
-                .username("stellasipi")
-                .password(encoder.encode("password1"))
-                .roles(user_admin)
-                .scoutGroup(scoutGroupRepository.findByName("Levendula"))
-                .groupLeader(true)
-                .scout(true)
-                .build();
+        if (!userRepository.existsById(1)) {
+            User user1 = User.builder()
+                    .name("Tóth-Baranyi Stella")
+                    .username("stellasipi")
+                    .password(encoder.encode("password1"))
+                    .roles(user_admin)
+                    .scoutGroup(scoutGroupRepository.findByName("Levendula"))
+                    .groupLeader(true)
+                    .scout(true)
+                    .build();
+            userRepository.save(user1);
+        }
 
-        User user2 = User.builder()
-                .name("Kovács Dávid")
-                .username("dadikovi")
-                .password(encoder.encode("password2"))
-                .roles(admin)
-                .scoutGroup(scoutGroupRepository.findByName("Szalamandra"))
-                .groupLeader(true)
-                .scout(true)
-                .build();
+        if (!userRepository.existsById(2)) {
+            User user2 = User.builder()
+                    .name("Kovács Dávid")
+                    .username("dadikovi")
+                    .password(encoder.encode("password2"))
+                    .roles(admin)
+                    .scoutGroup(scoutGroupRepository.findByName("Szalamandra"))
+                    .groupLeader(true)
+                    .scout(true)
+                    .build();
+            userRepository.save(user2);
+        }
 
-//        User user3 = User.builder()
-//                .name("Teszt Elek")
-//                .username("tesztelek")
-//                .password(encoder.encode("password3"))
-//                .roles(user)
-//                .scoutGroup(scoutGroupRepository.findByName("Jaguár"))
-//                .groupLeader(false)
-//                .scout(true)
-//                .build();
-
-        userRepository.save(user1);
-        userRepository.save(user2);
-        //userRepository.save(user3);
+//        if (!userRepository.existsById(3)) {
+//            User user3 = User.builder()
+//                    .name("Teszt Elek")
+//                    .username("tesztelek")
+//                    .password(encoder.encode("password3"))
+//                    .roles(user)
+//                    .scoutGroup(scoutGroupRepository.findByName("Jaguár"))
+//                    .groupLeader(false)
+//                    .scout(true)
+//                    .build();
+//            userRepository.save(user3);
+//        }
     }
 }

@@ -5,8 +5,8 @@ cd src/main/webapp
 
 ECHO Set up frontend...
 
-npm install
+call npm install
 
-ECHO Starting frontend...
+ECHO Done
 
-npm start
+PAUSE

@@ -24,10 +24,18 @@ The project now can log the closes and openings, the cleanings and the maintenan
 
 Open command line, then:
 
+##### (These install the backend and the frontend)
 ```
-install_app.bat
+install_backend.bat
+install_frontend.bat
 ```
 
+Then:
+##### (These start the backend and the frontend)
+```
+start_backend.bat
+start_frontend.bat
+```
 
 ### Or manually:
 
