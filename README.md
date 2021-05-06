@@ -20,7 +20,7 @@ The project now can log the closes and openings, the cleanings and the maintenan
 
 ## Getting Started
 
-### With the install-app batch file:
+### With the provided batch files:
 
 Open command line, then:
 
