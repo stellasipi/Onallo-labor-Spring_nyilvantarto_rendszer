@@ -32,7 +32,8 @@ class Maintenances extends Component {
 //PropTypes
 Maintenances.propTypes = {
     maintenances: PropTypes.array.isRequired,
-    roles: PropTypes.array.isRequired
+    deleteMaintenance: PropTypes.func.isRequired,
+    roles: PropTypes.array
 }
 
 export default Maintenances;

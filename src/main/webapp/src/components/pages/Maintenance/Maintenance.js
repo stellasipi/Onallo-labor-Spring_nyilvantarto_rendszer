@@ -26,6 +26,7 @@ class Maintenance extends Component {
 //PropTypes
 Maintenance.propTypes = {
     maintenance: PropTypes.object.isRequired,
+    deleteMaintenance: PropTypes.func.isRequired,
     isAdmin: PropTypes.bool.isRequired
 }
 

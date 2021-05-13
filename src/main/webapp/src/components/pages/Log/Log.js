@@ -28,7 +28,8 @@ class Log extends Component {
 //PropTypes
 Log.propTypes = {
     log: PropTypes.object.isRequired,
-    isAdmin: PropTypes.bool.isRequired
+    isAdmin: PropTypes.bool.isRequired,
+    deleteLog: PropTypes.func.isRequired
 }
 
 const commentStyle = {

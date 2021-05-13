@@ -32,7 +32,8 @@ class Logs extends Component {
 //PropTypes
 Logs.propTypes = {
     logs: PropTypes.array.isRequired,
-    roles: PropTypes.array.isRequired
+    deleteLog: PropTypes.func.isRequired,
+    roles: PropTypes.array
 }
 
 export default Logs;

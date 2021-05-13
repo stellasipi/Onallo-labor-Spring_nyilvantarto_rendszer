@@ -32,8 +32,9 @@ class Cleanings extends Component {
 //PropTypes
 Cleanings.propTypes = {
     cleanings: PropTypes.array.isRequired,
+    deleteCleaning: PropTypes.func.isRequired,
     rooms: PropTypes.array.isRequired,
-    roles: PropTypes.array.isRequired
+    roles: PropTypes.array
 }
 
 export default Cleanings;

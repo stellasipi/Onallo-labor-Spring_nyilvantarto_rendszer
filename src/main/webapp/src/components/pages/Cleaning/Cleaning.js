@@ -62,7 +62,8 @@ class Cleaning extends Component {
 Cleaning.propTypes = {
     cleaning: PropTypes.object.isRequired,
     rooms: PropTypes.array.isRequired,
-    isAdmin: PropTypes.bool.isRequired
+    isAdmin: PropTypes.bool.isRequired,
+    deleteCleaning: PropTypes.func.isRequired
 }
 
 const dateStyle = {
