@@ -17,7 +17,7 @@ public class MaintenanceController {
     @Autowired
     private MaintenanceService maintenanceService;
 
-    @GetMapping()
+    @GetMapping
     public List<MaintenanceDTO> getAll() {
         return maintenanceService.getAll();
     }

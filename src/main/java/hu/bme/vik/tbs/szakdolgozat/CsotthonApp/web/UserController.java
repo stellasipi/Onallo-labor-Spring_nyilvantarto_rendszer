@@ -20,7 +20,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity createLog(@RequestBody RegisterDTO registerDTO) {
+    public ResponseEntity createUser(@RequestBody RegisterDTO registerDTO) {
         String userCreationMessage = userService.createUser(registerDTO);
         if (userCreationMessage.equals("")) {
             return ResponseEntity.ok().build();
