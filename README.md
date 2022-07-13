@@ -76,8 +76,8 @@ npm start
 The text you have to use is **inside** the square bracket [].
 |Username  |Password  |Role(s)        |
 |:--------:|:--------:|:-------------:|
-|[stellasipi]   |[password1]   |ADMIN, USER |
-|[dadikovi]     |[password2]   |ADMIN       |
+|[<!--stellasipi-->]   |[password1]   |ADMIN, USER |
+|[<!--dadikovi-->]     |[password2]   |ADMIN       |
 
 ## Built With
 * [Spring Boot](https://spring.io/projects/spring-boot) 
